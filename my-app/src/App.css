@@ -1,38 +1,44 @@
-.App {
+html {
+  background-color: #90caf9 ; /*blue lighten-3*/
+}
+
+
+tr {
+  border-color: black;
+  background-color: grey;
+}
+
+button.listedButton{
+  align-self: center;
+  margin: auto;
+  color: rgb(0, 0, 0);
+  background-color: transparent;
+  margin: transparent;
+}
+button.restOfTriggerText{
+  background-color: white; /* Red for delete! */
+  border: 2px solid black;
+  color: black;
+  padding: 15px 32px;
   text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius:8px;
+  transition-duration: 0.5s;
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+button.addDelete:hover {
+  background-color: red;
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+button.openMap{
+  background-color: #1e88e5; /* Use the same color as the top */
+  border: 2px solid black;
   color: white;
-}
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius:8px;
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
 }
