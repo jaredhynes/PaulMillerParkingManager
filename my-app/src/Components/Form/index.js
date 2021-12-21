@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import '../../Styles/formindex.css';
 
 export const Form = ({ onSubmit }) => {

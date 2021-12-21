@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from '../../App.js';
-import '../../Styles/NavBar.css'
+import '../../Styles/Navbar.css'
 import ParkingMap from '../Views/ParkingMap.js';
 import CompleteHistory from '../Views/CompleteHistory.js'
-import Login from '../Views/Login'
+import Login from '../Login/index.js'
 import 'materialize-css/dist/css/materialize.min.css';
 
 let logins = new Map();
@@ -12,7 +12,7 @@ logins.set("admin", {password:"admin", isAdmin:true});
 logins.set("user", {password:"user", isAdmin:false});
  
 const Navbar = (props) => {
-
+ 
   const openMap = (event) => {
     event.preventDefault(event)
     ReactDOM.render(
@@ -21,7 +21,7 @@ const Navbar = (props) => {
     );
   }
 
-  const openHistory = (event) => {
+  const openHistory = (event) => { 
     event.preventDefault(event)
     ReactDOM.render(
       <CompleteHistory edits={props.edits}/>,

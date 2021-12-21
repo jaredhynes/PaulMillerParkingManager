@@ -1,7 +1,7 @@
 import React from 'react';
 import map from '../../Images/prototype_map.png';
 import '../../Styles/map.css'
-import Navbar from '../NavBar/NavBar.js';
+import Navbar from '../Navbar/index.js';
 
 function ParkingMap(props) {
 

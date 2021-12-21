@@ -1,7 +1,7 @@
 import React from 'react';
 import 'materialize-css/dist/css/materialize.min.css';
 import '../../App.css';
-import NavBar from "../NavBar/NavBar.js"
+import NavBar from "../Navbar/index.js"
 
 const CompleteHistory = (props) => {
     return (  

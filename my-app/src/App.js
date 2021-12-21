@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import { Container } from './Components/Container';
-import NavBar from "./Components/NavBar/NavBar.js"
+import Navbar from "./Components/Navbar/index.js"
 import 'materialize-css/dist/css/materialize.min.css';
 
 
@@ -53,7 +53,7 @@ class App extends Component{
     return(
       <div>
       <div>
-      <NavBar edits={edits}/>
+      <Navbar edits={edits}/>
       </div>
       <div className="App">
 

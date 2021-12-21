@@ -1,6 +1,5 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import { ContextMenu, MenuItem, ContextMenuTrigger } from "react-contextmenu";
+import React from 'react';
+import { ContextMenu, MenuItem, ContextMenuTrigger } from 'react-contextmenu';
  
 
 const ActionMenu = () => {
