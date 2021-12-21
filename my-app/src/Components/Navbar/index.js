@@ -6,6 +6,13 @@ import ParkingMap from '../Views/ParkingMap.js';
 import CompleteHistory from '../Views/CompleteHistory.js'
 import Login from '../Login/index.js'
 import 'materialize-css/dist/css/materialize.min.css';
+import {
+    BrowserRouter as Router,
+    Routes,
+    Route,
+    Link
+} from 'react-router-dom';
+
 
 let logins = new Map();
 logins.set("admin", {password:"admin", isAdmin:true});
@@ -52,10 +59,43 @@ const Navbar = (props) => {
         <a href="/" onClick={goHome} class="brand-logo">Paul Miller INC.</a>
         <a href="/" data-target="mobile-nav" class="sidenav-trigger"></a>
         <ul id="desktop-nav" class="right hide-on-med-and-down">
-          <li><button class="navigate" onClick={goHome}>Home</button></li>
-          <li><button class="navigate" onClick={openMap} >Map</button></li>
-          <li><button class="navigate" onClick={openHistory}>Show Edit History (Administrative mode only)</button></li>
-          <li class="btn" onClick={logOut}>Log Out</li>
+          <Router>
+            <div>
+              <nav>
+                <ul>
+                  <li>
+                    <Link to="/">Home</Link>
+                  </li>
+                  <li>
+                    <Link to="/map">Map</Link>
+                  </li>
+                  <li>
+                    <Link to="/history">Edit History</Link>
+                  </li>
+                  <li>
+                    <Link to="/login">Log Out</Link>
+                  </li>
+                </ul>
+              </nav>
+
+              {/* A <Switch> looks through its children <Route>s and
+                  renders the first one that matches the current URL. */}
+              <Routes>
+                <Route path="/">
+
+                </Route>
+                <Route path="/map">
+
+                </Route>
+                <Route path="/history">
+                  
+                </Route>
+                <Route path="/login">
+                  
+                </Route>
+              </Routes>
+            </div>
+          </Router>
         </ul>
       </div>
     </nav>
