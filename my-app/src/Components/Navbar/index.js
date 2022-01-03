@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from '../../App.js';
-import '../../Styles/Navbar.css'
+import '../../Styles/NavBar.css'
 import ParkingMap from '../Views/ParkingMap.js';
 import CompleteHistory from '../Views/CompleteHistory.js'
 import Login from '../Login/index.js'

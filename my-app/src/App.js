@@ -1,5 +1,5 @@
 //import Button from 'react-bootstrap/Button';
-import React, { Component } from 'react';
+import React, { Component, Routes, Route} from 'react';
 import './App.css';
 import Navbar from "./Components/Navbar/index.js"
 import Home from "./Components/Views/Home.js"
@@ -16,7 +16,20 @@ class App extends Component{
     return(
       <div>
       <Navbar edits={edits}/>
-      <Home carList={carList} edits={edits} app={this}/>
+
+      <Routes>
+        <Route path="/">
+          <Home carList={carList} edits={edits} app={this}/>
+        </Route>
+        <Route path="/map">
+          <ParkingMap carList={carList} edits={edits} app={this}/>
+        </Route>
+        <Route path="/history">
+          <CompleteHistory carList={carList} edits={edits} app={this}/>
+        </Route>
+
+      </Routes>
+  
       </div>
     );
   }
