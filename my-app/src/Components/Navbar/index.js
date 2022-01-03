@@ -59,7 +59,6 @@ const Navbar = (props) => {
         <a href="/" onClick={goHome} class="brand-logo">Paul Miller INC.</a>
         <a href="/" data-target="mobile-nav" class="sidenav-trigger"></a>
         <ul id="desktop-nav" class="right hide-on-med-and-down">
-          <Router>
             <div>
               <nav>
                 <ul>
@@ -77,25 +76,7 @@ const Navbar = (props) => {
                   </li>
                 </ul>
               </nav>
-
-              {/* A <Switch> looks through its children <Route>s and
-                  renders the first one that matches the current URL. */}
-              <Routes>
-                <Route path="/">
-
-                </Route>
-                <Route path="/map">
-
-                </Route>
-                <Route path="/history">
-                  
-                </Route>
-                <Route path="/login">
-                  
-                </Route>
-              </Routes>
             </div>
-          </Router>
         </ul>
       </div>
     </nav>

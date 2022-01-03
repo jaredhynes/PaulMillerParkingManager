@@ -1,14 +1,11 @@
 import React from 'react';
 import 'materialize-css/dist/css/materialize.min.css';
 import '../../App.css';
-import NavBar from "../Navbar/index.js"
+import NavBar from "../NavBar/index.js"
 
 const CompleteHistory = (props) => {
     return (  
         <div>
-        <div>
-        <NavBar edits={props.edits}/>
-        </div>
         <div className="App">
             
             <table>
