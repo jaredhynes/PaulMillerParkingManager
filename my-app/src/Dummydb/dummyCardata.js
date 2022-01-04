@@ -1,4 +1,4 @@
-model.export =[
+let model =[
     {
         key: "jdm485867483756",
         make_model: "Nissan",
@@ -40,3 +40,4 @@ model.export =[
         time: Date().toLocaleString()
     }
 ]
+export default model;
