@@ -5,6 +5,7 @@ import Navbar from "./Components/Navbar/Navbar"
 import Home from "./Components/Views/Home.js"
 import ParkingMap from "./Components/Views/ParkingMap.js"
 import CompleteHistory from "./Components/Views/CompleteHistory.js"
+import Login from "./Components/Login/index.js"
 import 'materialize-css/dist/css/materialize.min.css';
 import {
     BrowserRouter as Router,
@@ -30,6 +31,8 @@ class App extends Component{
         <Route path="/map" element={<ParkingMap carList={carList} edits={edits} app={this}/>}>
         </Route>
         <Route path="/history" element={<CompleteHistory carList={carList} edits={edits} app={this}/>}>
+        </Route>
+        <Route path="/login" element={<Login carList={carList} edits={edits} app={this}/>}>
         </Route>
       </Routes>
   
