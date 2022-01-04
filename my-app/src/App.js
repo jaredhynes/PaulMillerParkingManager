@@ -9,8 +9,7 @@ import 'materialize-css/dist/css/materialize.min.css';
 import {
     BrowserRouter as Router,
     Routes,
-    Route,
-    Link
+    Route
 } from 'react-router-dom';
 
 
