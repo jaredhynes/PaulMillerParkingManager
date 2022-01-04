@@ -1,13 +1,8 @@
 import React from 'react';import '../../Styles/NavBar.css'
 import 'materialize-css/dist/css/materialize.min.css';
 import { Link } from 'react-router-dom';
-
-
-let logins = new Map();
-logins.set("admin", {password:"admin", isAdmin:true});
-logins.set("user", {password:"user", isAdmin:false});
  
-const Navbar = (props) => {
+const Navbar = () => {
    return(
     <header>
     <nav>
