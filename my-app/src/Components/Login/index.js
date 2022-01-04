@@ -1,17 +1,11 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import '../../App.css'; 
 import 'materialize-css/dist/css/materialize.min.css';
-import App from '../../App.js'
 
 class Login extends Component{
     render() {
         const checkLogin = (event) => {
-            ReactDOM.render(
-              <App/>,
-              document.getElementById('root')
-            );
-            event.preventDefault(event)
+            alert("Logged in as " + event.target.username.value);
         }
 
         return(
