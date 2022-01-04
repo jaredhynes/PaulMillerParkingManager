@@ -7,6 +7,7 @@ import ParkingMap from "./Components/Views/ParkingMap.js"
 import CompleteHistory from "./Components/Views/CompleteHistory.js"
 import Login from "./Components/Login/index.js"
 import 'materialize-css/dist/css/materialize.min.css';
+import model from "./Dummydb/dummyCardata"
 import {
     BrowserRouter as Router,
     Routes,
@@ -14,7 +15,7 @@ import {
 } from 'react-router-dom';
 
 
-let carList = [];
+let carList = model;
 let edits = [];
 
 class App extends Component{
