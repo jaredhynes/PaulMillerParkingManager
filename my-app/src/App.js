@@ -1,7 +1,7 @@
 //import Button from 'react-bootstrap/Button';
 import React, { Component } from 'react';
 import './App.css';
-import Navbar from "./Components/NavBar/index.js"
+import Navbar from "./Components/Navbar/Navbar"
 import Home from "./Components/Views/Home.js"
 import ParkingMap from "./Components/Views/ParkingMap.js"
 import CompleteHistory from "./Components/Views/CompleteHistory.js"
