@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Modal } from '../Modal';
 import TriggerButton from '../TriggerButton';
 
-export class Container extends Component {
+export class Container extends Component (){
   state = { isShown: false };
   showModal = () => {
     this.setState({ isShown: true }, () => {
@@ -28,7 +28,7 @@ export class Container extends Component {
   toggleScrollLock = () => {
     document.querySelector('html').classList.toggle('scroll-lock');
   };
-  render() {
+  render(type) {
     return (
       <React.Fragment>
         <TriggerButton
@@ -44,6 +44,7 @@ export class Container extends Component {
             closeModal={this.closeModal}
             onKeyDown={this.onKeyDown}
             onClickOutside={this.onClickOutside}
+            type={type}
           />
         ) : null}
       </React.Fragment>

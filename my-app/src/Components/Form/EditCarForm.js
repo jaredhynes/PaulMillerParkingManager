@@ -1,7 +1,7 @@
 import React from 'react';
 import '../../Styles/formindex.css';
 
-export const Form = ({ onSubmit }) => {
+export const EditCarForm = ({ onSubmit }) => {
   const [checked, setChecked] = React.useState(true);
   const handleChange = () => {
     setChecked(!checked);
@@ -61,4 +61,4 @@ export const Form = ({ onSubmit }) => {
     </form>
   );
 };
-export default Form;
+export default EditCarForm
