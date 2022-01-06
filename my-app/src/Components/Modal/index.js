@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Form } from '../Form';
+import { AddCarForm } from '../Form/AddCarForm.js';
+import { EditCarForm } from '../Form/EditCarForm.js';
 import FocusTrap from 'focus-trap-react';
 
 export const Modal = ({
@@ -9,8 +10,19 @@ export const Modal = ({
   modalRef,
   buttonRef,
   closeModal,
-  onSubmit
+  onSubmit,
+  type
 }) => {
+
+  function ShowForm(){
+      if (type === "addCar"){
+        return <AddCarForm onSubmit={onSubmit} />
+      }
+      else if (type === "editCar"){
+        return <EditCarForm onSubmit={onSubmit} />
+      }
+  }
+
   return ReactDOM.createPortal(
     <FocusTrap>
       <aside
@@ -38,7 +50,7 @@ export const Modal = ({
             </svg>
           </button>
           <div className="modal-body">
-            <Form onSubmit={onSubmit} />
+            <ShowForm/>
           </div>
         </div>
       </aside>
