@@ -28,7 +28,7 @@ export class Container extends Component {
   toggleScrollLock = () => {
     document.querySelector('html').classList.toggle('scroll-lock');
   };
-  render(type) {
+  render() {
     return (
       <React.Fragment>
         <TriggerButton
@@ -44,7 +44,7 @@ export class Container extends Component {
             closeModal={this.closeModal}
             onKeyDown={this.onKeyDown}
             onClickOutside={this.onClickOutside}
-            type={type}
+            formType={this.props.formType}
           />
         ) : null}
       </React.Fragment>

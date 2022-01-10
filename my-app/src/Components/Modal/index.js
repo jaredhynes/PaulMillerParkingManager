@@ -11,15 +11,15 @@ export const Modal = ({
   buttonRef,
   closeModal,
   onSubmit,
-  type
+  formType
 }) => {
 
-  function ShowForm(){
-      if (type === "addCar"){
-        return <AddCarForm onSubmit={onSubmit} />
-      }
-      else if (type === "editCar"){
+  const ShowForm = () => {
+      if (formType === "editCar"){
         return <EditCarForm onSubmit={onSubmit} />
+      }
+      else if (formType === "addCar"){
+        return <AddCarForm onSubmit={onSubmit} />
       }
   }
 
