@@ -48,7 +48,7 @@ export const AddCarForm = ({ onSubmit }) => {
       </div>
       <div>
         <Checkbox
-          label="On site?"
+          label=""
           value={checked}
           onChange={handleChange}
           />

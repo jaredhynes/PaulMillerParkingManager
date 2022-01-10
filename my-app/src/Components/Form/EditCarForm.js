@@ -1,8 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../../Styles/formindex.css';
+import model from "../../Dummydb/dummyCardata";
 
 export const EditCarForm = ({ onSubmit }) => {
-  const [checked, setChecked] = React.useState(true);
+
+  // currently hardcoded for the only the first car.
+  const [checked, setChecked] = useState(true);
+  const [make_model, setName] = useState(model[0].make_model);
+  const [location, setLocation] = useState(model[0].newSpot);
+  const [Vin, setVin] = useState(model[0].key);
+  const [stockNum, setStockNumber] = useState(model[0].stockNum);
+
   const handleChange = () => {
     setChecked(!checked);
   }
@@ -22,7 +30,7 @@ export const EditCarForm = ({ onSubmit }) => {
         <input 
         className="form-control" 
         id="make_model"
-        placeholder="Audi A4 (2012)"
+        value={make_model}
          />
       </div>
       <div className="form-group">
@@ -30,6 +38,8 @@ export const EditCarForm = ({ onSubmit }) => {
         <input
           className="form-control"
           id="vin"
+          value={Vin}
+          onChange={(value) => setVin(value)}
         />
       </div>
       <div className="form-group">
@@ -37,6 +47,7 @@ export const EditCarForm = ({ onSubmit }) => {
         <input
           className="form-control"
           id="location"
+          value={location}
         />
       </div>
       <div className="form-group">
@@ -44,11 +55,12 @@ export const EditCarForm = ({ onSubmit }) => {
         <input
           className="form-control"
           id="stockNumber"
+          value={stockNum}
         />
       </div>
       <div>
         <Checkbox
-          label="On site?"
+          label=""
           value={checked}
           onChange={handleChange}
           />
