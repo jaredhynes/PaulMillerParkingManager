@@ -75,7 +75,7 @@ function Home(props){
         
         <tr key= {car.key}>
             <td>
-            <Container formType={"editCar"} triggerText={"Edit Car"} onSubmit={editCar} />
+            <Container formType={"editCar"} car={car} triggerText={"Edit Car"} onSubmit={editCar} />
             </td>
             <td>{car.make_model}</td>
             <td>{car.newSpot}</td>

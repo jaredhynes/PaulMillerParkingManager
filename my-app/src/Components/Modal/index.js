@@ -11,12 +11,13 @@ export const Modal = ({
   buttonRef,
   closeModal,
   onSubmit,
-  formType
+  formType,
+  car
 }) => {
 
   const ShowForm = () => {
       if (formType === "editCar"){
-        return <EditCarForm onSubmit={onSubmit} />
+        return <EditCarForm onSubmit={onSubmit} car={car}/>
       }
       else if (formType === "addCar"){
         return <AddCarForm onSubmit={onSubmit} />

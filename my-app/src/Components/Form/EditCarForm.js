@@ -2,14 +2,14 @@ import React, { useState } from 'react';
 import '../../Styles/formindex.css';
 import model from "../../Dummydb/dummyCardata";
 
-export const EditCarForm = ({ onSubmit }) => {
+export const EditCarForm = ({ onSubmit, car }) => {
 
   // currently hardcoded for the only the first car.
   const [checked, setChecked] = useState(true);
-  const [make_model, setName] = useState(model[0].make_model);
-  const [location, setLocation] = useState(model[0].newSpot);
-  const [Vin, setVin] = useState(model[0].key);
-  const [stockNum, setStockNumber] = useState(model[0].stockNum);
+  const [make_model, setName] = useState(car.make_model);
+  const [location, setLocation] = useState(car.newSpot);
+  const [Vin, setVin] = useState(car.key);
+  const [stockNum, setStockNumber] = useState(car.stockNum);
 
   const handleChange = () => {
     setChecked(!checked);

@@ -45,6 +45,7 @@ export class Container extends Component {
             onKeyDown={this.onKeyDown}
             onClickOutside={this.onClickOutside}
             formType={this.props.formType}
+            car={this.props.car}
           />
         ) : null}
       </React.Fragment>
