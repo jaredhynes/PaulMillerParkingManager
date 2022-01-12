@@ -1,4 +1,5 @@
 import React from 'react';
+import {useEffect} from 'react';
 import { Container } from '../Container';
 import '../../App.css';
 
@@ -24,6 +25,16 @@ function Home(props){
         edits.unshift(edit)
         props.app.forceUpdate(); 
     }
+
+    useEffect(() => {
+    fetch('http://localhost:8000/cars')
+        .then(res => {
+        return res.json();
+        })
+        .then(data => {
+        console.log(data);
+        })
+    }, [])
     
     
     const addCar = (event) => {

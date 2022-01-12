@@ -18,10 +18,13 @@ import {
 let carList = model;
 let edits = [];
 
+
 class App extends Component{
+
   render() {
 
     return(
+
       <Router>
       <div>
       <Navbar edits={edits} app={this}/>
