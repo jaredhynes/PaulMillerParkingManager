@@ -8,7 +8,7 @@ function Home(props){
 
     const handleDelete = (car) => {
         for(var i = 0; i < carList.length; i++){ 
-            if (carList[i] === car) { 
+            if (carList[i].key === car.key) { 
                 carList.splice(i, 1); 
             }
         } 
@@ -27,23 +27,6 @@ function Home(props){
     
     
     const addCar = (event) => {
-    event.preventDefault(event);
-    //carList.push({make_model:event.target.make_model.value, vin:parseInt(event.target.vin.value), location:event.target.location.value});
-    let edit = {
-        type: "New Car",
-        key: event.target.vin.value,
-        make_model: event.target.make_model.value,
-        stockNum: event.target.stockNumber.value,
-        newSpot: event.target.location.value,
-        oldSpot: "N/A",
-        time: Date().toLocaleString()
-    };
-    carList.push(edit);
-    edits.unshift(edit);
-    props.app.forceUpdate();
-    };
-
-    const editCar = (event) => {
         event.preventDefault(event);
         //carList.push({make_model:event.target.make_model.value, vin:parseInt(event.target.vin.value), location:event.target.location.value});
         let edit = {
@@ -56,6 +39,28 @@ function Home(props){
             time: Date().toLocaleString()
         };
         carList.push(edit);
+        edits.unshift(edit);
+        props.app.forceUpdate();
+    };
+
+    const editCar = (event) => {
+        event.preventDefault(event);
+        //carList.push({make_model:event.target.make_model.value, vin:parseInt(event.target.vin.value), location:event.target.location.value});
+        let edit = {
+            type: "Move Car",
+            key: event.target.key.value,
+            make_model: event.target.make_model.value,
+            stockNum: event.target.stockNum.value,
+            newSpot: event.target.newSpot.value,
+            oldSpot: event.target.oldSpot.value,
+            time: Date().toLocaleString()
+        };
+        for(var i = 0; i < carList.length; i++){ 
+            if (carList[i].key === edit.key) { 
+                carList[i].oldSpot = edit.oldSpot
+                carList[i].newSpot = edit.newSpot
+            }
+        }
         edits.unshift(edit);
         props.app.forceUpdate();
         };
@@ -78,9 +83,9 @@ function Home(props){
             <Container formType={"editCar"} car={car} triggerText={"Edit Car"} onSubmit={editCar} />
             </td>
             <td>{car.make_model}</td>
-            <td>{car.newSpot}</td>
             <td>{car.key}</td>
             <td>{car.stockNum}</td>
+            <td>{car.newSpot}</td>
             <td><button class="listedButton">Show on Map</button></td>
         </tr>
         ))}

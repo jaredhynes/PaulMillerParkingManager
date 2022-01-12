@@ -26,45 +26,32 @@ export const EditCarForm = ({ onSubmit, car }) => {
   return (
     <form onSubmit={onSubmit}>
       <div className="form-group">
-        <label htmlFor="Make and Model">Make and Model</label>
+        <label htmlFor="New Spot">New Spot</label>
+        <input 
+        className="form-control" 
+        id="newSpot"
+         />
+        <input 
+        className="form-control" 
+        id="key"
+        value={car.key}
+         />
         <input 
         className="form-control" 
         id="make_model"
-        value={make_model}
+        value={car.make_model}
+         />
+        <input 
+        className="form-control" 
+        id="oldSpot"
+        value={car.newSpot}
+         />
+        <input 
+        className="form-control" 
+        id="stockNum"
+        value={car.stockNum}
          />
       </div>
-      <div className="form-group">
-        <label htmlFor="vin">VIN</label>
-        <input
-          className="form-control"
-          id="vin"
-          value={Vin}
-          onChange={(value) => setVin(value)}
-        />
-      </div>
-      <div className="form-group">
-        <label htmlFor="location">Location</label>
-        <input
-          className="form-control"
-          id="location"
-          value={location}
-        />
-      </div>
-      <div className="form-group">
-        <label htmlFor="stockNumber">Stock Number</label>
-        <input
-          className="form-control"
-          id="stockNumber"
-          value={stockNum}
-        />
-      </div>
-      <div>
-        <Checkbox
-          label=""
-          value={checked}
-          onChange={handleChange}
-          />
-          </div>
       <div className="form-group">
         <button className="form-control btn btn-primary" type="submit">
           Submit
