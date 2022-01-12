@@ -8,6 +8,7 @@
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
     "focus-trap-react": "^8.8.2",
+    "json-server": "^0.17.0",
     "materialize-css": "^1.0.0-rc.2",
     "react": "^17.0.2",
     "react-bootstrap": "^2.0.1",
