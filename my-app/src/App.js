@@ -6,6 +6,7 @@ import Home from "./Components/Views/Home.js"
 import ParkingMap from "./Components/Views/ParkingMap.js"
 import CompleteHistory from "./Components/Views/CompleteHistory.js"
 import Login from "./Components/Login/index.js"
+import tableOfCars from "./Components/Views/TableOfCars"
 import 'materialize-css/dist/css/materialize.min.css';
 import model from "./Dummydb/dummyCardata"
 import {

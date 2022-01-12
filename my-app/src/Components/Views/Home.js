@@ -1,11 +1,23 @@
 import React from 'react';
-import {useEffect} from 'react';
+import {useEffect, useState} from 'react';
 import { Container } from '../Container';
 import '../../App.css';
+import TableOfCars from './TableOfCars';
 
 function Home(props){
-    let carList = props.carList
-    let edits = props.edits
+    const [carList, setCarlist] = useState(null);
+    let carList3 = props.carList;
+    let edits = props.edits;
+
+    useEffect(() => {
+        fetch('http://localhost:8000/cars')
+            .then(res => {
+            return res.json();
+            })
+            .then(data => {
+            setCarlist(data);
+            })
+        }, [])
 
     const handleDelete = (car) => {
         for(var i = 0; i < carList.length; i++){ 
@@ -26,15 +38,6 @@ function Home(props){
         props.app.forceUpdate(); 
     }
 
-    useEffect(() => {
-    fetch('http://localhost:8000/cars')
-        .then(res => {
-        return res.json();
-        })
-        .then(data => {
-        console.log(data);
-        })
-    }, [])
     
     
     const addCar = (event) => {
@@ -78,7 +81,9 @@ function Home(props){
       
     return(
         <div className="App">
-        <table>
+        
+        {carList && <TableOfCars carList={carList} />}
+        {/* <table>
         <tr>
             <th>Action</th>
             <th>Make/Model</th>
@@ -101,8 +106,8 @@ function Home(props){
         </tr>
         ))}
 
-        </table>
-
+        </table> */}
+        
         <Container formType={"addCar"} triggerText={"Add Car"} onSubmit={addCar} />
 
         </div>
