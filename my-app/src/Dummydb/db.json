@@ -1,0 +1,44 @@
+{
+  "cars": [
+    {
+        "key" : "jdm485867483756",
+        "make_model": "Nissan",
+        "stockNum": "34",
+        "newSpot": "a-1",
+        "oldSpot": "N/A",
+        "time": "Date().toLocaleString()"
+    },
+    {
+        "key" : "jdm485867483756",
+        "make_model": "Nissan",
+        "stockNum": "34",
+        "newSpot": "a-1",
+        "oldSpot": "N/A",
+        "time": "Date().toLocaleString()"
+    },
+    {
+        "key" : "jdm485867483756",
+        "make_model": "Nissan",
+        "stockNum": "34",
+        "newSpot": "a-1",
+        "oldSpot": "N/A",
+        "time": "Date().toLocaleString()"
+    },
+    {
+        "key" : "jdm485867483756",
+        "make_model": "Nissan",
+        "stockNum": "34",
+        "newSpot": "a-1",
+        "oldSpot": "N/A",
+        "time": "Date().toLocaleString()"
+    },
+    {
+        "key" : "jdm485867483756",
+        "make_model": "Nissan",
+        "stockNum": "34",
+        "newSpot": "a-1",
+        "oldSpot": "N/A",
+        "time": "Date().toLocaleString()"
+    }
+]
+}
