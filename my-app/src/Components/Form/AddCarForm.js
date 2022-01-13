@@ -1,6 +1,8 @@
 import React from 'react';
 import '../../Styles/formindex.css';
 
+
+
 export const AddCarForm = ({ onSubmit }) => {
   const [checked, setChecked] = React.useState(true);
   const handleChange = () => {
