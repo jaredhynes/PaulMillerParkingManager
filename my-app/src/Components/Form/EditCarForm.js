@@ -36,21 +36,6 @@ export const EditCarForm = ({ onSubmit, car }) => {
         id="key"
         value={car.key}
          />
-        <input 
-        className="form-control" 
-        id="make_model"
-        value={car.make_model}
-         />
-        <input 
-        className="form-control" 
-        id="oldSpot"
-        value={car.newSpot}
-         />
-        <input 
-        className="form-control" 
-        id="stockNum"
-        value={car.stockNum}
-         />
       </div>
       <div className="form-group">
         <button className="form-control btn btn-primary" type="submit">

@@ -1,8 +1,9 @@
 import DropdownButton from 'react-bootstrap/DropdownButton'
 import Dropdown from 'react-bootstrap/Dropdown'
+import Container from '../Container';
 
 
-const TableOfCars = ({carList}) => {
+const TableOfCars = (props) => {
     return ( 
         <div className="car-list">
             <table>
@@ -14,15 +15,16 @@ const TableOfCars = ({carList}) => {
                     <th>Location</th>
                     <th></th>
                 </tr>
-            {carList.map((car =>
+            {props.carList.map((car =>
             
             <tr key= {car.key}>
                 <td>
-                <DropdownButton id="dropdown-basic-button" title="Dropdown button">
+                <Container formType={"editCar"} car={car} triggerText={"Edit Car"} onSubmit={props.editCar} />
+                {/*<DropdownButton id="dropdown-basic-button" title="Dropdown button">
                     <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
                     <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
                     <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
-                </DropdownButton>
+                </DropdownButton>*/}
                 </td>
                 <td>{car.make_model}</td>
                 <td>{car.key}</td>

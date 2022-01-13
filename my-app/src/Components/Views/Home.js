@@ -60,21 +60,16 @@ function Home(props){
     const editCar = (event) => {
         event.preventDefault(event);
         //carList.push({make_model:event.target.make_model.value, vin:parseInt(event.target.vin.value), location:event.target.location.value});
-        let edit = {
-            type: "Move Car",
-            key: event.target.key.value,
-            make_model: event.target.make_model.value,
-            stockNum: event.target.stockNum.value,
-            newSpot: event.target.newSpot.value,
-            oldSpot: event.target.oldSpot.value,
-            time: Date().toLocaleString()
-        };
+        var edit
         for(var i = 0; i < carList.length; i++){ 
-            if (carList[i].key === edit.key) { 
-                carList[i].oldSpot = edit.oldSpot
-                carList[i].newSpot = edit.newSpot
+            if (carList[i].key === event.target.key.value) { 
+                carList[i].oldSpot = carList[i].newSpot
+                carList[i].newSpot = event.target.newSpot.value
+                edit = carList[i]
             }
         }
+        edit.time = Date().toLocaleString()
+        edit.type = 'Move Car'
         edits.unshift(edit);
         props.app.forceUpdate();
         };
@@ -82,7 +77,7 @@ function Home(props){
     return(
         <div className="App">
         
-        {carList && <TableOfCars carList={carList} />}
+        {carList && <TableOfCars carList={carList} editCar={editCar}/>}
         {/* <table>
         <tr>
             <th>Action</th>

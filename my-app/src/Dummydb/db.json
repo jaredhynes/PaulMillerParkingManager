@@ -9,34 +9,34 @@
         "time": "Date().toLocaleString()"
     },
     {
-        "key" : "jdm485867483756",
+        "key" : "jdm238754378627",
         "make_model": "Nissan",
         "stockNum": "34",
-        "newSpot": "a-1",
+        "newSpot": "a-2",
         "oldSpot": "N/A",
         "time": "Date().toLocaleString()"
     },
     {
-        "key" : "jdm485867483756",
+        "key" : "jdm638789276938",
         "make_model": "Nissan",
         "stockNum": "34",
-        "newSpot": "a-1",
+        "newSpot": "a-3",
         "oldSpot": "N/A",
         "time": "Date().toLocaleString()"
     },
     {
-        "key" : "jdm485867483756",
+        "key" : "jdm372576378567",
         "make_model": "Nissan",
         "stockNum": "34",
-        "newSpot": "a-1",
+        "newSpot": "a-4",
         "oldSpot": "N/A",
         "time": "Date().toLocaleString()"
     },
     {
-        "key" : "jdm485867483756",
+        "key" : "jdm486435325246",
         "make_model": "Nissan",
         "stockNum": "34",
-        "newSpot": "a-1",
+        "newSpot": "a-5",
         "oldSpot": "N/A",
         "time": "Date().toLocaleString()"
     }
