@@ -1,7 +1,7 @@
 import React from 'react';
 import '../../Styles/formindex.css';
-
-
+import Swal, { swal } from 'sweetalert2/dist/sweetalert2.js'
+import withReactContent from 'sweetalert2-react-content'
 
 export const AddCarForm = ({ onSubmit }) => {
   const [checked, setChecked] = React.useState(true);
@@ -17,8 +17,49 @@ export const AddCarForm = ({ onSubmit }) => {
     );
   };
 
+  function selfie() {
+    Swal.fire({
+      icon: 'error',
+      title:'Oops...',
+      text: 'Something went wrong!',
+      footer: '<a href>Why do I have this issue?</a>'
+    })
+  }
+
+/*
+  function confirm1() {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this.",
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'No, cancel!',
+      confirmButtonClass: 'btn btn-success',
+      cancelButtonClass: 'btn btn-danger',
+      buttonsStyling: false
+    }).then(function () {
+      swal(
+        'Deleted!',
+        'Your file has been deleted',
+        'success'
+      )
+    }, function (dismiss) {
+      if (dismiss === 'cancel') {
+        swal(
+          'Cancelled',
+          'Your imaginary file is safe! change',
+          'error' //TBH i don't really like the error image here, we can change that
+        )
+      }
+    })
+  }
+  */
   return (
-    <form onSubmit={onSubmit}>
+    <button onClick={selfie}>Good Selfie</button>
+
+   /* <form onSubmit={confirm1()}>
       <div className="form-group">
         <label htmlFor="Make and Model">Make and Model</label>
         <input 
@@ -61,6 +102,6 @@ export const AddCarForm = ({ onSubmit }) => {
         </button>
       </div>
     </form>
-  );
-};
+  ); */
+  )};
 export default AddCarForm
