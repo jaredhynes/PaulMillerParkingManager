@@ -19,6 +19,13 @@ function Home(props){
             })
         }, [])
 
+    const postCarList = () => {
+        fetch('http://localhost:8000/cars', {
+            method: 'POST',
+            body: JSON.stringify(carList)
+            })
+    }
+
     const handleDelete = (car) => {
         for(var i = 0; i < carList.length; i++){ 
             if (carList[i].key === car.key) { 
@@ -35,6 +42,7 @@ function Home(props){
             time: Date().toLocaleString()
         };
         edits.unshift(edit)
+        postCarList();
         props.app.forceUpdate(); 
     }
 
@@ -54,6 +62,7 @@ function Home(props){
         };
         carList.push(edit);
         edits.unshift(edit);
+        postCarList();
         props.app.forceUpdate();
     };
 
@@ -71,6 +80,7 @@ function Home(props){
         edit.time = Date().toLocaleString()
         edit.type = 'Move Car'
         edits.unshift(edit);
+        postCarList();
         props.app.forceUpdate();
         };
       
