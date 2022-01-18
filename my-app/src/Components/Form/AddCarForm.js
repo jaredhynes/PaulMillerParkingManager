@@ -1,7 +1,10 @@
 import React from 'react';
-import '../../Styles/formindex.css';
-import Swal, { swal } from 'sweetalert2/dist/sweetalert2.js'
+import ReactDom from 'react-dom';
+import '../../Styles/formindex.scss';
+import Swal from 'sweetalert2/src/sweetalert2.js'
+// import Swal, { swal } from 'sweetalert2/dist/sweetalert2.js'
 import withReactContent from 'sweetalert2-react-content'
+
 
 export const AddCarForm = ({ onSubmit }) => {
   const [checked, setChecked] = React.useState(true);
@@ -20,12 +23,13 @@ export const AddCarForm = ({ onSubmit }) => {
   function selfie() {
     Swal.fire({
       icon: 'error',
-      title:'Oops...',
+      title: 'Oops...',
       text: 'Something went wrong!',
-      footer: '<a href>Why do I have this issue?</a>'
+      footer: '<a href> Why do I have this issues? </a>'
     })
   }
-
+  
+ 
 /*
   function confirm1() {
     Swal.fire({
