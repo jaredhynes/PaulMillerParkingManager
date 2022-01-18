@@ -19,10 +19,13 @@ function Home(props){
             })
         }, [])
 
-    const postCarList = () => {
-        fetch('http://localhost:8000/cars', {
-            method: 'POST',
-            body: JSON.stringify(carList)
+    const postUpdate = (car) => {
+        fetch('http://localhost:8000/cars/' + car.id, {
+            method: 'PUT',
+            headers: {
+                "Content-Type": "application/json"
+              },
+            body: JSON.stringify(car)
             })
     }
 
@@ -42,7 +45,6 @@ function Home(props){
             time: Date().toLocaleString()
         };
         edits.unshift(edit)
-        postCarList();
         props.app.forceUpdate(); 
     }
 
@@ -62,7 +64,6 @@ function Home(props){
         };
         carList.push(edit);
         edits.unshift(edit);
-        postCarList();
         props.app.forceUpdate();
     };
 
@@ -79,9 +80,9 @@ function Home(props){
         }
         edit.time = Date().toLocaleString()
         edit.type = 'Move Car'
-        edits.unshift(edit);
-        postCarList();
-        props.app.forceUpdate();
+        edits.unshift(edit)
+        postUpdate(edit)
+        props.app.forceUpdate()
         };
       
     return(
