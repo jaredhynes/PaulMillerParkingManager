@@ -29,6 +29,17 @@ function Home(props){
             })
     }
 
+    const postNew = (car, newId) => {
+        car.id = newId
+        fetch('http://localhost:8000/cars/', {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json"
+              },
+            body: JSON.stringify(car)
+            })
+    }
+
     const handleDelete = (car) => {
         for(var i = 0; i < carList.length; i++){ 
             if (carList[i].key === car.key) { 
@@ -64,6 +75,7 @@ function Home(props){
         };
         carList.push(edit);
         edits.unshift(edit);
+        postUpdate(edit, carList.length)
         props.app.forceUpdate();
     };
 
@@ -81,7 +93,7 @@ function Home(props){
         edit.time = Date().toLocaleString()
         edit.type = 'Move Car'
         edits.unshift(edit)
-        postUpdate(edit)
+        postNew(edit)
         props.app.forceUpdate()
         };
       
