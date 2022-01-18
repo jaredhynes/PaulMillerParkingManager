@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDom from 'react-dom';
-import '../../Styles/formindex.scss';
 import Swal from 'sweetalert2/src/sweetalert2.js'
 // import Swal, { swal } from 'sweetalert2/dist/sweetalert2.js'
 import withReactContent from 'sweetalert2-react-content'
+import '../../Styles/sweetalert.css'
 
 
 export const AddCarForm = ({ onSubmit }) => {
@@ -21,12 +21,7 @@ export const AddCarForm = ({ onSubmit }) => {
   };
 
   function selfie() {
-    Swal.fire({
-      icon: 'error',
-      title: 'Oops...',
-      text: 'Something went wrong!',
-      footer: '<a href> Why do I have this issues? </a>'
-    })
+    Swal.fire('Any fool can use a computer')
   }
   
  
