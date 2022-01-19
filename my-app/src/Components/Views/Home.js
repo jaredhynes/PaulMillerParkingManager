@@ -40,6 +40,7 @@ function confirm1() {
           <input type="text" id="stockNum" class="swal2-input" placeholder="Stock Number">
           <input type="text" id="location" class="swal2-input" placeholder="Location">`,
           confirmButtonText: 'Add Car',
+          showCloseButton:true,
           focusConfirm: false,
           preConfirm: () => {
               const vin = Swal.getPopup().querySelector('#vin').value
