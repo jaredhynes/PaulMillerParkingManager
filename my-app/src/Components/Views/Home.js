@@ -40,7 +40,7 @@ function confirm1() {
           <input type="text" id="stockNum" class="swal2-input" placeholder="Stock Number">
           <input type="text" id="location" class="swal2-input" placeholder="Location">`,
           confirmButtonText: 'Add Car',
-          showCloseButton:true,
+          showCancelButton:true,
           focusConfirm: false,
           preConfirm: () => {
               const vin = Swal.getPopup().querySelector('#vin').value
@@ -53,8 +53,8 @@ function confirm1() {
               }
               return {vin: vin, make_model: make_model, stockNum: stockNum, location: location}
           }
-
       }).then((result) => {
+          if(result.isConfirmed){
           Swal.fire({
               icon: 'question',
               title: "Is this Information Correct?",
@@ -83,7 +83,7 @@ function confirm1() {
                 Swal.fire('Action has been deleted')
             }
         })
-      })
+    }})
   }
 
 function Home(props){
