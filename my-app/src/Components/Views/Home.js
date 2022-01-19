@@ -75,7 +75,7 @@ function Home(props){
         };
         carList.push(edit);
         edits.unshift(edit);
-        postUpdate(edit, carList.length)
+        postNew(edit, carList.length)
         props.app.forceUpdate();
     };
 
@@ -93,7 +93,7 @@ function Home(props){
         edit.time = Date().toLocaleString()
         edit.type = 'Move Car'
         edits.unshift(edit)
-        postNew(edit)
+        postUpdate(edit)
         props.app.forceUpdate()
         };
       
