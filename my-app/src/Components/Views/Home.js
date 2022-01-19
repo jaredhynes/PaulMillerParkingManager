@@ -3,6 +3,20 @@ import {useEffect, useState} from 'react';
 import { Container } from '../Container';
 import '../../App.css';
 import TableOfCars from './TableOfCars';
+import Swal from 'sweetalert2'
+import '../../Styles/sweetalert.css'
+
+
+//   window.showExample = () => {
+//     //const MySwal = withReactContent(Swal)
+    
+//     Swal.fire({
+//       title: <strong>Good job!</strong>,
+//       html: <i>You clicked the button!</i>,
+//       icon: 'success'
+//     })
+//     }
+    
 
 function Home(props){
     const [carList, setCarlist] = useState(null);
@@ -127,7 +141,6 @@ function Home(props){
         </table> */}
         
         <Container formType={"addCar"} triggerText={"Add Car"} onSubmit={addCar} />
-
         </div>
     );
 }

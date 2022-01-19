@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDom from 'react-dom';
 import Swal from 'sweetalert2/src/sweetalert2.js'
 // import Swal, { swal } from 'sweetalert2/dist/sweetalert2.js'
-import withReactContent from 'sweetalert2-react-content'
+//import withReactContent from 'sweetalert2-react-content'
 import '../../Styles/sweetalert.css'
 
 
@@ -21,11 +21,17 @@ export const AddCarForm = ({ onSubmit }) => {
   };
 
   function selfie() {
-    Swal.fire('Any fool can use a computer')
-  }
+
+    Swal.fire({
+        title: 'Error',
+        text: 'D0 you want to continue',
+        icon: 'error',
+        confirmButtonText: 'Cool'
+  })
+}
   
  
-/*
+
   function confirm1() {
     Swal.fire({
       title: 'Are you sure?',
@@ -39,14 +45,14 @@ export const AddCarForm = ({ onSubmit }) => {
       cancelButtonClass: 'btn btn-danger',
       buttonsStyling: false
     }).then(function () {
-      swal(
+      Swal(
         'Deleted!',
         'Your file has been deleted',
         'success'
       )
     }, function (dismiss) {
       if (dismiss === 'cancel') {
-        swal(
+        Swal(
           'Cancelled',
           'Your imaginary file is safe! change',
           'error' //TBH i don't really like the error image here, we can change that
@@ -54,9 +60,9 @@ export const AddCarForm = ({ onSubmit }) => {
       }
     })
   }
-  */
+  
   return (
-    <button onClick={selfie}>Good Selfie</button>
+    <button onClick={confirm1}>Good Selfie</button>
 
    /* <form onSubmit={confirm1()}>
       <div className="form-group">
