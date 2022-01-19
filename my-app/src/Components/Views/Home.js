@@ -17,6 +17,73 @@ import '../../Styles/sweetalert.css'
 //     })
 //     }
     
+function confirm1() {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this.",
+      // showCancelButton: true,
+      // confirmButtonColor: '#3085d6',
+      // cancelButtonColor: '#d33',
+      // confirmButtonText: 'Yes, delete it!',
+      // cancelButtonText: 'No, cancel!',
+      // confirmButtonClass: 'btn btn-success',
+      // cancelButtonClass: 'btn btn-danger',
+      // buttonsStyling: false
+    })
+  }
+
+  function swalAddCar(){
+      Swal.fire({
+          title: 'Add New Car',
+          html: `<input type="text" id="vin" class="swal2-input" placeholder="Vin">
+          <input type="text" id="make_model" class="swal2-input" placeholder="Make/Model">
+          <input type="text" id="stockNum" class="swal2-input" placeholder="Stock Number">
+          <input type="text" id="location" class="swal2-input" placeholder="Location">`,
+          confirmButtonText: 'Add Car',
+          focusConfirm: false,
+          preConfirm: () => {
+              const vin = Swal.getPopup().querySelector('#vin').value
+              const make_model = Swal.getPopup().querySelector('#make_model').value
+              const stockNum = Swal.getPopup().querySelector('#stockNum').value
+              const location = Swal.getPopup().querySelector('#location').value
+
+              if(!vin || !make_model || !stockNum || !location){
+                  Swal.showValidationMessage(`Please enter all information`)
+              }
+              return {vin: vin, make_model: make_model, stockNum: stockNum, location: location}
+          }
+
+      }).then((result) => {
+          Swal.fire({
+              icon: 'question',
+              title: "Is this Information Correct?",
+              html: `<p> Vin Number: ${result.value.vin} </p>
+              <p>Make/Model: ${result.value.make_model} </p>
+              <p>Stock Number: ${result.value.stockNum} </p>
+              <p>Location: ${result.value.location} </p>`,
+              showCancelButton: true,
+              confirmButtonText: "yes",
+              cancelButtonText: "No",
+              preConfirm: () => {
+                  return{vin: result.value.vin, make_model: result.value.stockNum, stockNum: result.value.stockNum, location: result.value.location}
+               }
+        }).then((result) => {
+            if (result.isConfirmed){
+                Swal.fire({
+                    icon: "success",
+                    title: "Saved",
+                    html: `<p> Vin Number: ${result.value.vin} </p>
+              <p>Make/Model: ${result.value.make_model} </p>
+              <p>Stock Number: ${result.value.stockNum} </p>
+              <p>Location: ${result.value.location} </p>`
+                })
+            }
+            else{
+                Swal.fire('Action has been deleted')
+            }
+        })
+      })
+  }
 
 function Home(props){
     const [carList, setCarlist] = useState(null);
@@ -141,6 +208,7 @@ function Home(props){
         </table> */}
         
         <Container formType={"addCar"} triggerText={"Add Car"} onSubmit={addCar} />
+        <button onClick={swalAddCar}>Mark's Sweet Alert Button</button>
         </div>
     );
 }

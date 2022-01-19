@@ -36,28 +36,14 @@ export const AddCarForm = ({ onSubmit }) => {
     Swal.fire({
       title: 'Are you sure?',
       text: "You won't be able to revert this.",
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!',
-      cancelButtonText: 'No, cancel!',
-      confirmButtonClass: 'btn btn-success',
-      cancelButtonClass: 'btn btn-danger',
-      buttonsStyling: false
-    }).then(function () {
-      Swal(
-        'Deleted!',
-        'Your file has been deleted',
-        'success'
-      )
-    }, function (dismiss) {
-      if (dismiss === 'cancel') {
-        Swal(
-          'Cancelled',
-          'Your imaginary file is safe! change',
-          'error' //TBH i don't really like the error image here, we can change that
-        )
-      }
+      // showCancelButton: true,
+      // confirmButtonColor: '#3085d6',
+      // cancelButtonColor: '#d33',
+      // confirmButtonText: 'Yes, delete it!',
+      // cancelButtonText: 'No, cancel!',
+      // confirmButtonClass: 'btn btn-success',
+      // cancelButtonClass: 'btn btn-danger',
+      // buttonsStyling: false
     })
   }
   
