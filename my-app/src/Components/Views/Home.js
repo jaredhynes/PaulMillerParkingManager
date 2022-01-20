@@ -84,7 +84,7 @@ function confirm1() {
                 Swal.fire({
                     title: 'Edit Previous Information',
                     // want to have the information there in the edit, not just random values. using ${result.value.vin} does not work!
-          html: `<input type="text" id="vin" class="swal2-input" value="123123123123">
+          html: `<input type="text" id="vin" class="swal2-input" value= ${result.value.vin}>
           <input type="text" id="make_model" class="swal2-input" value="Nissan">
           <input type="text" id="stockNum" class="swal2-input" value="321321321">
           <input type="text" id="location" class="swal2-input" value="a-23">`,
