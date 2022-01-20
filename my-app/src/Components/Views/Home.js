@@ -78,14 +78,16 @@ function confirm1() {
               <p>Stock Number: ${result.value.stockNum} </p>
               <p>Location: ${result.value.location} </p>`
                 })
+                Swal.fire('Action has been confirmed')
             }
             if (result.isDismissed) {
                 Swal.fire({
                     title: 'Edit Previous Information',
+                    // want to have the information there in the edit, not just random values. using ${result.value.vin} does not work!
           html: `<input type="text" id="vin" class="swal2-input" value="123123123123">
           <input type="text" id="make_model" class="swal2-input" value="Nissan">
           <input type="text" id="stockNum" class="swal2-input" value="321321321">
-          <input type="text" id="location" class="swal2-input" placeholder="a-23">`,
+          <input type="text" id="location" class="swal2-input" value="a-23">`,
           confirmButtonText: 'Add Car',
           showCancelButton:true,
           focusConfirm: false,
@@ -102,9 +104,9 @@ function confirm1() {
         }
                 })
             }
-            else{
-                Swal.fire('Action has been deleted')
-            }
+//            else{
+//                Swal.fire('Action has been deleted')
+//            }
         })
     }})
   }
