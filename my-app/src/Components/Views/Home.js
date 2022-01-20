@@ -56,18 +56,21 @@ function confirm1() {
       }).then((result) => {
           if(result.isConfirmed){
           Swal.fire({
-              icon: 'question',
-              title: "Is this Information Correct?",
-              html: `<p> Vin Number: ${result.value.vin} </p>
-              <p>Make/Model: ${result.value.make_model} </p>
-              <p>Stock Number: ${result.value.stockNum} </p>
-              <p>Location: ${result.value.location} </p>`,
-              showCancelButton: true,
-              confirmButtonText: "Yes",
-              cancelButtonText: "No",
-              preConfirm: () => {
-                  return{vin: result.value.vin, make_model: result.value.stockNum, stockNum: result.value.stockNum, location: result.value.location}
-               }
+            icon: 'question',
+            title: "Is this Information Correct?",
+            html: `<p> Vin Number: ${result.value.vin} </p>
+            <p>Make/Model: ${result.value.make_model} </p>
+            <p>Stock Number: ${result.value.stockNum} </p>
+            <p>Location: ${result.value.location} </p>`,
+            showDenyButton: true,
+            confirmButtonText: "Yes",
+            denyButtonText: "No",
+            preConfirm: () => {
+                return{vin: result.value.vin, make_model: result.value.stockNum, stockNum: result.value.stockNum, location: result.value.location}},
+            preDeny: () =>{
+                return{vin: result.value.vin, make_model: result.value.stockNum, stockNum: result.value.stockNum, location: result.value.location}
+            }
+
         }).then((result) => {
             if (result.isConfirmed){
                 Swal.fire({
@@ -76,21 +79,20 @@ function confirm1() {
                     html: `<p> Vin Number: ${result.value.vin} </p>
               <p>Make/Model: ${result.value.make_model} </p>
               <p>Stock Number: ${result.value.stockNum} </p>
-              <p>Location: ${result.value.location} </p>`
+              <p>Location: ${result.value.location} </p>`, 
                 })
-                Swal.fire('Action has been confirmed')
             }
-            if (result.isDismissed) {
+            else if(result.isDenied){
                 Swal.fire({
                     title: 'Edit Previous Information',
                     // want to have the information there in the edit, not just random values. using ${result.value.vin} does not work!
-          html: `<input type="text" id="vin" class="swal2-input" value="123123123123">
-          <input type="text" id="make_model" class="swal2-input" value="Nissan">
-          <input type="text" id="stockNum" class="swal2-input" value="321321321">
-          <input type="text" id="location" class="swal2-input" value="a-23">`,
-          confirmButtonText: 'Add Car',
-          showCancelButton:true,
-          focusConfirm: false,
+                    html: `<input type="text" id="vin" class="swal2-input" value=${result.value.vin}>
+                    <input type="text" id="make_model" class="swal2-input" value=${result.value.make_model}>
+                    <input type="text" id="stockNum" class="swal2-input" value=${result.value.stockNum}>
+                    <input type="text" id="location" class="swal2-input" value=${result.value.location}>`,
+                    confirmButtonText: 'Add Car',
+                    showCancelButton:true,
+                    focusConfirm: false,
           preConfirm: () => {
             const vin = Swal.getPopup().querySelector('#vin').value
             const make_model = Swal.getPopup().querySelector('#make_model').value
@@ -104,12 +106,11 @@ function confirm1() {
         }
                 })
             }
-//            else{
-//                Swal.fire('Action has been deleted')
-//            }
         })
     }})
   }
+
+
 
 function Home(props){
     const [carList, setCarlist] = useState(null);
