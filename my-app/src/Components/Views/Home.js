@@ -63,7 +63,7 @@ function confirm1() {
               <p>Stock Number: ${result.value.stockNum} </p>
               <p>Location: ${result.value.location} </p>`,
               showCancelButton: true,
-              confirmButtonText: "yes",
+              confirmButtonText: "Yes",
               cancelButtonText: "No",
               preConfirm: () => {
                   return{vin: result.value.vin, make_model: result.value.stockNum, stockNum: result.value.stockNum, location: result.value.location}
@@ -77,6 +77,29 @@ function confirm1() {
               <p>Make/Model: ${result.value.make_model} </p>
               <p>Stock Number: ${result.value.stockNum} </p>
               <p>Location: ${result.value.location} </p>`
+                })
+            }
+            if (result.isDismissed) {
+                Swal.fire({
+                    title: 'Edit Previous Information',
+          html: `<input type="text" id="vin" class="swal2-input" value="123123123123">
+          <input type="text" id="make_model" class="swal2-input" value="Nissan">
+          <input type="text" id="stockNum" class="swal2-input" value="321321321">
+          <input type="text" id="location" class="swal2-input" placeholder="a-23">`,
+          confirmButtonText: 'Add Car',
+          showCancelButton:true,
+          focusConfirm: false,
+          preConfirm: () => {
+            const vin = Swal.getPopup().querySelector('#vin').value
+            const make_model = Swal.getPopup().querySelector('#make_model').value
+            const stockNum = Swal.getPopup().querySelector('#stockNum').value
+            const location = Swal.getPopup().querySelector('#location').value
+
+            if(!vin || !make_model || !stockNum || !location){
+                Swal.showValidationMessage(`Please enter all information`)
+            }
+            return {vin: vin, make_model: make_model, stockNum: stockNum, location: location}
+        }
                 })
             }
             else{

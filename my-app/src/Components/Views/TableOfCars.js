@@ -2,6 +2,9 @@ import DropdownButton from 'react-bootstrap/DropdownButton'
 import Dropdown from 'react-bootstrap/Dropdown'
 import Container from '../Container';
 
+// function goToShowOnMap{
+
+//}
 
 const TableOfCars = (props) => {
     return ( 
