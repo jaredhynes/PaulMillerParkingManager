@@ -5,6 +5,7 @@ import '../../App.css';
 import TableOfCars from './TableOfCars';
 import Swal from 'sweetalert2'
 import '../../Styles/sweetalert.css'
+import Button from 'react-bootstrap/Button'
 
 
 //   window.showExample = () => {
@@ -235,7 +236,7 @@ function Home(props){
         </table> */}
         
         <Container formType={"addCar"} triggerText={"Add Car"} onSubmit={addCar} />
-        <button onClick={swalAddCar}>Mark's Sweet Alert Button</button>
+        <Button onClick={swalAddCar}>Mark's Sweet Alert Button</Button>
         </div>
     );
 }
