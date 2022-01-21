@@ -48,8 +48,9 @@ export const AddCarForm = ({ onSubmit }) => {
   }
   
   return (
+    
     <button onClick={confirm1}>Good Selfie</button>
-
+    
    /* <form onSubmit={confirm1()}>
       <div className="form-group">
         <label htmlFor="Make and Model">Make and Model</label>
