@@ -6,6 +6,7 @@ import TableOfCars from './TableOfCars';
 import Swal from 'sweetalert2'
 import '../../Styles/sweetalert.css'
 import Button from 'react-bootstrap/Button'
+import Basic from './Basic';
 
 
 //   window.showExample = () => {
@@ -199,17 +200,18 @@ function Home(props){
                 edit = carList[i]
             }
         }
+        edit.bttn = ''
         edit.time = Date().toLocaleString()
         edit.type = 'Move Car'
         edits.unshift(edit)
         postUpdate(edit)
         props.app.forceUpdate()
         };
-      
+
     return(
         <div className="App">
         
-        {carList && <TableOfCars carList={carList} editCar={editCar}/>}
+        {carList && <Basic carList={carList} editCar={editCar}/>}
         {/* <table>
         <tr>
             <th>Action</th>
