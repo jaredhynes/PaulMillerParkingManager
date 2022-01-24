@@ -5,10 +5,11 @@
       "key": "jdm485867483756",
       "make_model": "Nissan",
       "stockNum": "34",
-      "newSpot": "a-8",
-      "oldSpot": "s3",
-      "time": "Thu Jan 20 2022 14:32:59 GMT-0500 (Eastern Standard Time)",
-      "type": "Move Car"
+      "newSpot": "a-3",
+      "oldSpot": "a-9",
+      "time": "Mon Jan 24 2022 11:02:03 GMT-0500 (Eastern Standard Time)",
+      "type": "Move Car",
+      "bttn": "placeholder"
     },
     {
       "id": "2",

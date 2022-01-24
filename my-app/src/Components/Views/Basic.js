@@ -1,9 +1,18 @@
 import React from 'react';
-import { MDBDataTableV5 } from 'mdbreact';
+import { MDBBtn, MDBDataTable } from 'mdbreact';
+import Container from '../Container';
 
 export default function Basic(props) {
+  props.carList.map(car => {
+    car.bttn = <Container formType={"editCar"} car={car} triggerText={"Edit Car"} onSubmit={props.editCar} />
+  })
   const [datatable, setDatatable] = React.useState({
     columns: [
+      {
+        label: 'Action',
+        field: 'bttn',
+        width: 270,
+      },
       {
         label: 'VIN',
         field: 'key',
@@ -29,8 +38,8 @@ export default function Basic(props) {
         width: 100,
       }
     ],
-    rows: props.carList,
+      rows: props.carList
   });
 
-  return <MDBDataTableV5 hover entriesOptions={[5, 20, 25]} entries={5} pagesAmount={4} data={datatable} />;
+  return <MDBDataTable entriesOptions={[5, 20, 25]} entries={5} pagesAmount={4} data={datatable} />;
 }
