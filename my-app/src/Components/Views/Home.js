@@ -6,7 +6,6 @@ import TableOfCars from './TableOfCars';
 import Swal from 'sweetalert2'
 import '../../Styles/sweetalert.css'
 import Button from 'react-bootstrap/Button'
-import Basic from './Basic';
 
 
 //   window.showExample = () => {
@@ -211,7 +210,7 @@ function Home(props){
     return(
         <div className="App">
         
-        {carList && <Basic carList={carList} editCar={editCar}/>}
+        {carList && <TableOfCars carList={carList} editCar={editCar}/>}
         {/* <table>
         <tr>
             <th>Action</th>

@@ -1,45 +1,46 @@
-import DropdownButton from 'react-bootstrap/DropdownButton'
-import Dropdown from 'react-bootstrap/Dropdown'
+import React from 'react';
+import { MDBDataTable } from 'mdbreact';
 import Container from '../Container';
 
-// function goToShowOnMap{
 
-//}
-
-const TableOfCars = (props) => {
-    return ( 
-        <div className="car-list">
-            <table>
-                <tr>
-                    <th>Action</th>
-                    <th>Make/Model</th>
-                    <th>Vin</th>
-                    <th>Stock Number</th>
-                    <th>Location</th>
-                    <th></th>
-                </tr>
-            {props.carList.map((car =>
-            
-            <tr key= {car.key}>
-                <td>
-                <Container formType={"editCar"} car={car} triggerText={"Edit Car"} onSubmit={props.editCar} />
-                {/*<DropdownButton id="dropdown-basic-button" title="Dropdown button">
-                    <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-                    <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-                    <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
-                </DropdownButton>*/}
-                </td>
-                <td>{car.make_model}</td>
-                <td>{car.key}</td>
-                <td>{car.stockNum}</td>
-                <td>{car.newSpot}</td>
-                <td><button class="listedButton">Show on Map</button></td>
-            </tr>
-            ))}
-
-            </table>
-        </div>
-     );
+export default function TableOfCars(props) {
+    props.carList.map(car => {
+        car.bttn = <Container formType={"editCar"} car={car} triggerText={"Edit Car"} onSubmit={props.editCar} />
+      })
+      const [datatable, setDatatable] = React.useState({
+        columns: [
+          {
+            label: 'Action',
+            field: 'bttn',
+            width: 270,
+          },
+          {
+            label: 'VIN',
+            field: 'key',
+            width: 150,
+            attributes: {
+              'aria-controls': 'DataTable',
+              'aria-label': 'VIN',
+            },
+          },
+          {
+            label: 'Make Model',
+            field: 'make_model',
+            width: 270,
+          },
+          {
+            label: 'Stock Number',
+            field: 'stockNum',
+            width: 200,
+          },
+          {
+            label: 'Location',
+            field: 'newSpot',
+            width: 100,
+          }
+        ],
+          rows: props.carList
+      });
+    
+    return <MDBDataTable entriesOptions={[5, 20, 25]} entries={5} pagesAmount={4} data={datatable} order={['newSpot', 'asc']}/>;
 }
- 
-export default TableOfCars;
