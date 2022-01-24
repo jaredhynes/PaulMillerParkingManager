@@ -84,33 +84,91 @@ function confirm1() {
                 })
             }
             else if(result.isDenied){
-                Swal.fire({
-                    title: 'Edit Previous Information',
-                    // want to have the information there in the edit, not just random values. using ${result.value.vin} does not work!
-                    html: `<input type="text" id="vin" class="swal2-input" value=${result.value.vin}>
-                    <input type="text" id="make_model" class="swal2-input" value=${result.value.make_model}>
-                    <input type="text" id="stockNum" class="swal2-input" value=${result.value.stockNum}>
-                    <input type="text" id="location" class="swal2-input" value=${result.value.location}>`,
-                    confirmButtonText: 'Add Car',
-                    showCancelButton:true,
-                    focusConfirm: false,
-          preConfirm: () => {
-            const vin = Swal.getPopup().querySelector('#vin').value
-            const make_model = Swal.getPopup().querySelector('#make_model').value
-            const stockNum = Swal.getPopup().querySelector('#stockNum').value
-            const location = Swal.getPopup().querySelector('#location').value
-
-            if(!vin || !make_model || !stockNum || !location){
-                Swal.showValidationMessage(`Please enter all information`)
-            }
-            return {vin: vin, make_model: make_model, stockNum: stockNum, location: location}
-        }
-                })
+                recursiveAddCar();
             }
         })
     }})
   }
 
+function recursiveAddCar(){
+    Swal.fire({
+        title: 'Edit Previous Information',
+        // want to have the information there in the edit, not just random values. using ${result.value.vin} does not work!
+        html: `<input type="text" id="vin" class="swal2-input" value=${result.value.vin}>
+        <input type="text" id="make_model" class="swal2-input" value=${result.value.make_model}>
+        <input type="text" id="stockNum" class="swal2-input" value=${result.value.stockNum}>
+        <input type="text" id="location" class="swal2-input" value=${result.value.location}>`,
+        confirmButtonText: 'Add Car',
+        showCancelButton:true,
+        focusConfirm: false,
+    preConfirm: () => {
+        const vin = Swal.getPopup().querySelector('#vin').value
+        const make_model = Swal.getPopup().querySelector('#make_model').value
+        const stockNum = Swal.getPopup().querySelector('#stockNum').value
+        const location = Swal.getPopup().querySelector('#location').value
+
+    if(!vin || !make_model || !stockNum || !location) {
+    Swal.showValidationMessage(`Please enter all information`)
+        }
+        
+    return {vin: vin, make_model: make_model, stockNum: stockNum, location: location}
+        }
+}).then((result) => {
+    if(result.isConfirmed){
+    Swal.fire({
+      icon: 'question',
+      title: "Is this Information Correct?",
+      html: `<p> Vin Number: ${result.value.vin} </p>
+      <p>Make/Model: ${result.value.make_model} </p>
+      <p>Stock Number: ${result.value.stockNum} </p>
+      <p>Location: ${result.value.location} </p>`,
+      showDenyButton: true,
+      confirmButtonText: "Yes",
+      denyButtonText: "No",
+      preConfirm: () => {
+          return{vin: result.value.vin, make_model: result.value.stockNum, stockNum: result.value.stockNum, location: result.value.location}},
+      preDeny: () =>{
+          return{vin: result.value.vin, make_model: result.value.stockNum, stockNum: result.value.stockNum, location: result.value.location}
+      }
+
+  }).then((result) => {
+      if (result.isConfirmed){
+          Swal.fire({
+              icon: "success",
+              title: "Saved",
+              html: `<p> Vin Number: ${result.value.vin} </p>
+        <p>Make/Model: ${result.value.make_model} </p>
+        <p>Stock Number: ${result.value.stockNum} </p>
+        <p>Location: ${result.value.location} </p>`, 
+          })
+      }
+      else if(result.isDenied){
+          Swal.fire({
+              title: 'Edit Previous Information',
+              // want to have the information there in the edit, not just random values. using ${result.value.vin} does not work!
+              html: `<input type="text" id="vin" class="swal2-input" value=${result.value.vin}>
+              <input type="text" id="make_model" class="swal2-input" value=${result.value.make_model}>
+              <input type="text" id="stockNum" class="swal2-input" value=${result.value.stockNum}>
+              <input type="text" id="location" class="swal2-input" value=${result.value.location}>`,
+              confirmButtonText: 'Add Car',
+              showCancelButton:true,
+              focusConfirm: false,
+    preConfirm: () => {
+      const vin = Swal.getPopup().querySelector('#vin').value
+      const make_model = Swal.getPopup().querySelector('#make_model').value
+      const stockNum = Swal.getPopup().querySelector('#stockNum').value
+      const location = Swal.getPopup().querySelector('#location').value
+
+      if(!vin || !make_model || !stockNum || !location){
+          Swal.showValidationMessage(`Please enter all information`)
+      }
+      return {vin: vin, make_model: make_model, stockNum: stockNum, location: location}
+  }
+          })
+      }
+  })
+}})
+}
 
 
 function Home(props){
