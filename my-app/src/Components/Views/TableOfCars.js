@@ -1,11 +1,11 @@
 import React from 'react';
 import { MDBDataTable } from 'mdbreact';
-import Container from '../Container';
+import Button from 'react-bootstrap/esm/Button';
 
 
 export default function TableOfCars(props) {
     props.carList.map(car => {
-        car.bttn = <Container formType={"editCar"} car={car} triggerText={"Edit Car"} onSubmit={props.editCar} />
+        car.bttn = <Button onClick={props.editCar(car)}>Edit Car</Button>
       })
       const [datatable, setDatatable] = React.useState({
         columns: [
