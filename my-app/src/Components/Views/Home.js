@@ -33,107 +33,6 @@ function confirm1() {
     })
   }
 
-  function swalEditCar(car){
-      Swal.fire({
-          title: 'Edit Car Location',
-          html: `<input type="text" id="newSpot" class="swal2-input" placeholder=${car.newSpot}>`,
-          confirmButtonText: 'Edit Car',
-          showCancelButton: true,
-          focusConfirm: false, 
-          preConfirm: () => {
-            const newSpot = Swal.getPopup().querySelector('#newSpot').value
-
-            if(!newSpot){
-                Swal.showValidationMessage(`Please enter a location`)
-            }
-            return {car: car, newSpot: newSpot}
-        }
-      }).then((result) => {
-        if(result.isConfirmed){
-        Swal.fire({
-          icon: 'question',
-          title: "Is this Information Correct?",
-          html: `<p> Old Location: ${car.newSpot} </p>
-            <p>New Location: ${result.value.newSpot} </p>`,
-          showDenyButton: true,
-          confirmButtonText: "Yes",
-          denyButtonText: "No",
-          preConfirm: () => {
-              return{car: car, newSpot: result.value.newSpot}
-            },
-          preDeny: () =>{
-              return{car: car, newSpot: result.value.newSpot}
-          }
-            }).then((result) => {
-                if (result.isConfirmed){
-                    Swal.fire({
-                        icon: "success",
-                        title: "Saved",
-                        html: `<p> Old Location: ${car.newSpot} </p>
-                        <p>New Location: ${result.value.newSpot} </p>`, 
-                    })
-                }
-            })
-        }})
-        }
-
-  function swalAddCar(){
-      Swal.fire({
-          title: 'Add New Car',
-          html: `<input type="text" id="vin" class="swal2-input" placeholder="Vin">
-          <input type="text" id="make_model" class="swal2-input" placeholder="Make/Model">
-          <input type="text" id="stockNum" class="swal2-input" placeholder="Stock Number">
-          <input type="text" id="location" class="swal2-input" placeholder="Location">`,
-          confirmButtonText: 'Add Car',
-          showCancelButton:true,
-          focusConfirm: false,
-          preConfirm: () => {
-              const vin = Swal.getPopup().querySelector('#vin').value
-              const make_model = Swal.getPopup().querySelector('#make_model').value
-              const stockNum = Swal.getPopup().querySelector('#stockNum').value
-              const location = Swal.getPopup().querySelector('#location').value
-
-              if(!vin || !make_model || !stockNum || !location){
-                  Swal.showValidationMessage(`Please enter all information`)
-              }
-              return {vin: vin, make_model: make_model, stockNum: stockNum, location: location}
-          }
-      }).then((result) => {
-          if(result.isConfirmed){
-          Swal.fire({
-            icon: 'question',
-            title: "Is this Information Correct?",
-            html: `<p> Vin Number: ${result.value.vin} </p>
-            <p>Make/Model: ${result.value.make_model} </p>
-            <p>Stock Number: ${result.value.stockNum} </p>
-            <p>Location: ${result.value.location} </p>`,
-            showDenyButton: true,
-            confirmButtonText: "Yes",
-            denyButtonText: "No",
-            preConfirm: () => {
-                return{vin: result.value.vin, make_model: result.value.stockNum, stockNum: result.value.stockNum, location: result.value.location}},
-            preDeny: () =>{
-                return{vin: result.value.vin, make_model: result.value.stockNum, stockNum: result.value.stockNum, location: result.value.location}
-            }
-
-        }).then((result) => {
-            if (result.isConfirmed){
-                Swal.fire({
-                    icon: "success",
-                    title: "Saved",
-                    html: `<p> Vin Number: ${result.value.vin} </p>
-              <p>Make/Model: ${result.value.make_model} </p>
-              <p>Stock Number: ${result.value.stockNum} </p>
-              <p>Location: ${result.value.location} </p>`, 
-                })
-            }
-            // else if(result.isDenied){
-            //     recursiveAddCar();
-            // }
-        })
-    }})
-  }
-
 // function recursiveAddCar(){
 //     Swal.fire({
 //         title: 'Edit Previous Information',
@@ -216,7 +115,7 @@ function confirm1() {
 
 const TableOfCars = (props) => {
     props.carList.map(car => {
-        car.bttn = <Button onClick={() => swalEditCar(car)}>Edit Car</Button>
+        car.bttn = <Button onClick={() => props.swalEditCar(car)}>Edit Car</Button>
       })
       const [datatable, setDatatable] = React.useState({
         columns: [
@@ -256,11 +155,113 @@ const TableOfCars = (props) => {
     return <MDBDataTable entriesOptions={[5, 20, 25]} entries={5} pagesAmount={4} data={datatable} order={['newSpot', 'asc']}/>;
 }
 
-
 function Home(props){
     const [carList, setCarlist] = useState(null);
     let carList3 = props.carList;
     let edits = props.edits;
+
+    function swalAddCar(){
+      Swal.fire({
+          title: 'Add New Car',
+          html: `<input type="text" id="vin" class="swal2-input" placeholder="Vin">
+          <input type="text" id="make_model" class="swal2-input" placeholder="Make/Model">
+          <input type="text" id="stockNum" class="swal2-input" placeholder="Stock Number">
+          <input type="text" id="location" class="swal2-input" placeholder="Location">`,
+          confirmButtonText: 'Add Car',
+          showCancelButton:true,
+          focusConfirm: false,
+          preConfirm: () => {
+              const vin = Swal.getPopup().querySelector('#vin').value
+              const make_model = Swal.getPopup().querySelector('#make_model').value
+              const stockNum = Swal.getPopup().querySelector('#stockNum').value
+              const location = Swal.getPopup().querySelector('#location').value
+
+              if(!vin || !make_model || !stockNum || !location){
+                  Swal.showValidationMessage(`Please enter all information`)
+              }
+              return {vin: vin, make_model: make_model, stockNum: stockNum, location: location}
+          }
+      }).then((result) => {
+          if(result.isConfirmed){
+          Swal.fire({
+            icon: 'question',
+            title: "Is this Information Correct?",
+            html: `<p> Vin Number: ${result.value.vin} </p>
+            <p>Make/Model: ${result.value.make_model} </p>
+            <p>Stock Number: ${result.value.stockNum} </p>
+            <p>Location: ${result.value.location} </p>`,
+            showDenyButton: true,
+            confirmButtonText: "Yes",
+            denyButtonText: "No",
+            preConfirm: () => {
+                return{vin: result.value.vin, make_model: result.value.make_model, stockNum: result.value.stockNum, location: result.value.location}},
+            preDeny: () =>{
+                return{vin: result.value.vin, make_model: result.value.make_model, stockNum: result.value.stockNum, location: result.value.location}
+            }
+
+        }).then((result) => {
+            if (result.isConfirmed){
+                Swal.fire({
+                    icon: "success",
+                    title: "Saved",
+                    html: `<p> Vin Number: ${result.value.vin} </p>
+              <p>Make/Model: ${result.value.make_model} </p>
+              <p>Stock Number: ${result.value.stockNum} </p>
+              <p>Location: ${result.value.location} </p>`, 
+                })
+                addCar(result)
+            }
+            // else if(result.isDenied){
+            //     recursiveAddCar();
+            // }
+        })
+    }})
+  }
+
+  function swalEditCar(car){
+    Swal.fire({
+        title: 'Edit Car Location',
+        html: `<input type="text" id="newSpot" class="swal2-input" placeholder=${car.newSpot}>`,
+        confirmButtonText: 'Edit Car',
+        showCancelButton: true,
+        focusConfirm: false, 
+        preConfirm: () => {
+          const newSpot = Swal.getPopup().querySelector('#newSpot').value
+
+          if(!newSpot){
+              Swal.showValidationMessage(`Please enter a location`)
+          }
+          return {car: car, newSpot: newSpot}
+      }
+    }).then((result) => {
+      if(result.isConfirmed){
+      Swal.fire({
+        icon: 'question',
+        title: "Is this Information Correct?",
+        html: `<p> Old Location: ${car.newSpot} </p>
+          <p>New Location: ${result.value.newSpot} </p>`,
+        showDenyButton: true,
+        confirmButtonText: "Yes",
+        denyButtonText: "No",
+        preConfirm: () => {
+            return{car: car, newSpot: result.value.newSpot}
+          },
+        preDeny: () =>{
+            return{car: car, newSpot: result.value.newSpot}
+        }
+          }).then((result) => {
+              if (result.isConfirmed){
+                  Swal.fire({
+                      icon: "success",
+                      title: "Saved",
+                      html: `<p> Old Location: ${car.newSpot} </p>
+                      <p>New Location: ${result.value.newSpot} </p>`, 
+                  })
+                  editCar(car, result.value.newSpot)
+              }
+          })
+      }})
+      }
 
     useEffect(() => {
         fetch('http://localhost:8000/cars')
@@ -273,6 +274,7 @@ function Home(props){
         }, [])
 
     const postUpdate = (car) => {
+        car.bttn = ''
         fetch('http://localhost:8000/cars/' + car.id, {
             method: 'PUT',
             headers: {
@@ -314,15 +316,14 @@ function Home(props){
 
     
     
-    const addCar = (event) => {
-        event.preventDefault(event);
+    const addCar = (car) => {
         //carList.push({make_model:event.target.make_model.value, vin:parseInt(event.target.vin.value), location:event.target.location.value});
         let edit = {
             type: "New Car",
-            key: event.target.vin.value,
-            make_model: event.target.make_model.value,
-            stockNum: event.target.stockNumber.value,
-            newSpot: event.target.location.value,
+            key: car.value.vin,
+            make_model: car.value.make_model,
+            stockNum: car.value.stockNum,
+            newSpot: car.value.location,
             oldSpot: "N/A",
             time: Date().toLocaleString()
         };
@@ -332,29 +333,21 @@ function Home(props){
         props.app.forceUpdate();
     };
 
-    const editCar = (event) => {
-        event.preventDefault(event);
+    const editCar = (car, location) => {
         //carList.push({make_model:event.target.make_model.value, vin:parseInt(event.target.vin.value), location:event.target.location.value});
-        var edit
-        for(var i = 0; i < carList.length; i++){ 
-            if (carList[i].key === event.target.key.value) { 
-                carList[i].oldSpot = carList[i].newSpot
-                carList[i].newSpot = event.target.newSpot.value
-                edit = carList[i]
-            }
-        }
-        edit.bttn = ''
-        edit.time = Date().toLocaleString()
-        edit.type = 'Move Car'
-        edits.unshift(edit)
-        postUpdate(edit)
+        car.time = Date().toLocaleString()
+        car.type = 'Move Car'
+        car.oldSpot = car.newSpot
+        car.newSpot = location
+        edits.unshift(car)
+        postUpdate(car)
         props.app.forceUpdate()
         };
 
     return(
         <div className="App">
         
-        {carList && <TableOfCars carList={carList}/>}
+        {carList && <TableOfCars carList={carList} swalEditCar={swalEditCar}/>}
         {/* <table>
         <tr>
             <th>Action</th>
@@ -379,9 +372,7 @@ function Home(props){
         ))}
 
         </table> */}
-        
-        <Container formType={"addCar"} triggerText={"Add Car"} onSubmit={addCar} />
-        <Button onClick={() => swalAddCar()}>Mark's Sweet Alert Button</Button>
+        <Button onClick={() => swalAddCar()}>Add Car</Button>
         </div>
     );
 }
