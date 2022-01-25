@@ -4,7 +4,6 @@ import model from "../../Dummydb/dummyCardata";
 
 export const EditCarForm = ({ onSubmit, car }) => {
 
-  // currently hardcoded for the only the first car.
   const [checked, setChecked] = useState(true);
   const [make_model, setName] = useState(car.make_model);
   const [location, setLocation] = useState(car.newSpot);
