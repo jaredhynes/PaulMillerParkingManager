@@ -6,6 +6,7 @@ import Swal from 'sweetalert2'
 import '../../Styles/sweetalert.css'
 import Button from 'react-bootstrap/Button'
 import { MDBDataTable } from 'mdbreact';
+import TableOfCars from './TableOfCars';
 
 
 //   window.showExample = () => {
@@ -112,48 +113,6 @@ function confirm1() {
 //   })
 // }})
 // }
-
-const TableOfCars = (props) => {
-    props.carList.map(car => {
-        car.bttn = <Button onClick={() => props.swalEditCar(car)}>Edit Car</Button>
-      })
-      const [datatable, setDatatable] = React.useState({
-        columns: [
-          {
-            label: 'Action',
-            field: 'bttn',
-            width: 270,
-          },
-          {
-            label: 'VIN',
-            field: 'key',
-            width: 150,
-            attributes: {
-              'aria-controls': 'DataTable',
-              'aria-label': 'VIN',
-            },
-          },
-          {
-            label: 'Make Model',
-            field: 'make_model',
-            width: 270,
-          },
-          {
-            label: 'Stock Number',
-            field: 'stockNum',
-            width: 200,
-          },
-          {
-            label: 'Location',
-            field: 'newSpot',
-            width: 100,
-          }
-        ],
-          rows: props.carList
-      });
-    
-    return <MDBDataTable entriesOptions={[5, 20, 25]} entries={5} pagesAmount={4} data={datatable} order={['newSpot', 'asc']}/>;
-}
 
 function Home(props){
     const [carList, setCarlist] = useState(null);
@@ -317,7 +276,6 @@ function Home(props){
     
     
     const addCar = (car) => {
-        //carList.push({make_model:event.target.make_model.value, vin:parseInt(event.target.vin.value), location:event.target.location.value});
         let edit = {
             type: "New Car",
             key: car.value.vin,
@@ -331,10 +289,10 @@ function Home(props){
         edits.unshift(edit);
         postNew(edit, carList.length)
         props.app.forceUpdate();
+        setCarlist(carList)
     };
 
     const editCar = (car, location) => {
-        //carList.push({make_model:event.target.make_model.value, vin:parseInt(event.target.vin.value), location:event.target.location.value});
         car.time = Date().toLocaleString()
         car.type = 'Move Car'
         car.oldSpot = car.newSpot
@@ -342,6 +300,7 @@ function Home(props){
         edits.unshift(car)
         postUpdate(car)
         props.app.forceUpdate()
+        setCarlist(carList)
         };
 
     return(

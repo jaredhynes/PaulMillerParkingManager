@@ -5,7 +5,7 @@ import Button from 'react-bootstrap/esm/Button';
 
 const TableOfCars = (props) => {
     props.carList.map(car => {
-        car.bttn = <Button onClick={props.editCar(car)}>Edit Car</Button>
+        car.bttn = <Button onClick={() => props.swalEditCar(car)}>Edit Car</Button>
       })
       const [datatable, setDatatable] = React.useState({
         columns: [
@@ -44,3 +44,4 @@ const TableOfCars = (props) => {
     
     return <MDBDataTable entriesOptions={[5, 20, 25]} entries={5} pagesAmount={4} data={datatable} order={['newSpot', 'asc']}/>;
 }
+export default TableOfCars
