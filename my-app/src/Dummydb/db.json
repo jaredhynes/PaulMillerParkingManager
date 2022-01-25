@@ -71,6 +71,26 @@
       "oldSpot": "N/A",
       "time": "Tue Jan 25 2022 11:34:34 GMT-0500 (Eastern Standard Time)",
       "id": 7
+    },
+    {
+      "type": "New Car",
+      "key": "456789fgb",
+      "make_model": "yhjk",
+      "stockNum": "ghjk",
+      "newSpot": "fghj",
+      "oldSpot": "N/A",
+      "time": "Tue Jan 25 2022 15:02:42 GMT-0500 (Eastern Standard Time)",
+      "id": 8
+    },
+    {
+      "type": "New Car",
+      "key": "fjirutegui",
+      "make_model": "vuhirt",
+      "stockNum": "vuhirt",
+      "newSpot": "vfgthgui",
+      "oldSpot": "N/A",
+      "time": "Tue Jan 25 2022 15:20:55 GMT-0500 (Eastern Standard Time)",
+      "id": 9
     }
   ]
 }

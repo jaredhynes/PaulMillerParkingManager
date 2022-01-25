@@ -3,6 +3,7 @@ import { MDBDataTable } from 'mdbreact';
 import Button from 'react-bootstrap/esm/Button';
 
 
+
 const TableOfCars = (props) => {
     props.carList.map(car => {
         car.bttn = <Button onClick={() => props.swalEditCar(car)}>Edit Car</Button>
@@ -41,7 +42,15 @@ const TableOfCars = (props) => {
         ],
           rows: props.carList
       });
+
+  function reloadtable(){
+    this.forceUpdate();
+  }
     
-    return <MDBDataTable entriesOptions={[5, 20, 25]} entries={5} pagesAmount={4} data={datatable} order={['newSpot', 'asc']}/>;
+    return (
+      <div>
+      <MDBDataTable entriesOptions={[5, 20, 25]} entries={5} pagesAmount={4} data={datatable} order={['newSpot', 'asc']}/>
+      </div>
+    )
 }
 export default TableOfCars
