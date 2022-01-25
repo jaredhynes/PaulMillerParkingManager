@@ -3,7 +3,7 @@ import { MDBDataTable } from 'mdbreact';
 import Button from 'react-bootstrap/esm/Button';
 
 
-export default function TableOfCars(props) {
+const TableOfCars = (props) => {
     props.carList.map(car => {
         car.bttn = <Button onClick={props.editCar(car)}>Edit Car</Button>
       })

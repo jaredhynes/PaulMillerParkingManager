@@ -2,10 +2,10 @@ import React from 'react';
 import {useEffect, useState} from 'react';
 import { Container } from '../Container';
 import '../../App.css';
-import TableOfCars from './TableOfCars';
 import Swal from 'sweetalert2'
 import '../../Styles/sweetalert.css'
 import Button from 'react-bootstrap/Button'
+import { MDBDataTable } from 'mdbreact';
 
 
 //   window.showExample = () => {
@@ -34,10 +34,9 @@ function confirm1() {
   }
 
   function swalEditCar(car){
-      // TODO
       Swal.fire({
           title: 'Edit Car Location',
-          html: `<input type="text" id="newSpot" class="swal2-input" placeholder=${car.newSpot}`,
+          html: `<input type="text" id="newSpot" class="swal2-input" placeholder=${car.newSpot}>`,
           confirmButtonText: 'Edit Car',
           showCancelButton: true,
           focusConfirm: false, 
@@ -45,12 +44,38 @@ function confirm1() {
             const newSpot = Swal.getPopup().querySelector('#newSpot').value
 
             if(!newSpot){
-                Swal.showValidationMessage(`Please enter a new location`)
+                Swal.showValidationMessage(`Please enter a location`)
             }
             return {car: car, newSpot: newSpot}
         }
-      })
-  }
+      }).then((result) => {
+        if(result.isConfirmed){
+        Swal.fire({
+          icon: 'question',
+          title: "Is this Information Correct?",
+          html: `<p> Old Location: ${car.newSpot} </p>
+            <p>New Location: ${result.value.newSpot} </p>`,
+          showDenyButton: true,
+          confirmButtonText: "Yes",
+          denyButtonText: "No",
+          preConfirm: () => {
+              return{car: car, newSpot: result.value.newSpot}
+            },
+          preDeny: () =>{
+              return{car: car, newSpot: result.value.newSpot}
+          }
+            }).then((result) => {
+                if (result.isConfirmed){
+                    Swal.fire({
+                        icon: "success",
+                        title: "Saved",
+                        html: `<p> Old Location: ${car.newSpot} </p>
+                        <p>New Location: ${result.value.newSpot} </p>`, 
+                    })
+                }
+            })
+        }})
+        }
 
   function swalAddCar(){
       Swal.fire({
@@ -189,6 +214,48 @@ function confirm1() {
 // }})
 // }
 
+const TableOfCars = (props) => {
+    props.carList.map(car => {
+        car.bttn = <Button onClick={() => swalEditCar(car)}>Edit Car</Button>
+      })
+      const [datatable, setDatatable] = React.useState({
+        columns: [
+          {
+            label: 'Action',
+            field: 'bttn',
+            width: 270,
+          },
+          {
+            label: 'VIN',
+            field: 'key',
+            width: 150,
+            attributes: {
+              'aria-controls': 'DataTable',
+              'aria-label': 'VIN',
+            },
+          },
+          {
+            label: 'Make Model',
+            field: 'make_model',
+            width: 270,
+          },
+          {
+            label: 'Stock Number',
+            field: 'stockNum',
+            width: 200,
+          },
+          {
+            label: 'Location',
+            field: 'newSpot',
+            width: 100,
+          }
+        ],
+          rows: props.carList
+      });
+    
+    return <MDBDataTable entriesOptions={[5, 20, 25]} entries={5} pagesAmount={4} data={datatable} order={['newSpot', 'asc']}/>;
+}
+
 
 function Home(props){
     const [carList, setCarlist] = useState(null);
@@ -287,7 +354,7 @@ function Home(props){
     return(
         <div className="App">
         
-        {carList && <TableOfCars carList={carList} editCar={swalEditCar} />}
+        {carList && <TableOfCars carList={carList}/>}
         {/* <table>
         <tr>
             <th>Action</th>
@@ -314,7 +381,7 @@ function Home(props){
         </table> */}
         
         <Container formType={"addCar"} triggerText={"Add Car"} onSubmit={addCar} />
-        <Button onClick={swalAddCar}>Mark's Sweet Alert Button</Button>
+        <Button onClick={() => swalAddCar()}>Mark's Sweet Alert Button</Button>
         </div>
     );
 }
