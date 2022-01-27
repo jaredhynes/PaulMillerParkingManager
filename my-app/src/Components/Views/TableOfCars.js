@@ -1,37 +1,15 @@
 import React from 'react';
 import { MDBDataTable } from 'mdbreact';
-import Button from 'react-bootstrap/esm/Button';
-
-
-function dropDownMenu() {
-        document.getElementById("myDropdown").classList.toggle("show");
-      }
-      
-      // Close the dropdown if the user clicks outside of it
-      window.onclick = function(event) {
-        if (!event.target.matches('.dropbtn')) {
-          var dropdowns = document.getElementsByClassName("dropdown-content");
-          var i;
-          for (i = 0; i < dropdowns.length; i++) {
-            var openDropdown = dropdowns[i];
-            if (openDropdown.classList.contains('show')) {
-              openDropdown.classList.remove('show');
-            }
-          }
-        }
-      }
-
+import DropdownButton from 'react-bootstrap/DropdownButton';
+import Dropdown from 'react-bootstrap/Dropdown';
 
 const TableOfCars = (props) => {
     props.carList.map(car => {
-        <div class="dropdown">
-        car.bttn = <Button onClick="dropDownMenu()" class="dropbtn">Menu</Button>
-            <div id="myDropdown" class="dropdown-content">
-                <a href="#Edit">Edit Car</a>
-                <a href="#Archive">Archive Car</a>
-                <a href="#Delete">Delete Car</a>
-            </div>
-        </div>
+        car.bttn = <DropdownButton id="dropdown-basic-button" title="Edit car">
+        <Dropdown.Item onClick={() => props.swalEditCar(car)}>Change Location</Dropdown.Item>
+        <Dropdown.Item >Edit Information</Dropdown.Item>
+        <Dropdown.Item >Delete Car</Dropdown.Item>
+      </DropdownButton>
       })
       const [datatable, setDatatable] = React.useState({
         columns: [
