@@ -7,7 +7,7 @@ import Button from 'react-bootstrap/Button'
 import TableOfCars from './TableOfCars';
 
 function Home(props){
-    const [carList, setCarlist] = useState(null);
+    const [carList, setCarList] = useState(null);
     let edits = props.edits;
 
     function recursiveAddCar(vin, make_model, stockNum, location){
@@ -178,7 +178,7 @@ function Home(props){
             return res.json();
             })
             .then(data => {
-            setCarlist(data);
+            setCarList(data);
             })
     }, [])
 
@@ -239,7 +239,7 @@ function Home(props){
         edits.unshift(edit);
         postNew(edit, carList.length)
         props.app.forceUpdate();
-        setCarlist(carList)
+        setCarList(carList)
     }
 
     const editCar = (car, location) => {
@@ -250,7 +250,7 @@ function Home(props){
         edits.unshift(car)
         postUpdate(car)
         props.app.forceUpdate()
-        setCarlist(carList)
+        setCarList(carList)
     }
 
     return(
