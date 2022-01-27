@@ -222,32 +222,25 @@ function Home(props){
     //     edits.unshift(edit)
     //     props.app.forceUpdate(); 
     // }
-
-    
     
     const addCar = (car) => {
-        let edit = {
-            type: "New Car",
-            key: car.value.vin,
-            make_model: car.value.make_model,
-            stockNum: car.value.stockNum,
-            newSpot: car.value.location,
-            oldSpot: "N/A",
-            time: Date().toLocaleString()
-        };
-        carList.push(edit);
-        edits.unshift(edit);
+        let edit = car
+        edit.type = "New Car"
+        edit.time = Date().toLocaleString()
+        carList.push(edit)
+        edits.unshift(edit)
         postNew(edit)
         props.app.forceUpdate();
     }
 
     const editCar = (car, location) => {
-        car.time = Date().toLocaleString()
-        car.type = 'Move Car'
-        car.oldSpot = car.newSpot
-        car.newSpot = location
-        edits.unshift(car)
-        postUpdate(car)
+        let edit = car
+        edit.oldSpot = car.newSpot
+        edit.newSpot = location
+        edit.time = Date().toLocaleString()
+        edit.type = 'Move Car'
+        edits.unshift(edit)
+        postUpdate(edit)
         props.app.forceUpdate()
     }
 

@@ -10,46 +10,38 @@ const TableOfCars = (props) => {
         <Dropdown.Item >Edit Information</Dropdown.Item>
         <Dropdown.Item >Delete Car</Dropdown.Item>
       </DropdownButton>
-      })
-      const [datatable, setDatatable] = React.useState({
-        columns: [
-          {
-            label: 'Action',
-            field: 'bttn',
-            width: 270,
-          },
-          {
-            label: 'VIN',
-            field: 'key',
-            width: 150,
-            attributes: {
-              'aria-controls': 'DataTable',
-              'aria-label': 'VIN',
-            },
-          },
-          {
-            label: 'Make Model',
-            field: 'make_model',
-            width: 270,
-          },
-          {
-            label: 'Stock Number',
-            field: 'stockNum',
-            width: 200,
-          },
-          {
-            label: 'Location',
-            field: 'newSpot',
-            width: 100,
-          }
-        ],
-          rows: props.carList
-      });
+    })
 
-  function reloadtable(){
-    this.forceUpdate();
-  }
-    
+    function reloadtable(){
+      this.forceUpdate();
+    }
+
+    const [datatable, setDatatable] = React.useState({
+      columns: [
+        {
+          label: 'Action',
+          field: 'bttn',
+        },
+        {
+          label: 'VIN',
+          field: 'key',
+        },
+        {
+          label: 'Make Model',
+          field: 'make_model',
+        },
+        {
+          label: 'Stock Number',
+          field: 'stockNum',
+        },
+        {
+          label: 'Location',
+          field: 'newSpot',
+        }
+      ],
+        rows: props.carList
+    });
+      
     return (
       <div>
       <MDBDataTable entriesOptions={[5, 20, 25]} entries={5} pagesAmount={4} data={datatable} order={['newSpot', 'asc']}/>
