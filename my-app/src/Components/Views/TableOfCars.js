@@ -3,10 +3,35 @@ import { MDBDataTable } from 'mdbreact';
 import Button from 'react-bootstrap/esm/Button';
 
 
+function dropDownMenu() {
+        document.getElementById("myDropdown").classList.toggle("show");
+      }
+      
+      // Close the dropdown if the user clicks outside of it
+      window.onclick = function(event) {
+        if (!event.target.matches('.dropbtn')) {
+          var dropdowns = document.getElementsByClassName("dropdown-content");
+          var i;
+          for (i = 0; i < dropdowns.length; i++) {
+            var openDropdown = dropdowns[i];
+            if (openDropdown.classList.contains('show')) {
+              openDropdown.classList.remove('show');
+            }
+          }
+        }
+      }
+
 
 const TableOfCars = (props) => {
     props.carList.map(car => {
-        car.bttn = <Button onClick={() => props.swalEditCar(car)}>Menu</Button>
+        <div class="dropdown">
+        car.bttn = <Button onClick="dropDownMenu()" class="dropbtn">Menu</Button>
+            <div id="myDropdown" class="dropdown-content">
+                <a href="#Edit">Edit Car</a>
+                <a href="#Archive">Archive Car</a>
+                <a href="#Delete">Delete Car</a>
+            </div>
+        </div>
       })
       const [datatable, setDatatable] = React.useState({
         columns: [
