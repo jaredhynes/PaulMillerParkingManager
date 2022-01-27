@@ -6,7 +6,7 @@ import Button from 'react-bootstrap/esm/Button';
 
 const TableOfCars = (props) => {
     props.carList.map(car => {
-        car.bttn = <Button onClick={() => props.swalEditCar(car)}>Edit Car</Button>
+        car.bttn = <Button onClick={() => props.swalEditCar(car)}>Menu</Button>
       })
       const [datatable, setDatatable] = React.useState({
         columns: [
