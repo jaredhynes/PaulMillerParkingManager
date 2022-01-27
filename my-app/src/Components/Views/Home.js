@@ -1,43 +1,13 @@
 import React from 'react';
 import {useEffect, useState} from 'react';
-import { Container } from '../Container';
 import '../../App.css';
 import Swal from 'sweetalert2'
 import '../../Styles/sweetalert.css'
 import Button from 'react-bootstrap/Button'
-import { MDBDataTable } from 'mdbreact';
 import TableOfCars from './TableOfCars';
-
-
-//   window.showExample = () => {
-//     //const MySwal = withReactContent(Swal)
-    
-//     Swal.fire({
-//       title: <strong>Good job!</strong>,
-//       html: <i>You clicked the button!</i>,
-//       icon: 'success'
-//     })
-//     }
-    
-function confirm1() {
-    Swal.fire({
-      title: 'Are you sure?',
-      text: "You won't be able to revert this.",
-      // showCancelButton: true,
-      // confirmButtonColor: '#3085d6',
-      // cancelButtonColor: '#d33',
-      // confirmButtonText: 'Yes, delete it!',
-      // cancelButtonText: 'No, cancel!',
-      // confirmButtonClass: 'btn btn-success',
-      // cancelButtonClass: 'btn btn-danger',
-      // buttonsStyling: false
-    })
-  }
-
 
 function Home(props){
     const [carList, setCarlist] = useState(null);
-    let carList3 = props.carList;
     let edits = props.edits;
 
     function recursiveAddCar(vin, make_model, stockNum, location){
@@ -97,7 +67,7 @@ function Home(props){
         }
     })
   }})
-  }
+    }
 
     function swalAddCar(){
       Swal.fire({
@@ -155,9 +125,9 @@ function Home(props){
             }
         })
     }})
-  }
+    }
 
-  function swalEditCar(car){
+    function swalEditCar(car){
     Swal.fire({
         title: 'Edit Car Location',
         html: `<input type="text" id="newSpot" class="swal2-input" placeholder=${car.newSpot}>`,
@@ -200,7 +170,7 @@ function Home(props){
               }
           })
       }})
-      }
+    }
 
     useEffect(() => {
         fetch('http://localhost:8000/cars')
@@ -210,7 +180,7 @@ function Home(props){
             .then(data => {
             setCarlist(data);
             })
-        }, [])
+    }, [])
 
     const postUpdate = (car) => {
         car.bttn = ''
@@ -234,24 +204,24 @@ function Home(props){
             })
     }
 
-    const handleDelete = (car) => {
-        for(var i = 0; i < carList.length; i++){ 
-            if (carList[i].key === car.key) { 
-                carList.splice(i, 1); 
-            }
-        } 
-        let edit = {
-            type: "Delete Car",
-            key: car.key,
-            make_model: car.make_model,
-            stockNum: car.stockNum,
-            newSpot: "N/A",
-            oldSpot: car.newSpot,
-            time: Date().toLocaleString()
-        };
-        edits.unshift(edit)
-        props.app.forceUpdate(); 
-    }
+    // const handleDelete = (car) => {
+    //     for(var i = 0; i < carList.length; i++){ 
+    //         if (carList[i].key === car.key) { 
+    //             carList.splice(i, 1); 
+    //         }
+    //     } 
+    //     let edit = {
+    //         type: "Delete Car",
+    //         key: car.key,
+    //         make_model: car.make_model,
+    //         stockNum: car.stockNum,
+    //         newSpot: "N/A",
+    //         oldSpot: car.newSpot,
+    //         time: Date().toLocaleString()
+    //     };
+    //     edits.unshift(edit)
+    //     props.app.forceUpdate(); 
+    // }
 
     
     
@@ -270,7 +240,7 @@ function Home(props){
         postNew(edit, carList.length)
         props.app.forceUpdate();
         setCarlist(carList)
-    };
+    }
 
     const editCar = (car, location) => {
         car.time = Date().toLocaleString()
@@ -281,35 +251,11 @@ function Home(props){
         postUpdate(car)
         props.app.forceUpdate()
         setCarlist(carList)
-        };
+    }
 
     return(
         <div className="App">
         {carList && <TableOfCars carList={carList} swalEditCar={swalEditCar}/>}
-        {/* <table>
-        <tr>
-            <th>Action</th>
-            <th>Make/Model</th>
-            <th>Vin</th>
-            <th>Stock Number</th>
-            <th>Location</th>
-            <th></th>
-        </tr>
-        {carList.map((car =>
-        
-        <tr key= {car.key}>
-            <td>
-            <Container formType={"editCar"} car={car} triggerText={"Edit Car"} onSubmit={editCar} />
-            </td>
-            <td>{car.make_model}</td>
-            <td>{car.key}</td>
-            <td>{car.stockNum}</td>
-            <td>{car.newSpot}</td>
-            <td><button class="listedButton">Show on Map</button></td>
-        </tr>
-        ))}
-
-        </table> */}
         <Button onClick={() => swalAddCar()}>Add Car</Button>
         </div>
     );
