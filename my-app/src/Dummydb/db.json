@@ -50,47 +50,6 @@
       "oldSpot": "a-5",
       "time": "Tue Jan 18 2022 15:01:06 GMT-0500 (Eastern Standard Time)",
       "type": "Move Car"
-    },
-    {
-      "type": "Move Car",
-      "key": "jdm748958375327",
-      "make_model": "Nissan",
-      "stockNum": "34",
-      "newSpot": "a-0",
-      "oldSpot": "a-6",
-      "time": "Tue Jan 25 2022 11:33:26 GMT-0500 (Eastern Standard Time)",
-      "id": 6,
-      "bttn": ""
-    },
-    {
-      "type": "New Car",
-      "key": "jdm485867483342",
-      "make_model": "Nissan",
-      "stockNum": "34",
-      "newSpot": "a-6",
-      "oldSpot": "N/A",
-      "time": "Tue Jan 25 2022 11:34:34 GMT-0500 (Eastern Standard Time)",
-      "id": 7
-    },
-    {
-      "type": "New Car",
-      "key": "456789fgb",
-      "make_model": "yhjk",
-      "stockNum": "ghjk",
-      "newSpot": "fghj",
-      "oldSpot": "N/A",
-      "time": "Tue Jan 25 2022 15:02:42 GMT-0500 (Eastern Standard Time)",
-      "id": 8
-    },
-    {
-      "type": "New Car",
-      "key": "fjirutegui",
-      "make_model": "vuhirt",
-      "stockNum": "vuhirt",
-      "newSpot": "vfgthgui",
-      "oldSpot": "N/A",
-      "time": "Tue Jan 25 2022 15:20:55 GMT-0500 (Eastern Standard Time)",
-      "id": 9
     }
   ]
 }

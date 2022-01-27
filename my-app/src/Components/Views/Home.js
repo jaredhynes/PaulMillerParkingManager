@@ -193,8 +193,8 @@ function Home(props){
             })
     }
 
-    const postNew = (car, newId) => {
-        car.id = newId
+    const postNew = (car) => {
+        car.id = carList.length + 1
         fetch('http://localhost:8000/cars/', {
             method: 'POST',
             headers: {
@@ -237,9 +237,8 @@ function Home(props){
         };
         carList.push(edit);
         edits.unshift(edit);
-        postNew(edit, carList.length)
+        postNew(edit)
         props.app.forceUpdate();
-        setCarList(carList)
     }
 
     const editCar = (car, location) => {
@@ -250,7 +249,6 @@ function Home(props){
         edits.unshift(car)
         postUpdate(car)
         props.app.forceUpdate()
-        setCarList(carList)
     }
 
     return(
