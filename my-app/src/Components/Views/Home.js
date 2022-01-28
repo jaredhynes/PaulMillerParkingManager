@@ -172,6 +172,25 @@ function Home(props){
       }})
     }
 
+    // function swalArchiveCar(car) {
+    //     Swal.fire({
+    //         title: 'Are you sure you would like to archive this car?',
+    //         text: "This will remove it from the parking lot but keep it stored in the database.",
+    //         icon: 'warning',
+    //         showCancelButton: true,
+    //         confirmButtonColor: '#3085d6',
+    //         cancelButtonColor: '#d33',
+    //         confirmButtonText: 'Yes, archive it!'
+    //             }).then((result) => {
+    //             if (result.isConfirmed) {
+    //                 Swal.fire(
+    //                 'Archive!',
+    //                 'The data has been successfully stored.',
+    //                 'success'
+    //                 )
+    //             }
+    //     })
+    // }
     useEffect(() => {
         fetch('http://localhost:8000/cars')
             .then(res => {
