@@ -10,7 +10,7 @@ const TableOfCars = (props) => {
         car.bttn = <DropdownButton id="dropdown-basic-button" title="Edit car">
         <Dropdown.Item onClick={() => props.swalEditCar(car)}>Change Location</Dropdown.Item>
         <Dropdown.Item onClick={() => swalArchiveCar(car)}>Archive Car</Dropdown.Item>
-        <Dropdown.Item >Delete Car</Dropdown.Item>
+        <Dropdown.Item onClick={() => swalDeleteCar(car)}>Delete Car</Dropdown.Item>
       </DropdownButton>
       })
       const [datatable, setDatatable] = React.useState({
@@ -48,26 +48,46 @@ const TableOfCars = (props) => {
           rows: props.carList
       });
 
-      function swalArchiveCar(car) {
-        Swal.fire({
-            title: 'Are you sure you would like to archive this car?',
-            text: "This will remove it from the parking lot but keep it stored in the database.",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, archive it!'
-                }).then((result) => {
-                if (result.isConfirmed) {
-                    Swal.fire(
-                    'Archive!',
-                    'The data has been successfully stored.',
-                    'success'
-                    )
-                }
-        })
-    }
+    function swalArchiveCar(car) {
+    Swal.fire({
+        title: 'Are you sure you would like to archive this car?',
+        text: "This will remove it from the parking lot but keep it stored in the database.",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, archive it!'
+            }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire(
+                'Archived!',
+                'The data has been successfully stored.',
+                'success'
+                )
+            }
+    })
+}
 
+function swalDeleteCar(car) {
+    Swal.fire({
+        title: 'Are you sure you would like to delete this car?',
+        text: "This will remove it from the parking lot and delete all stored data.",
+        icon: 'warning',
+        footer: 'This change is permanent.',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire(
+                'Deleted!',
+                'The car and data have been successfully deleted.',
+                'success'
+                )
+            }
+    })
+}
   function reloadtable(){
     this.forceUpdate();
   }
