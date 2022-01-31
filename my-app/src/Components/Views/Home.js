@@ -213,7 +213,6 @@ function Home(props){
     }
 
     const postNew = (car) => {
-        car.id = carList.length + 1
         fetch('http://localhost:8000/cars/', {
             method: 'POST',
             headers: {
@@ -243,9 +242,15 @@ function Home(props){
     // }
     
     const addCar = (car) => {
-        let edit = car
-        edit.type = "New Car"
+        let edit = {}
+        edit.id = String((carList.length + 1))
+        edit.key = car.value.vin
+        edit.make_model = car.value.make_model
+        edit.stockNum = car.value.stockNum
+        edit.newSpot = car.value.location
+        edit.oldSpot = "N/A"
         edit.time = Date().toLocaleString()
+        edit.type = "New Car"
         carList.push(edit)
         edits.unshift(edit)
         postNew(edit)
