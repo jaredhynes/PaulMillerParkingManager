@@ -4,8 +4,15 @@ import DropdownButton from 'react-bootstrap/DropdownButton';
 import Dropdown from 'react-bootstrap/Dropdown';
 import Swal from 'sweetalert2'
 import '../../Styles/sweetalert.css'
+import { useNavigate } from 'react-router-dom'
+
+function Redirect() {
+  // const navigate = useNavigate();
+  // navigate('/map')
+  }
 
 const TableOfCars = (props) => {
+  
     props.carList.map(car => {
         car.bttn = <DropdownButton id="dropdown-basic-button" title="Edit car">
         <Dropdown.Item onClick={() => props.swalEditCar(car)}>Change Location</Dropdown.Item>
@@ -13,17 +20,21 @@ const TableOfCars = (props) => {
         <Dropdown.Item onClick={() => swalDeleteCar(car)}>Delete Car</Dropdown.Item>
       </DropdownButton>
       })
+
+    props.carList.map(car => {
+      car.bttn2 = <button onClick={Redirect}>Show on map</button>
+    }) 
       const [datatable, setDatatable] = React.useState({
         columns: [
           {
             label: 'Action',
             field: 'bttn',
-            width: 270,
+            width: 280,
           },
           {
             label: 'VIN',
             field: 'key',
-            width: 150,
+            width: 160,
             attributes: {
               'aria-controls': 'DataTable',
               'aria-label': 'VIN',
@@ -32,17 +43,22 @@ const TableOfCars = (props) => {
           {
             label: 'Make Model',
             field: 'make_model',
-            width: 270,
+            width: 280,
           },
           {
             label: 'Stock Number',
             field: 'stockNum',
-            width: 200,
+            width: 210,
           },
           {
             label: 'Location',
             field: 'newSpot',
-            width: 100,
+            width: 110,
+          },
+          {
+            label: 'Map',
+            field: 'bttn2',
+            width: 20
           }
         ],
           rows: props.carList
