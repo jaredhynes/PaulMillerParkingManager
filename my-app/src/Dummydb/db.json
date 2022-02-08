@@ -52,6 +52,16 @@
       "oldSpot": "a-5",
       "time": "Tue Jan 18 2022 15:01:06 GMT-0500 (Eastern Standard Time)",
       "type": "Move Car"
+    },
+    {
+      "id": "6",
+      "key": "q",
+      "make_model": "67",
+      "stockNum": "68",
+      "newSpot": "b-5",
+      "oldSpot": "N/A",
+      "time": "Tue Feb 08 2022 15:18:15 GMT-0500 (Eastern Standard Time)",
+      "type": "New Car"
     }
   ]
 }

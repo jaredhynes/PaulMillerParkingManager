@@ -16,10 +16,10 @@ const TableOfCars = (props) => {
   
     props.carList.map(car => {
         car.bttn = <DropdownButton id="dropdown-basic-button" title="Options">
-        <Dropdown.Item onClick={() => props.swalEditCar(car)}>Change Location</Dropdown.Item>
+        <Dropdown.Item onClick={() => swalEditCar(car)}>Change Location</Dropdown.Item>
         <Dropdown.Item onClick={() => swalArchiveCar(car)}>Archive Car</Dropdown.Item>
         <Dropdown.Item onClick={() => swalDeleteCar(car)}>Delete Car</Dropdown.Item>
-        <Dropdown.Item><Link to="/map">Show on map</Link></Dropdown.Item>
+        <Dropdown.Item onClick={() => highlightCar(car)}><Link to='/map'>Show on map</Link></Dropdown.Item>
       </DropdownButton>
       })
       const [datatable, setDatatable] = React.useState({
@@ -57,7 +57,52 @@ const TableOfCars = (props) => {
           rows: props.carList
       });
 
-    function swalArchiveCar(car) {
+function swalEditCar(car){
+  Swal.fire({
+      title: 'Edit Car Location',
+      html: `<input type="text" id="newSpot" class="swal2-input" placeholder=${car.newSpot}>`,
+      confirmButtonText: 'Edit Car',
+      showCancelButton: true,
+      focusConfirm: false, 
+      preConfirm: () => {
+        const newSpot = Swal.getPopup().querySelector('#newSpot').value
+
+        if(!newSpot){
+            Swal.showValidationMessage(`Please enter a location`)
+        }
+        return {car: car, newSpot: newSpot}
+    }
+  }).then((result) => {
+    if(result.isConfirmed){
+    Swal.fire({
+      icon: 'question',
+      title: "Is this Information Correct?",
+      html: `<p> Old Location: ${car.newSpot} </p>
+        <p>New Location: ${result.value.newSpot} </p>`,
+      showDenyButton: true,
+      confirmButtonText: "Yes",
+      denyButtonText: "No",
+      preConfirm: () => {
+          return{car: car, newSpot: result.value.newSpot}
+        },
+      preDeny: () =>{
+          return{car: car, newSpot: result.value.newSpot}
+      }
+        }).then((result) => {
+            if (result.isConfirmed){
+                Swal.fire({
+                    icon: "success",
+                    title: "Saved",
+                    html: `<p> Old Location: ${car.newSpot} </p>
+                    <p>New Location: ${result.value.newSpot} </p>`, 
+                })
+                props.editCar(car, result.value.newSpot)
+            }
+        })
+    }})
+  }
+
+function swalArchiveCar(car) {
     Swal.fire({
         title: 'Are you sure you would like to archive this car?',
         text: "This will remove it from the parking lot but keep it stored in the database.",
@@ -97,14 +142,24 @@ function swalDeleteCar(car) {
             }
     })
 }
-  function reloadtable(){
-    this.forceUpdate();
-  }
+
+function highlightCar(car) {
+    props.carList.map(car => {
+      car.highlighted = false
+    })
+    car.highlighted = true
+}
+
+function useForceUpdate(){
+  // eslint-disable-next-line
+  const [value, setValue] = useState(0); // integer state
+  return () => setValue(value => value + 1); // update the state to force render
+}
     
-    return (
-      <div>
-      <MDBDataTable entriesOptions={[5, 20, 25]} entries={5} pagesAmount={4} data={datatable} order={['newSpot', 'asc']}/>
-      </div>
-    )
+  return (
+    <div>
+    <MDBDataTable entriesOptions={[5, 20, 25]} entries={5} pagesAmount={4} data={datatable} order={['newSpot', 'asc']}/>
+    </div>
+  )
 }
 export default TableOfCars

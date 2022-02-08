@@ -45,9 +45,9 @@ function Home(props){
         confirmButtonText: "Yes",
         denyButtonText: "No",
         preConfirm: () => {
-            return{vin: result.value.vin, make_model: result.value.stockNum, stockNum: result.value.stockNum, location: result.value.location}},
+            return{vin: result.value.vin, make_model: result.value.make_model, stockNum: result.value.stockNum, location: result.value.location}},
         preDeny: () =>{
-            return{vin: result.value.vin, make_model: result.value.stockNum, stockNum: result.value.stockNum, location: result.value.location}
+            return{vin: result.value.vin, make_model: result.value.make_model, stockNum: result.value.stockNum, location: result.value.location}
         }
     }).then((result) => {
         if (result.isConfirmed){
@@ -126,51 +126,6 @@ function Home(props){
     }})
     }
 
-    function swalEditCar(car){
-    Swal.fire({
-        title: 'Edit Car Location',
-        html: `<input type="text" id="newSpot" class="swal2-input" placeholder=${car.newSpot}>`,
-        confirmButtonText: 'Edit Car',
-        showCancelButton: true,
-        focusConfirm: false, 
-        preConfirm: () => {
-          const newSpot = Swal.getPopup().querySelector('#newSpot').value
-
-          if(!newSpot){
-              Swal.showValidationMessage(`Please enter a location`)
-          }
-          return {car: car, newSpot: newSpot}
-      }
-    }).then((result) => {
-      if(result.isConfirmed){
-      Swal.fire({
-        icon: 'question',
-        title: "Is this Information Correct?",
-        html: `<p> Old Location: ${car.newSpot} </p>
-          <p>New Location: ${result.value.newSpot} </p>`,
-        showDenyButton: true,
-        confirmButtonText: "Yes",
-        denyButtonText: "No",
-        preConfirm: () => {
-            return{car: car, newSpot: result.value.newSpot}
-          },
-        preDeny: () =>{
-            return{car: car, newSpot: result.value.newSpot}
-        }
-          }).then((result) => {
-              if (result.isConfirmed){
-                  Swal.fire({
-                      icon: "success",
-                      title: "Saved",
-                      html: `<p> Old Location: ${car.newSpot} </p>
-                      <p>New Location: ${result.value.newSpot} </p>`, 
-                  })
-                  editCar(car, result.value.newSpot)
-              }
-          })
-      }})
-    }
-
     // function swalArchiveCar(car) {
     //     Swal.fire({
     //         title: 'Are you sure you would like to archive this car?',
@@ -203,7 +158,6 @@ function Home(props){
 
     const postUpdate = (car) => {
         car.bttn = ''
-        car.bttn2 = ''
         fetch('http://localhost:8000/cars/' + car.id, {
             method: 'PUT',
             headers: {
@@ -270,7 +224,7 @@ function Home(props){
 
     return(
         <div className="App">
-        <TableOfCars carList={carList} swalEditCar={swalEditCar}/>
+        <TableOfCars carList={carList} editCar={editCar}/>
         <Button onClick={() => swalAddCar()}>Add Car</Button>
         </div>
     );
