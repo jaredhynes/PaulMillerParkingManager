@@ -45,9 +45,6 @@ const Navbar = () => {
       </div>
     </nav>
     <div>
-      {/* function NavigateHome() {
-
-      } */}
     </div>
     {<DropdownButton id="mobile-nav" class="sidenav" title="Menu">
    <Dropdown.Item> <Link to="/">Home </Link></Dropdown.Item>
