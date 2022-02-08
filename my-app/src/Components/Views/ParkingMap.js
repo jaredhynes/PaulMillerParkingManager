@@ -8,7 +8,7 @@ import { Container, Row, Col } from 'react-grid-system';
 function ParkingMap(props) {
   let carList = props.carList
 
-  let cars2d = [...Array(6)].map(e => [...Array(6)].map(a => null));
+  let cars2d = [...Array(6)].map(() => Array(6).fill(null));
 
   carList.map(car => {
     let location = car.newSpot
