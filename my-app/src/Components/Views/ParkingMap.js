@@ -22,7 +22,6 @@ function ParkingMap(props) {
       }
   }
   make2dList()
-  console.log(carsTwoWay)
 
   return (
     <div>

@@ -1,4 +1,4 @@
-import {React, useEffect, useState} from 'react';
+import {React} from 'react';
 import '../../App.css';
 import Swal from 'sweetalert2'
 import '../../Styles/sweetalert.css'
@@ -6,7 +6,6 @@ import Button from 'react-bootstrap/Button'
 import TableOfCars from './TableOfCars';
 
 function Home(props){
-    //const [carList, setCarList] = useState(null);
     let carList = props.carList
     let edits = props.edits;
 
@@ -204,6 +203,7 @@ function Home(props){
 
     const postUpdate = (car) => {
         car.bttn = ''
+        car.bttn2 = ''
         fetch('http://localhost:8000/cars/' + car.id, {
             method: 'PUT',
             headers: {
