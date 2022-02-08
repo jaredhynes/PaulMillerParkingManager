@@ -13,9 +13,11 @@ const ShowOnHover = (props) => {
                     setStyle({display: 'none'})
                 }}
             >
-                <p1 style={style}>VIN: {props.car.key}</p1>
-                <p1 style={style}>Make/Model: {props.car.make_model}</p1>
-                <p1 style={style}>Stock Number: {props.car.stockNum}</p1>
+                {props.car &&
+                <p style={style}>VIN: {props.car.key}
+                <br></br>Make/Model: {props.car.make_model}
+                <br></br>Stock Number: {props.car.stockNum}
+                <br></br>Location: {props.car.newSpot}</p>}
             </div>
         </div>
     );
