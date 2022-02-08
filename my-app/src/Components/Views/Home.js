@@ -1,5 +1,4 @@
-import React from 'react';
-import {useEffect, useState} from 'react';
+import {React, useEffect, useState} from 'react';
 import '../../App.css';
 import Swal from 'sweetalert2'
 import '../../Styles/sweetalert.css'
@@ -191,6 +190,7 @@ function Home(props){
     //             }
     //     })
     // }
+
     useEffect(() => {
         fetch('http://localhost:8000/cars')
             .then(res => {

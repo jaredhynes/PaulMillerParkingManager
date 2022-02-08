@@ -37,7 +37,6 @@ const TableOfEdits = (props) => {
         ],
           rows: props.edits
       });
-      console.log(props.edits)
         
       return (
         <div>
