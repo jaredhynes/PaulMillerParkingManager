@@ -5,6 +5,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import Swal from 'sweetalert2'
 import '../../Styles/sweetalert.css'
 import { useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 
 function Redirect() {
   // const navigate = useNavigate();
@@ -22,7 +23,7 @@ const TableOfCars = (props) => {
       })
 
     props.carList.map(car => {
-      car.bttn2 = <button onClick={Redirect}>Show on map</button>
+      car.bttn2 = <button onClick={Redirect}><Link to="/map">Show on map</Link></button>
     }) 
       const [datatable, setDatatable] = React.useState({
         columns: [
