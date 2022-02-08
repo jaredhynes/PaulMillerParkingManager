@@ -5,7 +5,7 @@ const ShowOnHover = (props) => {
 
     return (
         <div>
-            <div style={{border: '1px solid gray', width: 175, height: 175, padding: 10, margin: 10}}
+            <div style={{border: '1px solid gray', width: 125, height: 125, padding: 10, margin: 10}}
                 onMouseEnter={e => {
                     setStyle({display: 'block'});
                 }}
