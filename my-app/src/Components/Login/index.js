@@ -1,11 +1,31 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom'
 import '../../App.css'; 
 import 'materialize-css/dist/css/materialize.min.css';
+import {Auth0Provider} from '@auth0/auth0-react';
+import {
+    BrowserRouter as Router,
+    Routes,
+    Route
+} from 'react-router-dom';
+
+// ReactDOM.render(
+//     <React.StrictMode>
+//         <Auth0Provider
+//             domain = "dev-qlpc0vzz.us.auth0.com"
+//             clientId="H71lRyOjbsbLD5Qr2pdQSzGbodsRi930"
+//             redirectUri={window.location.origin}
+//         >
+//             <App />
+//         </Auth0Provider>
+//     </React.StrictMode>
+// )
 
 class Login extends Component{
     render() {
         const checkLogin = (event) => {
             alert("Logged in as " + event.target.username.value);
+            
         }
 
         return(
@@ -28,4 +48,5 @@ class Login extends Component{
         );
     }
 }
+
 export default Login
