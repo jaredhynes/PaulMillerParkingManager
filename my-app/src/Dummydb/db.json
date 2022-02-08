@@ -17,9 +17,10 @@
       "make_model": "Nissan",
       "stockNum": "34",
       "newSpot": "a-1",
-      "oldSpot": "a-2",
-      "time": "Tue Jan 18 2022 15:00:52 GMT-0500 (Eastern Standard Time)",
-      "type": "Move Car"
+      "oldSpot": "a-0",
+      "time": "Mon Feb 07 2022 22:08:38 GMT-0500 (Eastern Standard Time)",
+      "type": "Move Car",
+      "bttn": ""
     },
     {
       "id": "3",

@@ -6,7 +6,8 @@ import Button from 'react-bootstrap/Button'
 import TableOfCars from './TableOfCars';
 
 function Home(props){
-    const [carList, setCarList] = useState(null);
+    //const [carList, setCarList] = useState(null);
+    let carList = props.carList
     let edits = props.edits;
 
     function recursiveAddCar(vin, make_model, stockNum, location){
@@ -191,15 +192,15 @@ function Home(props){
     //     })
     // }
 
-    useEffect(() => {
-        fetch('http://localhost:8000/cars')
-            .then(res => {
-            return res.json();
-            })
-            .then(data => {
-            setCarList(data);
-            })
-    }, [])
+    // useEffect(() => {
+    //     fetch('http://localhost:8000/cars')
+    //         .then(res => {
+    //         return res.json();
+    //         })
+    //         .then(data => {
+    //         setCarList(data);
+    //         })
+    // }, [])
 
     const postUpdate = (car) => {
         car.bttn = ''
@@ -238,7 +239,6 @@ function Home(props){
     //         time: Date().toLocaleString()
     //     };
     //     edits.unshift(edit)
-    //     props.app.forceUpdate(); 
     // }
     
     const addCar = (car) => {
@@ -254,7 +254,7 @@ function Home(props){
         carList.push(edit)
         edits.unshift(edit)
         postNew(edit)
-        props.app.forceUpdate();
+        props.update()
     }
 
     const editCar = (car, location) => {
@@ -265,12 +265,12 @@ function Home(props){
         edit.type = 'Move Car'
         edits.unshift(edit)
         postUpdate(edit)
-        props.app.forceUpdate()
+        props.update()
     }
 
     return(
         <div className="App">
-        {carList && <TableOfCars carList={carList} swalEditCar={swalEditCar}/>}
+        <TableOfCars carList={carList} swalEditCar={swalEditCar}/>
         <Button onClick={() => swalAddCar()}>Add Car</Button>
         </div>
     );

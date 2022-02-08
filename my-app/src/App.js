@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import {React, useEffect, useState} from 'react';
 import './App.css';
 import Navbar from "./Components/Navbar/Navbar"
 import Home from "./Components/Views/Home.js"
@@ -11,34 +11,49 @@ import {
     Routes,
     Route
 } from 'react-router-dom';
+import Button from 'react-bootstrap/esm/Button';
 
-class App extends Component{
-
-  render() {
-    let carList = []
+const App = () => {
     let edits = []
+    
+    const [carList, setCarList] = useState(null);
+
+    useEffect(() => {
+        fetch('http://localhost:8000/cars')
+            .then(res => {
+            return res.json();
+            })
+            .then(data => {
+            setCarList(data);
+            })
+    }, [])
+
+    function useForceUpdate(){
+      const [value, setValue] = useState(0); // integer state
+      return () => setValue(value => value + 1); // update the state to force render
+    }
+    
+    let update = useForceUpdate()
 
     return(
-
       <Router>
       <div>
       <Navbar edits={edits} app={this}/>
 
-      <Routes>
-        <Route path="/" element={<Home carList={carList} edits={edits} app={this}/>}>
+      {carList && <Routes>
+        <Route path="/" element={<Home carList={carList} edits={edits} update={update}/>}>
         </Route>
-        <Route path="/map" element={<ParkingMap carList={carList} edits={edits} app={this}/>}>
+        <Route path="/map" element={<ParkingMap carList={carList} edits={edits} update={update}/>}>
         </Route>
-        <Route path="/history" element={<Edits carList={carList} edits={edits} app={this}/>}>
+        <Route path="/history" element={<Edits carList={carList} edits={edits} update={update}/>}>
         </Route>
-        <Route path="/login" element={<Login carList={carList} edits={edits} app={this}/>}>
+        <Route path="/login" element={<Login carList={carList} edits={edits} update={update}/>}>
         </Route>
-      </Routes>
+      </Routes>}
   
       </div>
       </Router>
     );
-  }
 }
 
 export default App;
