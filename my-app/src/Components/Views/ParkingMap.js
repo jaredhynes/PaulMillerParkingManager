@@ -8,25 +8,19 @@ import { Container, Row, Col } from 'react-grid-system';
 function ParkingMap(props) {
   let carList = props.carList
 
-  let carsTwoWay = []
+  let cars2d = [...Array(6)].map(e => [...Array(6)].map(a => null));
 
-  function make2dList(){
-      let COL_SIZE = 3
-      let ROW_SIZE = 5
-      for (let y = 0; y < COL_SIZE; y++){
-        let temp_arr = []
-        for (let x = 0; x < ROW_SIZE ; x++){
-          temp_arr.push(carList[x + y * ROW_SIZE])
-        }
-        carsTwoWay.push(temp_arr)
-      }
-  }
-  make2dList()
-
+  carList.map(car => {
+    let location = car.newSpot
+    let xSpot = location.charCodeAt(0) - 97
+    let ySpot = location.charCodeAt(2) - 49
+    cars2d[xSpot][ySpot] = car
+  })
+  
   return (
     <div>
     <Container> 
-      {carsTwoWay.map((row) => (
+      {cars2d.map((row) => (
         <Row>
         {row.map((car) => (
           <Col>
