@@ -11,8 +11,8 @@ function ParkingMap(props) {
   let carsTwoWay = []
 
   function make2dList(){
-      let COL_SIZE = 1
-      let ROW_SIZE = carList.length / COL_SIZE
+      let COL_SIZE = 3
+      let ROW_SIZE = 5
       for (let y = 0; y < COL_SIZE; y++){
         let temp_arr = []
         for (let x = 0; x < ROW_SIZE ; x++){
@@ -22,6 +22,7 @@ function ParkingMap(props) {
       }
   }
   make2dList()
+  console.log(carsTwoWay)
 
   return (
     <div>
