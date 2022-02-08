@@ -1,14 +1,27 @@
 import React from 'react';import '../../Styles/NavBar.css'
 import 'materialize-css/dist/css/materialize.min.css';
 import { Link } from 'react-router-dom';
- 
+import DropdownButton from 'react-bootstrap/DropdownButton';
+import Dropdown from 'react-bootstrap/Dropdown';
+import '../../Styles/sweetalert.css'
+import { useHistory } from 'react-router-dom'
+
+// function NavigateHome() {
+//   let history = useHistory();
+  
+//   const redirect = () => {
+//     history.push('/')
+//   }
+
+// }
+
 const Navbar = () => {
    return(
     <header>
     <nav>
       <div class="nav-wrapper">
         <a href="/" class="brand-logo">Paul Miller INC.</a>
-        <a href="/" data-target="mobile-nav" class="sidenav-trigger">Mobile Menu</a>
+        {/* <a href="/" data-target="mobile-nav" class="sidenav-trigger">Mobile Menu</a> */}
         <ul id="desktop-nav" class="right hide-on-med-and-down">
             <div>
               <nav>
@@ -31,15 +44,28 @@ const Navbar = () => {
         </ul>
       </div>
     </nav>
-    <ul id="mobile-nav" class="sidenav">
-      <li>Home</li>
-      <li>Map</li>
-      <li>Move Car???</li>
-      <li>Show Edit History (Administrative mode only)</li>
-      <li class="btn">Log Out</li>
-    </ul>
+    <div>
+      {/* function NavigateHome() {
+
+      } */}
+    </div>
+    {/* <DropdownButton id="mobile-nav" class="sidenav" title="Menu">
+   <Dropdown.Item onClick={NavigateHome()}>Home</Dropdown.Item>
+   <Dropdown.Item onClick={NavigateMap()}>Map</Dropdown.Item>
+   <Dropdown.Item onClick={NavigateHistory()}>Edit History</Dropdown.Item>
+   <Dropdown.Item onClick={NavigateLogin()}>Log-in/Out</Dropdown.Item>
+
+    </DropdownButton> */}
   </header>
    )
 }
+
+// props.carList.map(car => {
+//   car.bttn = <DropdownButton id="dropdown-basic-button" title="Edit car">
+//   <Dropdown.Item onClick={() => props.swalEditCar(car)}>Change Location</Dropdown.Item>
+//   <Dropdown.Item onClick={() => swalArchiveCar(car)}>Archive Car</Dropdown.Item>
+//   <Dropdown.Item onClick={() => swalDeleteCar(car)}>Delete Car</Dropdown.Item>
+// </DropdownButton>
+// })
  
 export default Navbar;
