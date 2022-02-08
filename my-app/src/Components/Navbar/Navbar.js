@@ -6,12 +6,12 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import '../../Styles/sweetalert.css'
 import { useHistory } from 'react-router-dom'
 
-// function NavigateHome() {
+function NavigateHome() {
 //   let history = useHistory();
   
 //   const redirect = () => {
 //     history.push('/')
-//   }
+   }
 
 // }
 
@@ -49,13 +49,13 @@ const Navbar = () => {
 
       } */}
     </div>
-    {/* <DropdownButton id="mobile-nav" class="sidenav" title="Menu">
-   <Dropdown.Item onClick={NavigateHome()}>Home</Dropdown.Item>
-   <Dropdown.Item onClick={NavigateMap()}>Map</Dropdown.Item>
-   <Dropdown.Item onClick={NavigateHistory()}>Edit History</Dropdown.Item>
-   <Dropdown.Item onClick={NavigateLogin()}>Log-in/Out</Dropdown.Item>
+    {<DropdownButton id="mobile-nav" class="sidenav" title="Menu">
+   <Dropdown.Item> <Link to="/">Home </Link></Dropdown.Item>
+   <Dropdown.Item> <Link to="/map">Map</Link></Dropdown.Item>
+   <Dropdown.Item><Link to="/history">Edit History</Link></Dropdown.Item>
+   <Dropdown.Item><Link to ="login">Log-in/Out</Link></Dropdown.Item>
 
-    </DropdownButton> */}
+    </DropdownButton> }
   </header>
    )
 }
