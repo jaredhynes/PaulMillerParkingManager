@@ -29,7 +29,7 @@ const TableOfCars = (props) => {
           {
             label: 'Action',
             field: 'bttn',
-            width: 280,
+            width: 400,
           },
           {
             label: 'VIN',
