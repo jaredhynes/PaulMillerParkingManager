@@ -9,14 +9,14 @@ function Home(props){
     let carList = props.carList
     let edits = props.edits;
 
-    function recursiveAddCar(vin, make_model, stockNum, location){
+    function swalAddCar(vin="", make_model="", stockNum="", location=""){
       Swal.fire({
           title: 'Edit Previous Information',
           // want to have the information there in the edit, not just random values. using ${result.value.vin} does not work!
-          html: `<input type="text" id="vin" class="swal2-input" value=${vin}>
-          <input type="text" id="make_model" class="swal2-input" value=${make_model}>
-          <input type="text" id="stockNum" class="swal2-input" value=${stockNum}>
-          <input type="text" id="location" class="swal2-input" value=${location}>`,
+          html: `<input type="text" id="vin" class="swal2-input" placeholder="VIN" value=${vin}>
+          <input type="text" id="make_model" class="swal2-input" placeholder="Make/Model" value=${make_model}>
+          <input type="text" id="stockNum" class="swal2-input" placeholder="Stock Number" value=${stockNum}>
+          <input type="text" id="location" class="swal2-input" placeholder="Location" value=${location}>`,
           confirmButtonText: 'Add Car',
           showCancelButton:true,
           focusConfirm: false,
@@ -62,99 +62,11 @@ function Home(props){
             addCar(result);
         }
         else if(result.isDenied){
-          recursiveAddCar(result.value.vin, result.value.make_model, result.value.stockNum, result.value.location);
+          swalAddCar(result.value.vin, result.value.make_model, result.value.stockNum, result.value.location);
         }
     })
   }})
     }
-
-    function swalAddCar(){
-      Swal.fire({
-          title: 'Add New Car',
-          html: `<input type="text" id="vin" class="swal2-input" placeholder="Vin">
-          <input type="text" id="make_model" class="swal2-input" placeholder="Make/Model">
-          <input type="text" id="stockNum" class="swal2-input" placeholder="Stock Number">
-          <input type="text" id="location" class="swal2-input" placeholder="Location">`,
-          confirmButtonText: 'Add Car',
-          showCancelButton:true,
-          focusConfirm: false,
-          preConfirm: () => {
-              const vin = Swal.getPopup().querySelector('#vin').value
-              const make_model = Swal.getPopup().querySelector('#make_model').value
-              const stockNum = Swal.getPopup().querySelector('#stockNum').value
-              const location = Swal.getPopup().querySelector('#location').value
-
-              if(!vin || !make_model || !stockNum || !location){
-                  Swal.showValidationMessage(`Please enter all information`)
-              }
-              return {vin: vin, make_model: make_model, stockNum: stockNum, location: location}
-          }
-      }).then((result) => {
-          if(result.isConfirmed){
-          Swal.fire({
-            icon: 'question',
-            title: "Is this Information Correct?",
-            html: `<p> Vin Number: ${result.value.vin} </p>
-            <p>Make/Model: ${result.value.make_model} </p>
-            <p>Stock Number: ${result.value.stockNum} </p>
-            <p>Location: ${result.value.location} </p>`,
-            showDenyButton: true,
-            confirmButtonText: "Yes",
-            denyButtonText: "No",
-            preConfirm: () => {
-                return{vin: result.value.vin, make_model: result.value.make_model, stockNum: result.value.stockNum, location: result.value.location}},
-            preDeny: () =>{
-                return{vin: result.value.vin, make_model: result.value.make_model, stockNum: result.value.stockNum, location: result.value.location}
-            }
-
-        }).then((result) => {
-            if (result.isConfirmed){
-                Swal.fire({
-                    icon: "success",
-                    title: "Saved",
-                    html: `<p> Vin Number: ${result.value.vin} </p>
-              <p>Make/Model: ${result.value.make_model} </p>
-              <p>Stock Number: ${result.value.stockNum} </p>
-              <p>Location: ${result.value.location} </p>`, 
-                })
-                addCar(result)
-            }
-            else if(result.isDenied){
-              recursiveAddCar(result.value.vin, result.value.make_model, result.value.stockNum, result.value.location);
-            }
-        })
-    }})
-    }
-
-    // function swalArchiveCar(car) {
-    //     Swal.fire({
-    //         title: 'Are you sure you would like to archive this car?',
-    //         text: "This will remove it from the parking lot but keep it stored in the database.",
-    //         icon: 'warning',
-    //         showCancelButton: true,
-    //         confirmButtonColor: '#3085d6',
-    //         cancelButtonColor: '#d33',
-    //         confirmButtonText: 'Yes, archive it!'
-    //             }).then((result) => {
-    //             if (result.isConfirmed) {
-    //                 Swal.fire(
-    //                 'Archive!',
-    //                 'The data has been successfully stored.',
-    //                 'success'
-    //                 )
-    //             }
-    //     })
-    // }
-
-    // useEffect(() => {
-    //     fetch('http://localhost:8000/cars')
-    //         .then(res => {
-    //         return res.json();
-    //         })
-    //         .then(data => {
-    //         setCarList(data);
-    //         })
-    // }, [])
 
     const postUpdate = (car) => {
         car.bttn = ''

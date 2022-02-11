@@ -4,15 +4,9 @@ import DropdownButton from 'react-bootstrap/DropdownButton';
 import Dropdown from 'react-bootstrap/Dropdown';
 import Swal from 'sweetalert2'
 import '../../Styles/sweetalert.css'
-import { useNavigate } from 'react-router-dom'
 import { Link } from 'react-router-dom';
 
-function Redirect() {
-  // const navigate = useNavigate();
-  // navigate('/map')
-  }
-
-const TableOfCars = (props) => {
+function TableOfCars(props){
   
     props.carList.map(car => {
         car.bttn = <DropdownButton id="dropdown-basic-button" title="Options">
@@ -57,10 +51,10 @@ const TableOfCars = (props) => {
           rows: props.carList
       });
 
-function swalEditCar(car){
+function swalEditCar(car, spot=""){
   Swal.fire({
       title: 'Edit Car Location',
-      html: `<input type="text" id="newSpot" class="swal2-input" placeholder=${car.newSpot}>`,
+      html: `<input type="text" id="newSpot" class="swal2-input" placeholder=${car.newSpot} value=${spot}>`,
       confirmButtonText: 'Edit Car',
       showCancelButton: true,
       focusConfirm: false, 
@@ -97,6 +91,9 @@ function swalEditCar(car){
                     <p>New Location: ${result.value.newSpot} </p>`, 
                 })
                 props.editCar(car, result.value.newSpot)
+            }
+            else if(result.isDenied){
+              swalEditCar(car, result.value.newSpot);
             }
         })
     }})
