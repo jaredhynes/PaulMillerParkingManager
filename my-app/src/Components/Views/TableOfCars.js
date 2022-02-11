@@ -1,10 +1,10 @@
 import React from 'react';
-import { MDBDataTable } from 'mdbreact';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import Dropdown from 'react-bootstrap/Dropdown';
 import Swal from 'sweetalert2'
 import '../../Styles/sweetalert.css'
 import { Link } from 'react-router-dom';
+import { MDBDataTable } from 'mdbreact';
 
 function TableOfCars(props){
   
@@ -16,40 +16,40 @@ function TableOfCars(props){
         <Dropdown.Item onClick={() => highlightCar(car)}><Link to='/map'>Show on map</Link></Dropdown.Item>
       </DropdownButton>
       })
-      const [datatable, setDatatable] = React.useState({
-        columns: [
-          {
-            label: 'Action',
-            field: 'bttn',
-            width: 400,
+    let datatable = {
+      columns: [
+        {
+          label: 'Action',
+          field: 'bttn',
+          width: 400,
+        },
+        {
+          label: 'VIN',
+          field: 'key',
+          width: 160,
+          attributes: {
+            'aria-controls': 'DataTable',
+            'aria-label': 'VIN',
           },
-          {
-            label: 'VIN',
-            field: 'key',
-            width: 160,
-            attributes: {
-              'aria-controls': 'DataTable',
-              'aria-label': 'VIN',
-            },
-          },
-          {
-            label: 'Make Model',
-            field: 'make_model',
-            width: 280,
-          },
-          {
-            label: 'Stock Number',
-            field: 'stockNum',
-            width: 210,
-          },
-          {
-            label: 'Location',
-            field: 'newSpot',
-            width: 110,
-          }
-        ],
-          rows: props.carList
-      });
+        },
+        {
+          label: 'Make Model',
+          field: 'make_model',
+          width: 280,
+        },
+        {
+          label: 'Stock Number',
+          field: 'stockNum',
+          width: 210,
+        },
+        {
+          label: 'Location',
+          field: 'newSpot',
+          width: 110,
+        }
+      ],
+        rows: props.carList
+    }
 
 function swalEditCar(car, spot=""){
   Swal.fire({
@@ -136,6 +136,7 @@ function swalDeleteCar(car) {
                 'The car and data have been successfully deleted.',
                 'success'
                 )
+                props.deleteCar(car)
             }
     })
 }
@@ -145,12 +146,6 @@ function highlightCar(car) {
       car.highlighted = false
     })
     car.highlighted = true
-}
-
-function useForceUpdate(){
-  // eslint-disable-next-line
-  const [value, setValue] = useState(0); // integer state
-  return () => setValue(value => value + 1); // update the state to force render
 }
     
   return (

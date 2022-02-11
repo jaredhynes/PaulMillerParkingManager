@@ -4,7 +4,7 @@ import '../../App.css';
 import { MDBDataTable } from 'mdbreact';
 
 const TableOfEdits = (props) => {
-    const [datatable, setDatatable] = React.useState({
+    let datatable = {
         columns: [
           {
             label: 'Edit type',
@@ -36,7 +36,7 @@ const TableOfEdits = (props) => {
           }
         ],
           rows: props.edits
-      });
+      }
         
       return (
         <div>

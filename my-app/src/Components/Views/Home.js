@@ -89,23 +89,34 @@ function Home(props){
             })
     }
 
-    // const handleDelete = (car) => {
-    //     for(var i = 0; i < carList.length; i++){ 
-    //         if (carList[i].key === car.key) { 
-    //             carList.splice(i, 1); 
-    //         }
-    //     } 
-    //     let edit = {
-    //         type: "Delete Car",
-    //         key: car.key,
-    //         make_model: car.make_model,
-    //         stockNum: car.stockNum,
-    //         newSpot: "N/A",
-    //         oldSpot: car.newSpot,
-    //         time: Date().toLocaleString()
-    //     };
-    //     edits.unshift(edit)
-    // }
+    const postDelete = (car) => {
+        fetch('http://localhost:8000/cars/' + car.id, {
+            method: 'DELETE',
+            headers: {
+                "Content-Type": "application/json"
+              }
+            })
+    }
+
+    const deleteCar = (car) => {
+        for(var i = 0; i < carList.length; i++){ 
+            if (carList[i].key === car.key) { 
+                carList.splice(i, 1); 
+            }
+        } 
+        let edit = {
+            type: "Delete Car",
+            key: car.key,
+            make_model: car.make_model,
+            stockNum: car.stockNum,
+            newSpot: "N/A",
+            oldSpot: car.newSpot,
+            time: Date().toLocaleString()
+        };
+        edits.unshift(edit)
+        props.update()
+        postDelete(car)
+    }
     
     const addCar = (car) => {
         let edit = {}
@@ -136,7 +147,7 @@ function Home(props){
 
     return(
         <div className="App">
-        <TableOfCars carList={carList} editCar={editCar}/>
+        <TableOfCars carList={carList} editCar={editCar} deleteCar={deleteCar}/>
         <Button onClick={() => swalAddCar()}>Add Car</Button>
         </div>
     );
