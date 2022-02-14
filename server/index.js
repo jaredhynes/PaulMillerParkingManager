@@ -14,8 +14,7 @@ app.get("/", (req, res) => {
 
     const sqlGet = "select * from cars"
     db.query(sqlGet, (err, result) => {
-        console.log("hello");
-        res.send("hello Mark");
+        res.send(result);
     })
 });
 
