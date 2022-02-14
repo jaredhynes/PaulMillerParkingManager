@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import '../../App.css';
 import 'materialize-css/dist/css/materialize.min.css';
 //import map from '../../Images/prototype_map.png'
@@ -16,6 +16,15 @@ function ParkingMap(props) {
     let ySpot = location.charCodeAt(2) - 49
     cars2d[xSpot][ySpot] = car
   })
+
+  function highlightCar(car){
+    if (car){
+    props.carList.map(car => {
+      car.highlighted = false
+    })
+    car.highlighted = true
+  }
+}
   
   return (
     <div>
@@ -23,7 +32,7 @@ function ParkingMap(props) {
       {cars2d.map((row) => (
         <Row>
         {row.map((car) => (
-          <Col>
+          <Col onClick={() => highlightCar(car)}>
           <ShowOnHover car={car}/>
           </Col>
         ))}

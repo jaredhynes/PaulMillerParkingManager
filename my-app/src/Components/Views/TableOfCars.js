@@ -150,7 +150,7 @@ function highlightCar(car) {
     
   return (
     <div>
-    <MDBDataTable entriesOptions={[5, 20, 25]} entries={5} pagesAmount={4} data={datatable} order={['newSpot', 'asc']}/>
+    <MDBDataTable entriesOptions={[5, 20, 25]} entries={5} pagesAmount={4} data={datatable} order={['key', 'asc']}/>
     </div>
   )
 }
