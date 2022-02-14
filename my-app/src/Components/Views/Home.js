@@ -70,7 +70,7 @@ function Home(props){
 
     const postUpdate = (car) => {
         car.bttn = ''
-        car.highlighted = 0
+        car.highlighted = false
         fetch('http://localhost:8000/cars/' + car.id, {
             method: 'PUT',
             headers: {
