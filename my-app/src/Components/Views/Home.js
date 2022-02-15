@@ -88,6 +88,7 @@ function Home(props){
 
     const postUpdate = (car) => {
         car.bttn = ''
+        car.highlighted = false
         fetch('http://localhost:8000/cars/' + car.id, {
             method: 'PUT',
             headers: {
@@ -165,8 +166,11 @@ function Home(props){
 
     return(
         <div className="App">
-            <div><button onClick={() => {fetchCars()}}>Get cars</button></div>
+        <div><button onClick={() => {fetchCars()}}>Get cars</button></div>
+            {props.carList.map(car => car.highlighted = false)}
         {carList && <TableOfCars carList={carList} editCar={editCar} deleteCar={deleteCar}/>}
+
+     
         <Button onClick={() => swalAddCar()}>Add Car</Button>
         </div>
     );
