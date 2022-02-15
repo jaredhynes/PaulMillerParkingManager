@@ -6,7 +6,7 @@ const mysql = require("mysql");
 
 app.use(cors());
 app.use(express.json());
-ç
+
 const db = mysql.createPool({
     host: 'soccerdb.calingaiy4id.us-east-2.rds.amazonaws.com',
     user: 'parkinguser',
