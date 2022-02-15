@@ -42,7 +42,7 @@ const App = () => {
       {carList && <Routes>
         <Route path="/" element={<Home carList={carList} edits={edits} update={update}/>}>
         </Route>
-        <Route path="/map" element={<ParkingMap carList={carList} edits={edits} update={update}/>}>
+        <Route path="/map" element={<ParkingMap carList={carList} edits={edits} update={update} />}>
         </Route>
         <Route path="/history" element={<Edits carList={carList} edits={edits} update={update}/>}>
         </Route>

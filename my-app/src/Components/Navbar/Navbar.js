@@ -4,16 +4,6 @@ import { Link } from 'react-router-dom';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import Dropdown from 'react-bootstrap/Dropdown';
 import '../../Styles/sweetalert.css'
-import { useHistory } from 'react-router-dom'
-
-function NavigateHome() {
-//   let history = useHistory();
-  
-//   const redirect = () => {
-//     history.push('/')
-   }
-
-// }
 
 const Navbar = () => {
    return(

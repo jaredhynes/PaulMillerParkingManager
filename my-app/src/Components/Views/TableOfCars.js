@@ -8,14 +8,14 @@ import { MDBDataTable } from 'mdbreact';
 
 function TableOfCars(props){
   
-    props.carList.map(car => {
+    props.carList.map(car => (
         car.bttn = <DropdownButton id="dropdown-basic-button" title="Options">
         <Dropdown.Item onClick={() => swalEditCar(car)}>Change Location</Dropdown.Item>
         <Dropdown.Item onClick={() => swalArchiveCar(car)}>Archive Car</Dropdown.Item>
         <Dropdown.Item onClick={() => swalDeleteCar(car)}>Delete Car</Dropdown.Item>
         <Dropdown.Item onClick={() => highlightCar(car)}><Link to='/map'>Show on map</Link></Dropdown.Item>
       </DropdownButton>
-      })
+    ))
     let datatable = {
       columns: [
         {
@@ -142,9 +142,7 @@ function swalDeleteCar(car) {
 }
 
 function highlightCar(car) {
-    props.carList.map(car => {
-      car.highlighted = false
-    })
+    props.carList.map(car => (car.highlighted = false))
     car.highlighted = true
 }
     

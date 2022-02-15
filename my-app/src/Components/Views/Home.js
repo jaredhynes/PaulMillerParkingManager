@@ -148,6 +148,7 @@ function Home(props){
 
     return(
         <div className="App">
+        {props.carList.map(car => car.highlighted = false)}
         <TableOfCars carList={carList} editCar={editCar} deleteCar={deleteCar}/>
         <Button onClick={() => swalAddCar()}>Add Car</Button>
         </div>
