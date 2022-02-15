@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom'
 import '../../App.css'; 
 import 'materialize-css/dist/css/materialize.min.css';
-import {Auth0Provider} from '@auth0/auth0-react';
+//npimport {Auth0Provider} from '@auth0/auth0-react';
 import {
     BrowserRouter as Router,
     Routes,

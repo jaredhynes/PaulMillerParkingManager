@@ -1,14 +1,32 @@
-import {React} from 'react';
+import {React, useEffect, useState} from 'react';
 import '../../App.css';
 import Swal from 'sweetalert2'
 import '../../Styles/sweetalert.css'
 import Button from 'react-bootstrap/Button'
 import TableOfCars from './TableOfCars';
+import Axios from 'axios'
+
 
 function Home(props){
-    let carList = props.carList
+    const[carList, setCarList] = useState("");
     let edits = props.edits;
 
+
+    useEffect(() => {
+        fetchCars()
+        console.log(carList);
+      });
+
+
+    const fetchCars = () => {
+
+        Axios.get("http://localhost:8001/cars").then((response) => {
+            console.log("success");
+            setCarList(response.data);
+        })
+    }
+
+    
     function swalAddCar(vin="", make_model="", stockNum="", location=""){
       Swal.fire({
           title: 'Edit Previous Information',
@@ -147,7 +165,8 @@ function Home(props){
 
     return(
         <div className="App">
-        <TableOfCars carList={carList} editCar={editCar} deleteCar={deleteCar}/>
+            <div><button onClick={() => {fetchCars()}}>Get cars</button></div>
+        {carList && <TableOfCars carList={carList} editCar={editCar} deleteCar={deleteCar}/>}
         <Button onClick={() => swalAddCar()}>Add Car</Button>
         </div>
     );

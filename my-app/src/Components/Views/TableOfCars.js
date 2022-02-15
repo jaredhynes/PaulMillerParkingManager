@@ -25,7 +25,7 @@ function TableOfCars(props){
         },
         {
           label: 'VIN',
-          field: 'key',
+          field: 'vin',
           width: 160,
           attributes: {
             'aria-controls': 'DataTable',
