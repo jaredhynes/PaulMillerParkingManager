@@ -38,8 +38,16 @@ app.get("/insertNewCar", (req, res) => {
     );
 })
 
+app.get("/editCar", (req, res) => {
+    const id = req.body.id;
+    const vin = req.body.vin;
+    const make_model = req.body.make_model;
+    const stockNum = req.body.stockNum;
+    const year = req.body.year;
+})
+
 app.get("/cars", (req, res) => {
-    db.query("select * from cars", (err, result) => {
+    db.query("select c.car_id, c.vin, c.stockNum, c.make_model, c.year, ps.spot_name from cars c, parking_spots ps where c.spot_id = ps.spot_id order by spot_name" , (err, result) => {
         if (err) {
             console.log("error:");
             console.log(err);

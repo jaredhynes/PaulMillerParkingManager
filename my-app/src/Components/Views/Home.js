@@ -19,7 +19,6 @@ function Home(props){
 
 
     const fetchCars = () => {
-
         Axios.get("http://localhost:8001/cars").then((response) => {
             console.log("success");
             setCarList(response.data);
@@ -166,8 +165,7 @@ function Home(props){
 
     return(
         <div className="App">
-        <div><button onClick={() => {fetchCars()}}>Get cars</button></div>
-            {props.carList.map(car => car.highlighted = false)}
+        {props.carList.map(car => car.highlighted = false)}
         {carList && <TableOfCars carList={carList} editCar={editCar} deleteCar={deleteCar}/>}
 
      

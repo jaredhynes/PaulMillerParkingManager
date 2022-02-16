@@ -44,7 +44,7 @@ function TableOfCars(props){
         },
         {
           label: 'Location',
-          field: 'newSpot',
+          field: 'spot_name',
           width: 110,
         }
       ],
