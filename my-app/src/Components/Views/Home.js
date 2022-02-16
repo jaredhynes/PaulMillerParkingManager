@@ -9,21 +9,34 @@ import Axios from 'axios'
 
 function Home(props){
     const[carList, setCarList] = useState("");
+    const[availableSpots, setAvailableSpot] = useState("");
+
     let edits = props.edits;
 
 
-    useEffect(() => {
+    function refreshData(){
         fetchCars()
-        console.log(carList);
-      });
+        fetchsAvailableSpots()
+    }
+
 
 
     const fetchCars = () => {
         Axios.get("http://localhost:8001/cars").then((response) => {
-            console.log("success");
+            //console.log("success");
             setCarList(response.data);
         })
     }
+
+
+    const fetchsAvailableSpots = () => {
+        Axios.get("http://localhost:8001/availableSpots").then((response) => {
+            //console.log("success");
+            setAvailableSpot(response.data);
+        })
+    }
+
+  
 
     
     function swalAddCar(vin="", make_model="", stockNum="", location=""){
@@ -166,9 +179,10 @@ function Home(props){
     return(
         <div className="App">
         {props.carList.map(car => car.highlighted = false)}
-        {carList && <TableOfCars carList={carList} editCar={editCar} deleteCar={deleteCar}/>}
+        {carList && <TableOfCars carList={carList} editCar={editCar} deleteCar={deleteCar} availableSpots={availableSpots}/>}
 
         <Button onClick={() => swalAddCar()}>Add Car</Button>
+        <Button onClick={() => refreshData()}>Refresh Data</Button>
         </div>
     );
 }

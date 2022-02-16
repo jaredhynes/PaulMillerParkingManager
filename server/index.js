@@ -25,8 +25,8 @@ app.get("/insertNewCar", (req, res) => {
     const year = req.body.year;
 
     db.query(
-        "INSERT INTO cars (vin, stockNum, make_model, year) VALUES (?,?,?,?)",
-        [vin, stockNum, make_model, year],
+        "INSERT INTO cars (vin, stockNum, make_model, year, spot_id) VALUES (?,?,?,?,?)",
+        [vin, stockNum, make_model, year, spot_id],
         (err, result) => {
             if (err) {
                 console.log(err);
@@ -36,6 +36,18 @@ app.get("/insertNewCar", (req, res) => {
             }
         }
     );
+})
+
+app.get("/availableSpots", (req, res) => {
+    db.query("select ps.spot_id, ps.spot_name from parking_spots ps left join cars c on ps.spot_id = c.spot_id where c.spot_id is null order by ps.spot_name", (err, result) => {
+        if(err){
+            console.log("error: ");
+            console.log(err);
+        }
+        else{
+            res.send(result);
+        }
+    })
 })
 
 app.get("/editCar", (req, res) => {
@@ -49,7 +61,7 @@ app.get("/editCar", (req, res) => {
 app.get("/cars", (req, res) => {
     db.query("select c.car_id, c.vin, c.stockNum, c.make_model, c.year, ps.spot_name from cars c, parking_spots ps where c.spot_id = ps.spot_id order by spot_name" , (err, result) => {
         if (err) {
-            console.log("error:");
+            console.log("error: ");
             console.log(err);
         }
         else{
