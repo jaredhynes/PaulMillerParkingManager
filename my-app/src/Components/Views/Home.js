@@ -20,6 +20,11 @@ function Home(props){
     }
 
 
+    useEffect(() => {
+            fetchCars()
+            fetchsAvailableSpots()
+            console.log("success")
+    }, [])
 
     const fetchCars = () => {
         Axios.get("http://localhost:8001/cars").then((response) => {
