@@ -12,9 +12,9 @@ function ParkingMap(props) {
   carList.map(car => enterCar(car))
 
   function enterCar(car){
-    let location = car.newSpot
+    let location = car.spot_name
     let xSpot = location.charCodeAt(0) - 97
-    let ySpot = location.charCodeAt(2) - 49
+    let ySpot = location.charCodeAt(1) - 49
     cars2d[xSpot][ySpot] = car
   }
 

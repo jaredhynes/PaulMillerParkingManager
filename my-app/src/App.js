@@ -11,22 +11,35 @@ import {
     Routes,
     Route
 } from 'react-router-dom';
+import Axios from 'axios'
 
 
 const App = () => {
     let edits = []
     
-    const [carList, setCarList] = useState(null);
+    const [carList, setCarList] = useState(null);   
+    const [availableSpots, setAvailableSpots] = useState(null); 
 
     useEffect(() => {
-        fetch('http://localhost:8000/cars')
-            .then(res => {
-            return res.json();
-            })
-            .then(data => {
-            setCarList(data);
-            })
+            fetchCars()
+            fetchsAvailableSpots()
+            console.log("success")
     }, [])
+
+    const fetchCars = () => {
+        Axios.get("http://localhost:8001/cars").then((response) => {
+            //console.log("success");
+            setCarList(response.data);
+        })
+    }
+
+
+    const fetchsAvailableSpots = () => {
+        Axios.get("http://localhost:8001/availableSpots").then((response) => {
+            //console.log("success");
+            setAvailableSpots(response.data);
+        })
+    }
 
     function useForceUpdate(){
       // eslint-disable-next-line
@@ -41,13 +54,13 @@ const App = () => {
       <Navbar edits={edits} app={this}/>
 
       {carList && <Routes>
-        <Route path="/" element={<Home carList={carList} edits={edits} update={update}/>}>
+        <Route path="/" element={<Home carList={carList} availableSpots={availableSpots} edits={edits} update={update}/>}>
         </Route>
-        <Route path="/map" element={<ParkingMap carList={carList} edits={edits} update={update} />}>
+        <Route path="/map" element={<ParkingMap carList={carList} availableSpots={availableSpots} edits={edits} update={update} />}>
         </Route>
-        <Route path="/history" element={<Edits carList={carList} edits={edits} update={update}/>}>
+        <Route path="/history" element={<Edits carList={carList} availableSpots={availableSpots} edits={edits} update={update}/>}>
         </Route>
-        <Route path="/login" element={<Login carList={carList} edits={edits} update={update}/>}>
+        <Route path="/login" element={<Login carList={carList} availableSpots={availableSpots} edits={edits} update={update}/>}>
         </Route>
       </Routes>}
   
