@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom'
-import '../../App.css'; 
+import '../../App.css';
 import 'materialize-css/dist/css/materialize.min.css';
 //npimport {Auth0Provider} from '@auth0/auth0-react';
 import {
-    BrowserRouter as Router,
-    Routes,
-    Route
+	BrowserRouter as Router,
+	Routes,
+	Route
 } from 'react-router-dom';
 
 // ReactDOM.render(
@@ -21,31 +21,31 @@ import {
 //     </React.StrictMode>
 // )
 
-function Login (props){
-    const checkLogin = (event) => {
-        alert("Logged in as " + event.target.username.value);
-        
-    }
+function Login(props) {
+	const checkLogin = (event) => {
+		alert("Logged in as " + event.target.username.value);
 
-    return(
-        <div style={{display:'flex', alignItems:'center', justifyContent:'center'}}>        
-        {props.carList.map(car => {car.highlighted = false})}
-        <div>
-            <h4>Welcome to the Paul Miller Audi Virtual Parking Manager</h4>
-            <h5>Please log in below:</h5>
-            <form onSubmit={checkLogin}>
-                <label>
-                    <input type="email" name="username" placeholder="Username" required />
-                </label>
-                <label>
-                    <input type="password" name="password" placeholder="Password" required/>
-                </label>
+	}
 
-                <input type="submit" value="Submit" />
-            </form>
-        </div>
-        </div>
-    );
+	return (
+		<div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+			{props.carList.map(car => { car.highlighted = false })}
+			<div>
+				<h4>Welcome to the Paul Miller Audi Virtual Parking Manager</h4>
+				<h5>Please log in below:</h5>
+				<form onSubmit={checkLogin}>
+					<label>
+						<input type="email" name="username" placeholder="Username" required />
+					</label>
+					<label>
+						<input type="password" name="password" placeholder="Password" required />
+					</label>
+
+					<input type="submit" value="Submit" />
+				</form>
+			</div>
+		</div>
+	);
 }
 
 export default Login

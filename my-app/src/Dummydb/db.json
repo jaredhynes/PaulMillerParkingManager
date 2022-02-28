@@ -1,56 +1,56 @@
 {
-  "cars": [
-    {
-      "id": "1",
-      "key": "jdm485867483756",
-      "make_model": "Nissan",
-      "stockNum": "34",
-      "newSpot": "a-3",
-      "oldSpot": "a-9",
-      "time": "Mon Jan 24 2022 11:02:03 GMT-0500 (Eastern Standard Time)",
-      "type": "Move Car"
-    },
-    {
-      "id": "2",
-      "key": "jdm238754378627",
-      "make_model": "Nissan",
-      "stockNum": "34",
-      "newSpot": "a-1",
-      "oldSpot": "a-6",
-      "time": "Mon Feb 14 2022 14:42:02 GMT-0500 (Eastern Standard Time)",
-      "type": "Move Car",
-      "bttn": "",
-      "highlighted": false
-    },
-    {
-      "id": "3",
-      "key": "jdm638789276938",
-      "make_model": "Nissan",
-      "stockNum": "34",
-      "newSpot": "a-4",
-      "oldSpot": "a-3",
-      "time": "Tue Jan 18 2022 15:01:01 GMT-0500 (Eastern Standard Time)",
-      "type": "Move Car"
-    },
-    {
-      "id": "4",
-      "key": "jdm372576378567",
-      "make_model": "Nissan",
-      "stockNum": "34",
-      "newSpot": "a-5",
-      "oldSpot": "a-4",
-      "time": "Tue Jan 18 2022 15:01:12 GMT-0500 (Eastern Standard Time)",
-      "type": "Move Car"
-    },
-    {
-      "id": "5",
-      "key": "jdm486435325246",
-      "make_model": "Nissan",
-      "stockNum": "34",
-      "newSpot": "a-2",
-      "oldSpot": "a-5",
-      "time": "Tue Jan 18 2022 15:01:06 GMT-0500 (Eastern Standard Time)",
-      "type": "Move Car"
-    }
-  ]
+	"cars": [
+		{
+			"id": "1",
+			"key": "jdm485867483756",
+			"make_model": "Nissan",
+			"stockNum": "34",
+			"newSpot": "a-3",
+			"oldSpot": "a-9",
+			"time": "Mon Jan 24 2022 11:02:03 GMT-0500 (Eastern Standard Time)",
+			"type": "Move Car"
+		},
+		{
+			"id": "2",
+			"key": "jdm238754378627",
+			"make_model": "Nissan",
+			"stockNum": "34",
+			"newSpot": "a-1",
+			"oldSpot": "a-6",
+			"time": "Mon Feb 14 2022 14:42:02 GMT-0500 (Eastern Standard Time)",
+			"type": "Move Car",
+			"bttn": "",
+			"highlighted": false
+		},
+		{
+			"id": "3",
+			"key": "jdm638789276938",
+			"make_model": "Nissan",
+			"stockNum": "34",
+			"newSpot": "a-4",
+			"oldSpot": "a-3",
+			"time": "Tue Jan 18 2022 15:01:01 GMT-0500 (Eastern Standard Time)",
+			"type": "Move Car"
+		},
+		{
+			"id": "4",
+			"key": "jdm372576378567",
+			"make_model": "Nissan",
+			"stockNum": "34",
+			"newSpot": "a-5",
+			"oldSpot": "a-4",
+			"time": "Tue Jan 18 2022 15:01:12 GMT-0500 (Eastern Standard Time)",
+			"type": "Move Car"
+		},
+		{
+			"id": "5",
+			"key": "jdm486435325246",
+			"make_model": "Nissan",
+			"stockNum": "34",
+			"newSpot": "a-2",
+			"oldSpot": "a-5",
+			"time": "Tue Jan 18 2022 15:01:06 GMT-0500 (Eastern Standard Time)",
+			"type": "Move Car"
+		}
+	]
 }
