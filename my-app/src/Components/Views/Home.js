@@ -11,7 +11,12 @@ function Home(props){
     let carList = props.carList
     let availableSpots = props.availableSpots
     let edits = props.edits;
+
     
+    
+
+    
+
     function swalAddCar(vin="", make_model="", stockNum="", location=""){
       Swal.fire({
           title: 'Edit Previous Information',
