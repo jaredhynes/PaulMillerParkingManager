@@ -27,11 +27,23 @@ function Home(props){
           vin = Swal.getPopup().querySelector('#vin').value
           make_model = Swal.getPopup().querySelector('#make_model').value
           stockNum = Swal.getPopup().querySelector('#stockNum').value
-          location = Swal.getPopup().querySelector('#location').value
+          location = Swal.getPopup().querySelector('#location').value.toLowerCase()
   
       if(!vin || !make_model || !stockNum || !location) {
       Swal.showValidationMessage(`Please enter all information`)
           }
+        
+        let invalid = true
+        
+        availableSpots.forEach(spot => {
+            if (spot.spot_name == location){
+                invalid = false
+            }
+        })
+        
+        if (invalid){
+            Swal.showValidationMessage(`${location} is not an available spot.`)
+        }
           
       return {vin: vin, make_model: make_model, stockNum: stockNum, location: location}
           }
