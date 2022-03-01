@@ -5,16 +5,10 @@ import '../../Styles/sweetalert.css'
 import Button from 'react-bootstrap/Button'
 import TableOfCars from './TableOfCars';
 
-
 function Home(props) {
 	let carList = props.carList
 	let availableSpots = props.availableSpots
 	let edits = props.edits;
-
-
-
-
-
 
 	function swalAddCar(vin = "", make_model = "", stockNum = "", location = "") {
 		Swal.fire({
@@ -84,9 +78,8 @@ function Home(props) {
 
 	function spotAvailable(spot) {
 		let ret = false
-		availableSpots.map(s => {
+		availableSpots.forEach(s => {
 			if (s.spot_name === spot) {
-				console.log("hi")
 				ret = true
 			}
 		})
