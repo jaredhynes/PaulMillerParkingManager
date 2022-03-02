@@ -29,6 +29,7 @@ const App = () => {
 	const fetchCars = () => {
 		Axios.get("http://localhost:8001/cars").then((response) => {
 			//console.log("success");
+			console.log(response.data)
 			setCarList(response.data);
 		})
 	}
@@ -37,7 +38,7 @@ const App = () => {
 	const fetchsAvailableSpots = () => {
 		Axios.get("http://localhost:8001/availableSpots").then((response) => {
 			//console.log("success");
-			console.log(response.data)
+			//console.log(response.data)
 			setAvailableSpots(response.data);
 		})
 	}
