@@ -5,8 +5,10 @@ import { Link } from 'react-router-dom';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import Dropdown from 'react-bootstrap/Dropdown';
 import '../../Styles/sweetalert.css'
+import LogoutButton from '../Login/LogoutButton';
+import LoginButton from '../Login/LoginButton';
 
-const Navbar = () => {
+const Navbar = (props) => {
 	return (
 		<header>
 			<nav>
@@ -27,7 +29,8 @@ const Navbar = () => {
 										<Link to="/history">Edit History</Link>
 									</li>
 									<li>
-										<Link to="/login">Log Out</Link>
+										{props.isAuthenticated && <LogoutButton/>}
+										{!props.isAuthenticated && <LoginButton/>}
 									</li>
 								</ul>
 							</nav>
@@ -41,8 +44,6 @@ const Navbar = () => {
 				<Dropdown.Item> <Link to="/">Home </Link></Dropdown.Item>
 				<Dropdown.Item> <Link to="/map">Map</Link></Dropdown.Item>
 				<Dropdown.Item><Link to="/history">Edit History</Link></Dropdown.Item>
-				<Dropdown.Item><Link to="login">Log-in/Out</Link></Dropdown.Item>
-
 			</DropdownButton>}
 		</header>
 	)

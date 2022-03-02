@@ -4,7 +4,6 @@ import Navbar from "./Components/Navbar/Navbar"
 import Home from "./Components/Views/Home.js"
 import ParkingMap from "./Components/Views/ParkingMap.js"
 import Edits from "./Components/Views/Edits.js"
-import Login from "./Components/Login/index.js"
 import 'materialize-css/dist/css/materialize.min.css';
 import {
 	BrowserRouter as Router,
@@ -12,6 +11,7 @@ import {
 	Route
 } from 'react-router-dom';
 import Axios from 'axios'
+import { useAuth0 } from '@auth0/auth0-react';
 
 
 const App = () => {
@@ -50,21 +50,19 @@ const App = () => {
 	}
 	let update = useForceUpdate()
 
-
+	const {isAuthenticated} = useAuth0()
 
 	return (
 		<Router>
 			<div>
-				<Navbar edits={edits} app={this} />
+				<Navbar edits={edits} app={this} isAuthenticated={isAuthenticated}/>
 
-				{carList && <Routes>
+				{isAuthenticated && carList && <Routes>
 					<Route path="/" element={<Home carList={carList} availableSpots={availableSpots} edits={edits} update={update} />}>
 					</Route>
 					<Route path="/map" element={<ParkingMap carList={carList} availableSpots={availableSpots} edits={edits} update={update} />}>
 					</Route>
 					<Route path="/history" element={<Edits carList={carList} availableSpots={availableSpots} edits={edits} update={update} />}>
-					</Route>
-					<Route path="/login" element={<Login carList={carList} availableSpots={availableSpots} edits={edits} update={update} />}>
 					</Route>
 				</Routes>}
 
