@@ -13,26 +13,18 @@ function Home(props) {
 	let edits = props.edits;
 
     function getSpotID(spotName){
-        var spot;
-        availableSpots.forEach(spot => {
-            if(spot.spot_name == spotName){
-                console.log(spot.spot_id);
-                spot = spot.spot_id;
-            }
-        })
-        return spot;
+        return availableSpots.find(el => 
+            el.spot_name == spotName
+        ).spot_id;
     }
 
     function addCarDB(car){
-        console.log("SpotID:___");
-        let IDOfSpot = getSpotID(car.value.location);
-        console.log(IDOfSpot);
         Axios.post("http://localhost:8001/insertNewCar", {
             vin: car.value.vin,
 	        make_model: car.value.make_model,
 	        stockNum: car.value.stockNum,
 	        year: car.value.year,
-	        spot_id: IDOfSpot,
+	        spot_id: getSpotID(car.value.location),
         }).then(() => {
             availableSpots = fetchsAvailableSpots();
             carList = fetchCars();
@@ -81,8 +73,8 @@ function Home(props) {
 					Swal.showValidationMessage(`Please enter all information`)
 				}
 
-				console.log(spotAvailable(location))
-				if (!spotAvailable(location)) {
+				console.log(isSpotAvailable(location))
+				if (!isSpotAvailable(location)) {
 					Swal.showValidationMessage(`${location} is not an available spot.`)
 				}
 
@@ -128,14 +120,8 @@ function Home(props) {
 		})
 	}
 
-	function spotAvailable(spot) {
-		let ret = false
-		availableSpots.forEach(s => {
-			if (s.spot_name === spot) {
-				ret = true
-			}
-		})
-		return ret
+	function isSpotAvailable(spotName) {
+        return availableSpots.find(spot => spot.spot_name === spotName);
 	}
 
 	const postUpdate = (car) => {
@@ -219,7 +205,7 @@ function Home(props) {
 	return (
 		<div className="App">
 			{props.carList.map(car => car.highlighted = false)}
-			{carList && <TableOfCars carList={carList} editCar={editCar} deleteCar={deleteCar} spotAvailable={spotAvailable} availableSpots={availableSpots} />}
+			{carList && <TableOfCars carList={carList} editCar={editCar} deleteCar={deleteCar} isSpotAvailable={isSpotAvailable} availableSpots={availableSpots} />}
 			<Button onClick={() => swalAddCar()}>Add Car</Button>
 		</div>
 	);

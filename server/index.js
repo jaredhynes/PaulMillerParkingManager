@@ -23,7 +23,7 @@ app.post("/insertNewCar", (req, res) => {
 	const make_model = req.body.make_model;
 	const stockNum = req.body.stockNum;
 	const year = req.body.year;
-	const spot_id = req.spot_id;
+	const spot_id = req.body.spot_id;
 
 	db.query(
 		"INSERT INTO cars (vin, stockNum, make_model, year, spot_id) VALUES (?,?,?,?,?)",

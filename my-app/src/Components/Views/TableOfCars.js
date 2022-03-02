@@ -64,7 +64,7 @@ function TableOfCars(props) {
 					Swal.showValidationMessage(`Please enter a location`)
 				}
 
-				if (!props.spotAvailable(newSpot)) {
+				if (!props.isSpotAvailable(newSpot)) {
 					Swal.showValidationMessage(`${newSpot} is not an available spot.`)
 				}
 
