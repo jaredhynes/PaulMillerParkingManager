@@ -57,6 +57,8 @@ const App = () => {
 			<div>
 				<Navbar edits={edits} app={this} isAuthenticated={isAuthenticated}/>
 
+				{!isAuthenticated && <h1>Log in to continue</h1>}
+
 				{isAuthenticated && carList && <Routes>
 					<Route path="/" element={<Home carList={carList} availableSpots={availableSpots} edits={edits} update={update} />}>
 					</Route>
@@ -65,6 +67,7 @@ const App = () => {
 					<Route path="/history" element={<Edits carList={carList} availableSpots={availableSpots} edits={edits} update={update} />}>
 					</Route>
 				</Routes>}
+				{}
 
 			</div>
 		</Router>

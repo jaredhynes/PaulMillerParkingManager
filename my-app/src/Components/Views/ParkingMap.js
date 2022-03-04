@@ -14,7 +14,7 @@ function ParkingMap(props) {
 	function enterCar(car) {
 		let location = car.spot_name.split('-')
 		let xSpot = location[0].charCodeAt(0) - 97
-		let ySpot = parseInt(location[1])
+		let ySpot = parseInt(location[1]) - 1
 		cars2d[xSpot][ySpot] = car
 	}
 

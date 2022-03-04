@@ -14,7 +14,7 @@ function Home(props) {
 
     function getSpotID(spotName){
         return availableSpots.find(el => 
-            el.spot_name == spotName
+            el.spot_name === spotName
         ).spot_id;
     }
 
@@ -136,16 +136,6 @@ function Home(props) {
 		})
 	}
 
-	const postNew = (car) => {
-		fetch('http://localhost:8000/cars/', {
-			method: 'POST',
-			headers: {
-				"Content-Type": "application/json"
-			},
-			body: JSON.stringify(car)
-		})
-	}
-
 	const postDelete = (car) => {
 		fetch('http://localhost:8000/cars/' + car.id, {
 			method: 'DELETE',
@@ -173,22 +163,6 @@ function Home(props) {
 		edits.unshift(edit)
 		props.update()
 		postDelete(car)
-	}
-
-	const addCar = (car) => {
-		let edit = {}
-		edit.id = String((carList.length + 1))
-		edit.key = car.value.vin
-		edit.make_model = car.value.make_model
-		edit.stockNum = car.value.stockNum
-		edit.newSpot = car.value.location
-		edit.oldSpot = "N/A"
-		edit.time = Date().toLocaleString()
-		edit.type = "New Car"
-		carList.push(edit)
-		edits.unshift(edit)
-		postNew(edit)
-		props.update()
 	}
 
 	const editCar = (car, location) => {
