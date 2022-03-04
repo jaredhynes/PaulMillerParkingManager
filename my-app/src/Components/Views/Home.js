@@ -46,9 +46,6 @@ function Home(props) {
 			availableSpots = response.data;
 		})
 	}
-    
-
-    
 
 	function swalAddCar(vin = "", make_model = "", year= "", stockNum = "", location = "") {
 		Swal.fire({
@@ -159,7 +156,7 @@ function Home(props) {
 			newSpot: "N/A",
 			oldSpot: car.newSpot,
 			time: Date().toLocaleString()
-		};
+		}
 		edits.unshift(edit)
 		props.update()
 		postDelete(car)
@@ -171,8 +168,8 @@ function Home(props) {
 		edit.newSpot = location
 		edit.time = Date().toLocaleString()
 		edit.type = 'Move Car'
+		edit.user = props.user.email
 		edits.unshift(edit)
-		postUpdate(edit)
 		props.update()
 	}
 

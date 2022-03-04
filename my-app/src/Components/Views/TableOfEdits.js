@@ -33,6 +33,10 @@ const TableOfEdits = (props) => {
 			{
 				label: 'Time',
 				field: 'time',
+			},
+			{
+				label: 'Sent by',
+				field: 'user'
 			}
 		],
 		rows: props.edits

@@ -12,10 +12,10 @@ import {
 } from 'react-router-dom';
 import Axios from 'axios'
 import { useAuth0 } from '@auth0/auth0-react';
+let edits = []
 
 
 const App = () => {
-	let edits = []
 
 	const [carList, setCarList] = useState(null);
 	const [availableSpots, setAvailableSpots] = useState(null);
@@ -50,7 +50,7 @@ const App = () => {
 	}
 	let update = useForceUpdate()
 
-	const {isAuthenticated} = useAuth0()
+	const {user, isAuthenticated} = useAuth0()
 
 	return (
 		<Router>
@@ -60,14 +60,13 @@ const App = () => {
 				{!isAuthenticated && <h1>Log in to continue</h1>}
 
 				{isAuthenticated && carList && <Routes>
-					<Route path="/" element={<Home carList={carList} availableSpots={availableSpots} edits={edits} update={update} />}>
+					<Route path="/" element={<Home carList={carList} availableSpots={availableSpots} edits={edits} update={update} user={user} />}>
 					</Route>
-					<Route path="/map" element={<ParkingMap carList={carList} availableSpots={availableSpots} edits={edits} update={update} />}>
+					<Route path="/map" element={<ParkingMap carList={carList} availableSpots={availableSpots} edits={edits} update={update} user={user} />}>
 					</Route>
-					<Route path="/history" element={<Edits carList={carList} availableSpots={availableSpots} edits={edits} update={update} />}>
+					<Route path="/history" element={<Edits carList={carList} availableSpots={availableSpots} edits={edits} update={update} user={user} />}>
 					</Route>
 				</Routes>}
-				{}
 
 			</div>
 		</Router>
