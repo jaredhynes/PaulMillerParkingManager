@@ -6,6 +6,7 @@ import ParkingMap from "./Components/Views/ParkingMap.js"
 import Account from "./Components/Views/Account.js"
 import Edits from "./Components/Views/Edits.js"
 import 'materialize-css/dist/css/materialize.min.css';
+import Swal from 'sweetalert2'
 import {
 	BrowserRouter as Router,
 	Routes,
@@ -15,6 +16,7 @@ import Axios from 'axios'
 import { useAuth0 } from '@auth0/auth0-react';
 import Button from 'react-bootstrap/esm/Button';
 let edits = []
+
 
 
 const App = () => {
@@ -35,6 +37,22 @@ const App = () => {
 		})
 	}
 
+	function warningMessage() {
+		Swal.fire({
+			title: 'Warning! You are not signed in.',
+			text: "You will not be able to access anything until you are signed in.",
+			icon: 'warning',
+			showCancelButton: false,
+			confirmButtonColor: '#3085d6',
+			confirmButtonText: 'Login!'
+		  }).then((result) => {
+			if (result.isConfirmed) {
+			  Swal.fire(
+				'Login button goes here'
+			  )
+			}
+		  })
+	}
 
 	const fetchsAvailableSpots = () => {
 		Axios.get("http://localhost:8001/availableSpots").then((response) => {
@@ -63,9 +81,7 @@ const App = () => {
 			<div>
 				<Navbar edits={edits} app={this} isAuthenticated={isAuthenticated}/>
 
-				<Button onClick={() => console.log(roles)}>click</Button>
-
-				{!isAuthenticated && <h1>Log in to continue</h1>}
+				{!isAuthenticated && warningMessage()}
 
 				{isAuthenticated && !roles.includes('user') && <h1>{user.email} is not a registered user</h1>}
 
