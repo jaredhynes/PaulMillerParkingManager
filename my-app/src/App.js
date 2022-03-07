@@ -3,6 +3,7 @@ import './App.css';
 import Navbar from "./Components/Navbar/Navbar"
 import Home from "./Components/Views/Home.js"
 import ParkingMap from "./Components/Views/ParkingMap.js"
+import Account from "./Components/Views/Account.js"
 import Edits from "./Components/Views/Edits.js"
 import 'materialize-css/dist/css/materialize.min.css';
 import {
@@ -66,6 +67,7 @@ const App = () => {
 					</Route>
 					<Route path="/history" element={<Edits carList={carList} availableSpots={availableSpots} edits={edits} update={update} user={user} />}>
 					</Route>
+					<Route path="/account" element={<Account />}></Route>
 				</Routes>}
 
 			</div>
