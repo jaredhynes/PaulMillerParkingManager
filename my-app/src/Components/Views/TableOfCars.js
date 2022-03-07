@@ -5,6 +5,8 @@ import Swal from 'sweetalert2'
 import '../../Styles/sweetalert.css'
 import { Link } from 'react-router-dom';
 import { MDBDataTable } from 'mdbreact';
+import Axios from 'axios'
+
 
 function TableOfCars(props) {
 	props.carList.map(car => (
@@ -53,7 +55,7 @@ function TableOfCars(props) {
 	function swalEditCar(car, spot = "") {
 		Swal.fire({
 			title: 'Edit Car Location',
-			html: `<input type="text" id="newSpot" class="swal2-input" placeholder=${car.newSpot} value=${spot}>`,
+			html: `<input type="text" id="newSpot" class="swal2-input" placeholder=${car.spot_name} value=${spot}>`,
 			confirmButtonText: 'Edit Car',
 			showCancelButton: true,
 			focusConfirm: false,
@@ -75,7 +77,7 @@ function TableOfCars(props) {
 				Swal.fire({
 					icon: 'question',
 					title: "Is this Information Correct?",
-					html: `<p> Old Location: ${car.newSpot} </p>
+					html: `<p> Old Location: ${car.spot_name} </p>
 					<p>New Location: ${result.value.newSpot} </p>`,
 					showDenyButton: true,
 					confirmButtonText: "Yes",
@@ -91,10 +93,12 @@ function TableOfCars(props) {
 						Swal.fire({
 							icon: "success",
 							title: "Saved",
-							html: `<p> Old Location: ${car.newSpot} </p>
-											<p>New Location: ${result.value.newSpot} </p>`,
+							html: `<p> Old Location: ${car.spot_name} </p>
+							<p>New Location: ${result.value.newSpot} </p>`,
 						})
-						props.editCar(car, result.value.newSpot)
+						//props.editCar(car, result.value.newSpot)
+						console.log(car);
+						editCar(car, result.value.newSpot);
 					}
 					else if (result.isDenied) {
 						swalEditCar(car, result.value.newSpot);
@@ -141,7 +145,8 @@ function TableOfCars(props) {
 					'The car and data have been successfully deleted.',
 					'success'
 				)
-				props.deleteCar(car)
+				//props.deleteCar(car)
+				deleteCar(car);
 			}
 		})
 	}
@@ -149,6 +154,27 @@ function TableOfCars(props) {
 	function highlightCar(car) {
 		props.carList.map(car => (car.highlighted = false))
 		car.highlighted = true
+	}
+
+	function getSpotID(spotName){
+        return props.availableSpots.find(el => 
+            el.spot_name === spotName
+        ).spot_id;
+    }
+
+	function editCar(car, newSpot) {
+		Axios.put("http://localhost:8001/update", {vin: car.vin, spot_id: getSpotID(newSpot)}).then(
+			(response) => {
+				console.log("changed");
+			}
+		)
+	}
+
+	function deleteCar(car){
+		console.log(car.vin);
+		Axios.delete("http://localhost:8001/delete", {vin: car.vin}).then((response) => {
+			console.log("Successfully Deleted Car")
+		})
 	}
 
 	return (
