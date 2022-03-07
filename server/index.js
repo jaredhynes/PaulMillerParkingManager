@@ -18,6 +18,24 @@ app.get("/", (req, res) => {
 	res.send("hello");
 });
 
+app.put("/update", (req, res) =>{
+	const vin = req.body.vin;
+	const spot_id = req.body.spot_id;
+	db.query(
+		"UPDATE cars SET spot_id = ? where vin = ?",
+		[spot_id, vin],
+		(err, result) => {
+			if (err){
+				console.log("Error in Update:")
+				console.log(err);
+			}
+			else{
+				res.send(result);
+			}
+		}
+	);
+});
+
 app.post("/insertNewCar", (req, res) => {
 	const vin = req.body.vin;
 	const make_model = req.body.make_model;
