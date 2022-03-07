@@ -33,7 +33,6 @@ function Home(props) {
 
     const fetchCars = () => {
 		Axios.get("http://localhost:8001/cars").then((response) => {
-			//console.log("success");
 			carList = response.data;
 		})
 	}
@@ -41,8 +40,6 @@ function Home(props) {
 
     const fetchsAvailableSpots = () => {
 		Axios.get("http://localhost:8001/availableSpots").then((response) => {
-			//console.log("success");
-			console.log(response.data)
 			availableSpots = response.data;
 		})
 	}
@@ -69,8 +66,6 @@ function Home(props) {
 				if (!vin || !make_model || !stockNum || !location || !year) {
 					Swal.showValidationMessage(`Please enter all information`)
 				}
-
-				console.log(isSpotAvailable(location))
 				if (!isSpotAvailable(location)) {
 					Swal.showValidationMessage(`${location} is not an available spot.`)
 				}

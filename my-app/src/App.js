@@ -13,6 +13,7 @@ import {
 } from 'react-router-dom';
 import Axios from 'axios'
 import { useAuth0 } from '@auth0/auth0-react';
+import Button from 'react-bootstrap/esm/Button';
 let edits = []
 
 
@@ -24,7 +25,6 @@ const App = () => {
 	useEffect(() => {
 		fetchCars()
 		fetchsAvailableSpots()
-		console.log("success")
 	}, [])
 
 	const fetchCars = () => {
@@ -52,21 +52,31 @@ const App = () => {
 	let update = useForceUpdate()
 
 	const {user, isAuthenticated} = useAuth0()
+	
+	let roles = []
+	if (user){
+	    roles = user['http://demozero.net/roles']
+	}
 
 	return (
 		<Router>
 			<div>
 				<Navbar edits={edits} app={this} isAuthenticated={isAuthenticated}/>
 
+				<Button onClick={() => console.log(roles)}>click</Button>
+
 				{!isAuthenticated && <h1>Log in to continue</h1>}
 
-				{isAuthenticated && carList && <Routes>
+				{isAuthenticated && !roles.includes('user') && <h1>{user.email} is not a registered user</h1>}
+
+				{roles.includes("user") && carList && <Routes>
 					<Route path="/" element={<Home carList={carList} availableSpots={availableSpots} edits={edits} update={update} user={user} />}>
 					</Route>
 					<Route path="/map" element={<ParkingMap carList={carList} availableSpots={availableSpots} edits={edits} update={update} user={user} />}>
 					</Route>
+					{roles.includes("admin") &&
 					<Route path="/history" element={<Edits carList={carList} availableSpots={availableSpots} edits={edits} update={update} user={user} />}>
-					</Route>
+					</Route>}
 					<Route path="/account" element={<Account />}></Route>
 				</Routes>}
 
