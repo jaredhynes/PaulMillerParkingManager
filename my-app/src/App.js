@@ -77,9 +77,7 @@ const App = () => {
 				<div>
 					{!isAuthenticated && warningMessage()}
 
-					{isAuthenticated && !roles.includes('user') && <h1>{user.email} is not a registered user</h1>}
-
-					{roles.includes("user") && carList && <Routes>
+					{isAuthenticated && carList && <Routes>
 						<Route path="/" element={<Home carList={carList} availableSpots={availableSpots} edits={edits} update={update} user={user} roles={roles} />}>
 						</Route>
 						<Route path="/map" element={<ParkingMap carList={carList} availableSpots={availableSpots} edits={edits} update={update} user={user} roles={roles} />}>
