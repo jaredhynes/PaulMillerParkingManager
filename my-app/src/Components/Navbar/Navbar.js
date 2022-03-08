@@ -7,6 +7,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import '../../Styles/sweetalert.css'
 import LogoutButton from '../Login/LogoutButton';
 import LoginButton from '../Login/LoginButton';
+import DropdownItem from 'react-bootstrap/esm/DropdownItem';
 
 const Navbar = (props) => {
 	return (
@@ -44,7 +45,9 @@ const Navbar = (props) => {
 				<Dropdown.Item> <Link to="/">Home </Link></Dropdown.Item>
 				<Dropdown.Item> <Link to="/map">Map</Link></Dropdown.Item>
 				<Dropdown.Item><Link to="/history">Edit History</Link></Dropdown.Item>
-			</DropdownButton>}
+				<Dropdown.Item>{props.isAuthenticated && <Link to="/account">Account Settings</Link>}
+				{!props.isAuthenticated && <LoginButton/>}</Dropdown.Item>
+				</DropdownButton>}
 		</header>
 	)
 }
