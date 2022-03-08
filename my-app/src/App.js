@@ -53,12 +53,10 @@ const App = () => {
 		})
 	}
 
-	function useForceUpdate() {
-		// eslint-disable-next-line
-		const [value, setValue] = useState(0); // integer state
-		return () => setValue(value => value + 1); // update the state to force render
+	function update() {
+		fetchCars()
+		fetchsAvailableSpots()
 	}
-	let update = useForceUpdate()
 
 	const { isLoading, user, isAuthenticated, loginWithRedirect } = useAuth0()
 
@@ -78,11 +76,11 @@ const App = () => {
 					{!isAuthenticated && warningMessage()}
 
 					{isAuthenticated && carList && <Routes>
-						<Route path="/" element={<Home carList={carList} availableSpots={availableSpots} edits={edits} update={update} user={user} roles={roles} />}>
+						<Route path="/" element={<Home carList={carList} availableSpots={availableSpots} edits={edits} update={() => update()} user={user} roles={roles} />}>
 						</Route>
-						<Route path="/map" element={<ParkingMap carList={carList} availableSpots={availableSpots} edits={edits} update={update} user={user} roles={roles} />}>
+						<Route path="/map" element={<ParkingMap carList={carList} availableSpots={availableSpots} edits={edits} update={() => update()} user={user} roles={roles} />}>
 						</Route>
-						<Route path="/history" element={<Edits carList={carList} availableSpots={availableSpots} edits={edits} update={update} user={user} roles={roles} />}>
+						<Route path="/history" element={<Edits carList={carList} availableSpots={availableSpots} edits={edits} update={() => update()} user={user} roles={roles} />}>
 						</Route>
 						<Route path="/account" element={<Account />}></Route>
 					</Routes>}

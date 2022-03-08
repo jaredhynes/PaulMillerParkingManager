@@ -96,8 +96,6 @@ function TableOfCars(props) {
 							html: `<p> Old Location: ${car.spot_name} </p>
 							<p>New Location: ${result.value.newSpot} </p>`,
 						})
-						//props.editCar(car, result.value.newSpot)
-						console.log(car);
 						editCar(car, result.value.newSpot);
 					}
 					else if (result.isDenied) {
@@ -165,7 +163,7 @@ function TableOfCars(props) {
 	function editCar(car, newSpot) {
 		Axios.put("http://localhost:8001/update", {vin: car.vin, spot_id: getSpotID(newSpot)}).then(
 			(response) => {
-				console.log("changed");
+				props.update()
 			}
 		)
 	}
@@ -174,6 +172,7 @@ function TableOfCars(props) {
 		console.log(car.vin);
 		Axios.delete("http://localhost:8001/delete", {vin: car.vin}).then((response) => {
 			console.log("Successfully Deleted Car")
+			props.update()
 		})
 	}
 

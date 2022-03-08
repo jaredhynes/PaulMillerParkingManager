@@ -26,21 +26,7 @@ function Home(props) {
 			year: car.value.year,
 			spot_id: getSpotID(car.value.location),
 		}).then(() => {
-			availableSpots = fetchsAvailableSpots();
-			carList = fetchCars();
-		})
-	}
-
-	const fetchCars = () => {
-		Axios.get("http://localhost:8001/cars").then((response) => {
-			carList = response.data;
-		})
-	}
-
-
-	const fetchsAvailableSpots = () => {
-		Axios.get("http://localhost:8001/availableSpots").then((response) => {
-			availableSpots = response.data;
+			props.update()
 		})
 	}
 
@@ -145,21 +131,10 @@ function Home(props) {
 		postDelete(car)
 	}
 
-	const editCar = (car, location) => {
-		let edit = car
-		edit.oldSpot = car.newSpot
-		edit.newSpot = location
-		edit.time = Date().toLocaleString()
-		edit.type = 'Move Car'
-		edit.user = props.user.email
-		edits.unshift(edit)
-		props.update()
-	}
-
 	return (
 		<div className="App">
 			{props.carList.map(car => car.highlighted = false)}
-			{carList && <TableOfCars carList={carList} editCar={editCar} deleteCar={deleteCar} isSpotAvailable={isSpotAvailable} availableSpots={availableSpots} />}
+			{carList && <TableOfCars carList={carList} deleteCar={deleteCar} update={props.update} isSpotAvailable={isSpotAvailable} availableSpots={availableSpots} />}
 			<Button onClick={() => swalAddCar()}>Add Car</Button>
 		</div>
 	);
