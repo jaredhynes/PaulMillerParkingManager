@@ -3,6 +3,10 @@ import '../../App.css';
 import 'materialize-css/dist/css/materialize.min.css';
 import ShowOnHover from './ShowOnHover';
 import { Container, Row, Col } from 'react-grid-system';
+// import { Responsive, WidthProvider } from "react-grid-layout";
+
+
+// const ResponsiveGridLayout = WidthProvider(Responsive);
 
 function ParkingMap(props) {
 	let carList = props.carList
@@ -26,11 +30,40 @@ function ParkingMap(props) {
 		}
 	}
 
+	// function getLayoutsFromSomewhere() {
+	// 	<Container>
+	// 			{cars2d.map((row) => (
+	// 				<Row>
+	// 					{row.map((car) => (
+	// 						<Col onClick={() => highlightCar(car)}>
+	// 							<ShowOnHover car={car} />
+	// 						</Col>
+	// 					))}
+	// 				</Row>
+	// 			))}
+	// 		</Container>
+	// }
+
+	// class MyResponsiveGrid extends React.Component {
+	// 	render() {
+	// 		var layouts = getLayoutsFromSomewhere();
+			
+
 	return (
 		<div>
-			<Container>
+			{/* <ResponsiveGridLayout
+				className="layout"
+				layouts ={layouts}
+				breakpoints={{ lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 }}
+				cols={{ lg: 12, md: 10, sm: 6, xs: 4, xxs: 2 }}
+				>
+					<div key="1">1</div>
+					<div key="2">2</div>
+					<div key="3">3</div>
+				</ResponsiveGridLayout> */}
+			{ <Container fluid>
 				{cars2d.map((row) => (
-					<Row>
+					<Row debug>
 						{row.map((car) => (
 							<Col onClick={() => highlightCar(car)}>
 								<ShowOnHover car={car} />
@@ -38,9 +71,12 @@ function ParkingMap(props) {
 						))}
 					</Row>
 				))}
-			</Container>
+			</Container> }
 		</div>
-	);
-}
+		);
+
+	}
+// }
+// }
 
 export default ParkingMap;
