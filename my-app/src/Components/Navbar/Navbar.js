@@ -1,13 +1,11 @@
-import React from 'react'; 
+import React from 'react';
 import '../../Styles/NavBar.css'
 import 'materialize-css/dist/css/materialize.min.css';
 import { Link } from 'react-router-dom';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import Dropdown from 'react-bootstrap/Dropdown';
 import '../../Styles/sweetalert.css'
-import LogoutButton from '../Login/LogoutButton';
 import LoginButton from '../Login/LoginButton';
-import DropdownItem from 'react-bootstrap/esm/DropdownItem';
 
 const Navbar = (props) => {
 	return (
@@ -31,7 +29,7 @@ const Navbar = (props) => {
 									</li>
 									<li>
 										{props.isAuthenticated && <Link to="/account">Account Settings</Link>}
-										{!props.isAuthenticated && <LoginButton/>}
+										{!props.isAuthenticated && <LoginButton />}
 									</li>
 								</ul>
 							</nav>
@@ -46,8 +44,8 @@ const Navbar = (props) => {
 				<Dropdown.Item> <Link to="/map">Map</Link></Dropdown.Item>
 				<Dropdown.Item><Link to="/history">Edit History</Link></Dropdown.Item>
 				<Dropdown.Item>{props.isAuthenticated && <Link to="/account">Account Settings</Link>}
-				{!props.isAuthenticated && <LoginButton/>}</Dropdown.Item>
-				</DropdownButton>}
+					{!props.isAuthenticated && <LoginButton />}</Dropdown.Item>
+			</DropdownButton>}
 		</header>
 	)
 }

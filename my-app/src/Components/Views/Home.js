@@ -12,39 +12,39 @@ function Home(props) {
 	let availableSpots = props.availableSpots
 	let edits = props.edits;
 
-    function getSpotID(spotName){
-        return availableSpots.find(el => 
-            el.spot_name === spotName
-        ).spot_id;
-    }
+	function getSpotID(spotName) {
+		return availableSpots.find(el =>
+			el.spot_name === spotName
+		).spot_id;
+	}
 
-    function addCarDB(car){
-        Axios.post("http://localhost:8001/insertNewCar", {
-            vin: car.value.vin,
-	        make_model: car.value.make_model,
-	        stockNum: car.value.stockNum,
-	        year: car.value.year,
-	        spot_id: getSpotID(car.value.location),
-        }).then(() => {
-            availableSpots = fetchsAvailableSpots();
-            carList = fetchCars();
-        })
-    }
+	function addCarDB(car) {
+		Axios.post("http://localhost:8001/insertNewCar", {
+			vin: car.value.vin,
+			make_model: car.value.make_model,
+			stockNum: car.value.stockNum,
+			year: car.value.year,
+			spot_id: getSpotID(car.value.location),
+		}).then(() => {
+			availableSpots = fetchsAvailableSpots();
+			carList = fetchCars();
+		})
+	}
 
-    const fetchCars = () => {
+	const fetchCars = () => {
 		Axios.get("http://localhost:8001/cars").then((response) => {
 			carList = response.data;
 		})
 	}
 
 
-    const fetchsAvailableSpots = () => {
+	const fetchsAvailableSpots = () => {
 		Axios.get("http://localhost:8001/availableSpots").then((response) => {
 			availableSpots = response.data;
 		})
 	}
 
-	function swalAddCar(vin = "", make_model = "", year= "", stockNum = "", location = "") {
+	function swalAddCar(vin = "", make_model = "", year = "", stockNum = "", location = "") {
 		Swal.fire({
 			title: 'Edit Previous Information',
 			// want to have the information there in the edit, not just random values. using ${result.value.vin} does not work!
@@ -59,7 +59,7 @@ function Home(props) {
 			preConfirm: () => {
 				vin = Swal.getPopup().querySelector('#vin').value
 				make_model = Swal.getPopup().querySelector('#make_model').value
-                year = Swal.getPopup().querySelector('#year').value
+				year = Swal.getPopup().querySelector('#year').value
 				stockNum = Swal.getPopup().querySelector('#stockNum').value
 				location = Swal.getPopup().querySelector('#location').value.toLowerCase()
 
@@ -113,19 +113,7 @@ function Home(props) {
 	}
 
 	function isSpotAvailable(spotName) {
-        return availableSpots.find(spot => spot.spot_name === spotName);
-	}
-
-	const postUpdate = (car) => {
-		car.bttn = ''
-		car.highlighted = false
-		fetch('http://localhost:8000/cars/' + car.id, {
-			method: 'PUT',
-			headers: {
-				"Content-Type": "application/json"
-			},
-			body: JSON.stringify(car)
-		})
+		return availableSpots.find(spot => spot.spot_name === spotName);
 	}
 
 	const postDelete = (car) => {

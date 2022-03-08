@@ -14,7 +14,6 @@ import {
 } from 'react-router-dom';
 import Axios from 'axios'
 import { useAuth0 } from '@auth0/auth0-react';
-import Button from 'react-bootstrap/esm/Button';
 let edits = []
 
 
@@ -31,8 +30,6 @@ const App = () => {
 
 	const fetchCars = () => {
 		Axios.get("http://localhost:8001/cars").then((response) => {
-			//console.log("success");
-			console.log(response.data)
 			setCarList(response.data);
 		})
 	}
@@ -45,19 +42,13 @@ const App = () => {
 			showCancelButton: false,
 			confirmButtonColor: '#3085d6',
 			confirmButtonText: 'Login!'
-		  }).then((result) => {
-			if (result.isConfirmed) {
-			  Swal.fire(
-				'Login button goes here'
-			  )
-			}
-		  })
+		}).then((result) => {
+			loginWithRedirect()
+		})
 	}
 
 	const fetchsAvailableSpots = () => {
 		Axios.get("http://localhost:8001/availableSpots").then((response) => {
-			//console.log("success");
-			console.log(response.data)
 			setAvailableSpots(response.data);
 		})
 	}
@@ -69,34 +60,37 @@ const App = () => {
 	}
 	let update = useForceUpdate()
 
-	const {user, isAuthenticated} = useAuth0()
-	
+	const { isLoading, user, isAuthenticated, loginWithRedirect } = useAuth0()
+
 	let roles = []
-	if (user){
-	    roles = user['http://demozero.net/roles']
+	if (user) {
+		roles = user['http://demozero.net/roles']
 	}
 
 	return (
 		<Router>
-			<div>
-				<Navbar edits={edits} app={this} isAuthenticated={isAuthenticated}/>
 
-				{!isAuthenticated && warningMessage()}
+			<Navbar edits={edits} app={this} isAuthenticated={isAuthenticated} />
 
-				{isAuthenticated && !roles.includes('user') && <h1>{user.email} is not a registered user</h1>}
+			{isLoading && <h1>Loading Data...</h1>}
+			{!isLoading &&
+				<div>
+					{!isAuthenticated && warningMessage()}
 
-				{roles.includes("user") && carList && <Routes>
-					<Route path="/" element={<Home carList={carList} availableSpots={availableSpots} edits={edits} update={update} user={user} />}>
-					</Route>
-					<Route path="/map" element={<ParkingMap carList={carList} availableSpots={availableSpots} edits={edits} update={update} user={user} />}>
-					</Route>
-					{roles.includes("admin") &&
-					<Route path="/history" element={<Edits carList={carList} availableSpots={availableSpots} edits={edits} update={update} user={user} />}>
-					</Route>}
-					<Route path="/account" element={<Account />}></Route>
-				</Routes>}
+					{isAuthenticated && !roles.includes('user') && <h1>{user.email} is not a registered user</h1>}
 
-			</div>
+					{roles.includes("user") && carList && <Routes>
+						<Route path="/" element={<Home carList={carList} availableSpots={availableSpots} edits={edits} update={update} user={user} roles={roles} />}>
+						</Route>
+						<Route path="/map" element={<ParkingMap carList={carList} availableSpots={availableSpots} edits={edits} update={update} user={user} roles={roles} />}>
+						</Route>
+						<Route path="/history" element={<Edits carList={carList} availableSpots={availableSpots} edits={edits} update={update} user={user} roles={roles} />}>
+						</Route>
+						<Route path="/account" element={<Account />}></Route>
+					</Routes>}
+
+				</div>}
+
 		</Router>
 	);
 }
