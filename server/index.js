@@ -72,6 +72,40 @@ app.post("/insertNewCar", (req, res) => {
 	);
 })
 
+app.put("/insertHistoryEvent", (req, res) => {
+	const carID = req.body.car_id;
+	const old_spot_id = req.body.old_spot_id;
+	const new_spot_id = req.body.new_spot_id;
+	const user_id = req.body.user_id;
+	const event_type = req.body.event_type;
+	const event_date = req.event_date;
+
+	db.query(
+		"INSERT INTO history (carID, old_spot_id, new_spot_id, user_id, event_type, event_date), VALUES (?,?,?,?,?,?)",
+		[carID, old_spot_id, new_spot_id, user_id, event_type, event_date],
+		(err, result) => {
+			if(err){
+				console.log(err);
+			}
+			else{
+				res.send("Values Inserted");
+			}
+	});
+})
+
+app.get("/getHistory", (req, res) => {
+	db.query("select * from history", (err, result) => {
+		if (err){
+			console.log("error at getHistory: ");
+			console.log(err);
+		}
+		else{
+			res.send(result);
+		}
+	});
+})
+
+
 app.get("/availableSpots", (req, res) => {
 	db.query("select ps.spot_id, ps.spot_name from parking_spots ps left join cars c on ps.spot_id = c.spot_id where c.spot_id is null order by ps.spot_name", (err, result) => {
 		if (err) {
