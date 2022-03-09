@@ -36,20 +36,20 @@ app.put("/update", (req, res) =>{
 	);
 });
 
-app.delete("/delete", (req, res) => {
-	const vin = req.body.vin;
-	console.log("vin:")
-	console.log(vin);
-	db.query("DELETE FROM cars WHERE vin = ?", [vin], (err, result) => {
-		if(err) {
-			console.log("Errory in delete:");
-			console.log(err);
-		}
-		else{
-			res.send(result);
-		}
-	})
-})
+// app.delete("/delete", (req, res) => {
+// 	const vin = req.body.vin;
+// 	console.log("vin:")
+// 	console.log(vin);
+// 	db.query("DELETE FROM cars WHERE vin = ?", [vin], (err, result) => {
+// 		if(err) {
+// 			console.log("Errory in delete:");
+// 			console.log(err);
+// 		}
+// 		else{
+// 			res.send(result);
+// 		}
+// 	})
+// })
 
 app.post("/insertNewCar", (req, res) => {
 	const vin = req.body.vin;
@@ -72,7 +72,7 @@ app.post("/insertNewCar", (req, res) => {
 	);
 })
 
-app.put("/insertHistoryEvent", (req, res) => {
+app.post("/insertEvent", (req, res) => {
 	const carID = req.body.car_id;
 	const old_spot_id = req.body.old_spot_id;
 	const new_spot_id = req.body.new_spot_id;
@@ -81,7 +81,7 @@ app.put("/insertHistoryEvent", (req, res) => {
 	const event_date = req.event_date;
 
 	db.query(
-		"INSERT INTO history (carID, old_spot_id, new_spot_id, user_id, event_type, event_date), VALUES (?,?,?,?,?,?)",
+		"INSERT INTO history (car_id, old_spot_id, new_spot_id, user_id, event_type, event_date) VALUES (?,?,?,?,?,?)",
 		[carID, old_spot_id, new_spot_id, user_id, event_type, event_date],
 		(err, result) => {
 			if(err){

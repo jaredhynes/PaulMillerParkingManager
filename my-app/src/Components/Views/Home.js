@@ -30,6 +30,20 @@ function Home(props) {
 		})
 	}
 
+	function addEvent(car, oldSpot, newSpot, event_type){
+		Console.log(Date().toLocaleString());
+		Axios.post("http://localhost:8001/insertEvent", {
+			car_id: car.value.vin,
+			old_spot_id: oldSpot,
+			new_spot_id: newSpot,
+			user_id: null,
+			event_type: event_type,
+			event_date: Date().toLocaleString(),
+		}).then(() => {
+			console.log("added event");
+		})
+	}
+
 	function swalAddCar(vin = "", make_model = "", year = "", stockNum = "", location = "") {
 		Swal.fire({
 			title: 'Edit Previous Information',
@@ -89,6 +103,7 @@ function Home(props) {
 							<p>Location: ${result.value.location} </p>`,
 						})
 						addCarDB(result);
+						addEvent(result, getSpotID(result.value.location), getSpotID(result.value.location), "Added New Car")
 					}
 					else if (result.isDenied) {
 						swalAddCar(result.value.vin, result.value.make_model, result.value.year, result.value.stockNum, result.value.location);
