@@ -148,7 +148,7 @@ function Home(props) {
 	return (
 		<div className="App">
 			{props.carList.map(car => car.highlighted = false)}
-			{carList && <TableOfCars carList={carList} deleteCar={deleteCar} update={props.update} isSpotAvailable={isSpotAvailable} availableSpots={availableSpots} allSpots={props.allSpots} />}
+			{carList && <TableOfCars carList={carList} user={props.user} deleteCar={deleteCar} update={props.update} isSpotAvailable={isSpotAvailable} availableSpots={availableSpots} allSpots={props.allSpots} />}
 			<Button onClick={() => swalAddCar()}>Add Car</Button>
 		</div>
 	);
