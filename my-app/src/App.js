@@ -22,6 +22,7 @@ const App = () => {
 
 	const [carList, setCarList] = useState(null);
 	const [availableSpots, setAvailableSpots] = useState(null);
+	const [eventHistory, setEventHistory] = useState(null);
 
 	useEffect(() => {
 		fetchCars()
@@ -53,9 +54,16 @@ const App = () => {
 		})
 	}
 
+	const fetchsHistory = () =>{
+		Axios.get("http://localhost:8001/getHistory"). then((response) =>{
+			setEventHistory(response.data);
+		})
+	}
+
 	function update() {
 		fetchCars()
 		fetchsAvailableSpots()
+		fetchsHistory();
 	}
 
 	const { isLoading, user, isAuthenticated, loginWithRedirect } = useAuth0()
@@ -80,7 +88,7 @@ const App = () => {
 						</Route>
 						<Route path="/map" element={<ParkingMap carList={carList} availableSpots={availableSpots} edits={edits} update={() => update()} user={user} roles={roles} />}>
 						</Route>
-						<Route path="/history" element={<Edits carList={carList} availableSpots={availableSpots} edits={edits} update={() => update()} user={user} roles={roles} />}>
+						<Route path="/history" element={<Edits carList={carList} availableSpots={availableSpots} edits={eventHistory} update={() => update()} user={user} roles={roles} />}>
 						</Route>
 						<Route path="/account" element={<Account />}></Route>
 					</Routes>}

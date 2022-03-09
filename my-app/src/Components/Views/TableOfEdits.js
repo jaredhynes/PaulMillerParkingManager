@@ -8,35 +8,27 @@ const TableOfEdits = (props) => {
 		columns: [
 			{
 				label: 'Edit type',
-				field: 'type',
-			},
-			{
-				label: 'Make Model',
-				field: 'make_model',
+				field: 'event_type',
 			},
 			{
 				label: 'VIN',
-				field: 'key',
-			},
-			{
-				label: 'Stock Number',
-				field: 'stockNum',
+				field: 'car_id',
 			},
 			{
 				label: 'Old Location',
-				field: 'oldSpot',
+				field: 'old_spot_id',
 			},
 			{
 				label: 'New Location',
-				field: 'newSpot',
+				field: 'new_spot_id',
 			},
 			{
 				label: 'Time',
-				field: 'time',
+				field: 'event_date',
 			},
 			{
 				label: 'Sent by',
-				field: 'user'
+				field: 'user_id'
 			}
 		],
 		rows: props.edits
