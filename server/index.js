@@ -78,7 +78,7 @@ app.post("/insertEvent", (req, res) => {
 	const new_spot_id = req.body.new_spot_id;
 	const user_id = req.body.user_id;
 	const event_type = req.body.event_type;
-	const event_date = req.event_date;
+	const event_date = req.body.event_date;
 
 	db.query(
 		"INSERT INTO history (car_id, old_spot_id, new_spot_id, user_id, event_type, event_date) VALUES (?,?,?,?,?,?)",

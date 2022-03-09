@@ -31,7 +31,6 @@ function Home(props) {
 	}
 
 	function addEvent(car, oldSpot, newSpot, event_type){
-		Console.log(Date().toLocaleString());
 		Axios.post("http://localhost:8001/insertEvent", {
 			car_id: car.value.vin,
 			old_spot_id: oldSpot,
