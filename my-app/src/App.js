@@ -23,10 +23,13 @@ const App = () => {
 	const [carList, setCarList] = useState(null);
 	const [availableSpots, setAvailableSpots] = useState(null);
 	const [eventHistory, setEventHistory] = useState(null);
+	const [allSpots, setAllSpots] = useState(null);
 
 	useEffect(() => {
+		fetchsSpots();
 		fetchCars()
 		fetchsAvailableSpots()
+		fetchsHistory();
 	}, [])
 
 	const fetchCars = () => {
@@ -51,6 +54,12 @@ const App = () => {
 	const fetchsAvailableSpots = () => {
 		Axios.get("http://localhost:8001/availableSpots").then((response) => {
 			setAvailableSpots(response.data);
+		})
+	}
+
+	const fetchsSpots = () => {
+		Axios.get("http://localhost:8001/getAllSpots").then((response) => {
+			setAllSpots(response.data);
 		})
 	}
 
@@ -84,7 +93,7 @@ const App = () => {
 					{!isAuthenticated && warningMessage()}
 
 					{isAuthenticated && carList && <Routes>
-						<Route path="/" element={<Home carList={carList} availableSpots={availableSpots} edits={edits} update={() => update()} user={user} roles={roles} />}>
+						<Route path="/" element={<Home carList={carList} availableSpots={availableSpots} allSpots={allSpots} edits={edits} update={() => update()} user={user} roles={roles} />}>
 						</Route>
 						<Route path="/map" element={<ParkingMap carList={carList} availableSpots={availableSpots} edits={edits} update={() => update()} user={user} roles={roles} />}>
 						</Route>

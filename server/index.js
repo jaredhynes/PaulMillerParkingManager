@@ -130,6 +130,18 @@ app.get("/cars", (req, res) => {
 	})
 })
 
+app.get("/getAllSpots", (req, res) => {
+	db.query("select ps.spot_id, ps.spot_name from parking_spots ps", (err, result) => {
+		if(err) {
+			console.log("error: ");
+			console.log(err);
+		}
+		else{
+			res.send(result);
+		}
+	})
+})
+
 
 app.listen(8001, () => {
 	console.log("running on port 8001");

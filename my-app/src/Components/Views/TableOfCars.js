@@ -97,12 +97,40 @@ function TableOfCars(props) {
 							<p>New Location: ${result.value.newSpot} </p>`,
 						})
 						editCar(car, result.value.newSpot);
+						addEvent(car, car.spot_name, result.value.newSpot, "Car Location was Changed")
 					}
 					else if (result.isDenied) {
 						swalEditCar(car, result.value.newSpot);
 					}
 				})
 			}
+		})
+	}
+
+	function getSpotID(spotName){
+        return props.allSpots.find(el => 
+            el.spot_name === spotName
+        ).spot_id;
+    }
+
+	function editCar(car, newSpot) {
+		Axios.put("http://localhost:8001/update", {vin: car.vin, spot_id: getSpotID(newSpot)}).then(
+			(response) => {
+				props.update()
+			}
+		)
+	}
+
+	function addEvent(car, oldSpot, newSpot, event_type){
+		Axios.post("http://localhost:8001/insertEvent", {
+			car_id: car.vin,
+			old_spot_id: getSpotID(oldSpot),
+			new_spot_id: getSpotID(newSpot),
+			user_id: null,
+			event_type: event_type,
+			event_date: Date().toLocaleString(),
+		}).then(() => {
+			props.update();
 		})
 	}
 
@@ -154,19 +182,8 @@ function TableOfCars(props) {
 		car.highlighted = true
 	}
 
-	function getSpotID(spotName){
-        return props.availableSpots.find(el => 
-            el.spot_name === spotName
-        ).spot_id;
-    }
 
-	function editCar(car, newSpot) {
-		Axios.put("http://localhost:8001/update", {vin: car.vin, spot_id: getSpotID(newSpot)}).then(
-			(response) => {
-				props.update()
-			}
-		)
-	}
+	
 
 	function deleteCar(car){
 		console.log(car.vin);
