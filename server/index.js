@@ -4,6 +4,8 @@ const app = express();
 const cors = require("cors");
 const mysql = require("mysql");
 
+require("dotenv").config();
+
 app.use(cors());
 app.use(express.json());
 
@@ -14,9 +16,7 @@ const db = mysql.createPool({
 	database: 'parking',
 });
 
-app.get("/", (req, res) => {
-	res.send("hello");
-});
+
 
 app.put("/update", (req, res) =>{
 	const vin = req.body.vin;
@@ -154,6 +154,6 @@ app.get("/getAllSpots", (req, res) => {
 })
 
 
-app.listen(8001, () => {
+app.listen(process.env.PORT || 8001, () => {
 	console.log("running on port 8001");
 });
