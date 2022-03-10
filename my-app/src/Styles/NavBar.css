@@ -1,5 +1,5 @@
 html {
-    background-color: #90caf9 ; /*blue lighten-3*/
+    background-color: #e51e1e ; /*blue lighten-3*/
   }
   
   main {
@@ -76,7 +76,7 @@ html {
     background-color: #eca4a4 !important;
     cursor: pointer;
   }
-  a {
+  a.sidenav {
     color: #e51e1e !important;
     cursor: pointer;
   }
