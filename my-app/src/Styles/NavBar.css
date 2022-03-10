@@ -104,3 +104,6 @@ html {
   .show>.btn-primary.dropdown-toggle {
     background-color: #e51e1e !important;
   }
+  a.brand-logo {
+    color: white !important;
+  }
