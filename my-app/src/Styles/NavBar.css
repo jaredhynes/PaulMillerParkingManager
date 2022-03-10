@@ -76,9 +76,11 @@ html {
     background-color: #eca4a4 !important;
     cursor: pointer;
   }
-  a.sidenav {
-    color: #e51e1e !important;
+  a {
+    color: #c53434 !important;
     cursor: pointer;
+    font-weight: bold
+    ;
   }
   a:hover {
     color: #eca4a4 !important;
