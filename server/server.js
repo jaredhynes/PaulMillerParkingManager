@@ -11,7 +11,6 @@ require("dotenv").config();
 
 app.use(cors());
 app.use(express.json());
-app.use(express.static(path.join(__dirname, 'my-app/build')))
 
 const db = mysql.createPool({
 	host: 'soccerdb.calingaiy4id.us-east-2.rds.amazonaws.com',
