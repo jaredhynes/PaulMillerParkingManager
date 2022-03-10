@@ -64,7 +64,7 @@ const App = () => {
 	}
 
 	const fetchHistory = () =>{
-		Axios.get("http://localhost:8001/getHistory"). then((response) =>{
+		Axios.get("http://localhost:8001/getHistory").then((response) =>{
 			setEventHistory(response.data);
 		})
 	}
