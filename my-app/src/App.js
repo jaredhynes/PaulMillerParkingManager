@@ -16,7 +16,7 @@ import Axios from 'axios'
 import { useAuth0 } from '@auth0/auth0-react';
 let edits = []
 
-
+const PATH = "pm-parking.herokuapp.com/"
 
 const App = () => {
 
@@ -33,7 +33,7 @@ const App = () => {
 	}, [])
 
 	const fetchCars = () => {
-		Axios.get("http://localhost:8001/cars").then((response) => {
+		Axios.get(PATH + "cars").then((response) => {
 			setCarList(response.data);
 		})
 	}
@@ -52,19 +52,19 @@ const App = () => {
 	}
 
 	const fetchAvailableSpots = () => {
-		Axios.get("http://localhost:8001/availableSpots").then((response) => {
+		Axios.get(PATH + "availableSpots").then((response) => {
 			setAvailableSpots(response.data);
 		})
 	}
 
 	const fetchSpots = () => {
-		Axios.get("http://localhost:8001/getAllSpots").then((response) => {	
+		Axios.get(PATH + "getAllSpots").then((response) => {	
 			setAllSpots(response.data);
 		})
 	}
 
 	const fetchHistory = () =>{
-		Axios.get("http://localhost:8001/getHistory").then((response) =>{
+		Axios.get(PATH + "getHistory").then((response) =>{
 			setEventHistory(response.data);
 		})
 	}
