@@ -1,6 +1,6 @@
 import React from 'react';
 import '../../Styles/NavBar.css'
-import 'materialize-css/dist/css/materialize.min.css';
+// import 'materialize-css/dist/css/materialize.min.css';
 import { Link } from 'react-router-dom';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import Dropdown from 'react-bootstrap/Dropdown';
@@ -39,7 +39,7 @@ const Navbar = (props) => {
 			</nav>
 			<div>
 			</div>
-			{<DropdownButton id="mobile-nav" class="sidenav" title="Menu">
+			{<DropdownButton id="mobile-nav" class="sidenav" title="Menu" menuVariant="dark">
 				<Dropdown.Item> <Link to="/">Home </Link></Dropdown.Item>
 				<Dropdown.Item> <Link to="/map">Map</Link></Dropdown.Item>
 				<Dropdown.Item><Link to="/history">Edit History</Link></Dropdown.Item>

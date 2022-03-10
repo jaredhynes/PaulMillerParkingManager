@@ -1,5 +1,5 @@
 html {
-  background-color: #90caf9 ; /*blue lighten-3*/
+  background-color: #e51e1e ; /*blue lighten-3*/
 }
 
 
@@ -31,7 +31,7 @@ button.addDelete:hover {
   background-color: red;
 }
 button.openMap{
-  background-color: #1e88e5; /* Use the same color as the top */
+  background-color: #e51e1e; /* Use the same color as the top */
   border: 2px solid black;
   color: white;
   padding: 15px 32px;
