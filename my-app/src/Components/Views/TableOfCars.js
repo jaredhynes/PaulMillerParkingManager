@@ -138,7 +138,6 @@ function TableOfCars(props) {
 		console.log(car.vin);
 		Axios.delete(`http://localhost:8001/deleteEventByVin/${car.vin}`).then((response) => {
 			Axios.delete(`http://localhost:8001/delete/${car.vin}`).then((response) => {
-				console.log("Successfully Deleted Car")
 				props.update();
 			})
 		})

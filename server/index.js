@@ -50,10 +50,7 @@ app.delete("/deleteEventByVin/:vin", (req,res) => {
 })
 
 app.delete("/delete/:vin", (req, res) => {
-	console.log(req.params);
 	const vin = req.params.vin;
-	console.log("vin:")
-	console.log(vin);
 	db.query("DELETE FROM cars WHERE vin = ?", vin, (err, result) => {
 		if(err) {
 			console.log("Error in delete:");
