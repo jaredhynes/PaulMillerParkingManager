@@ -26,10 +26,10 @@ const App = () => {
 	const [allSpots, setAllSpots] = useState(null);
 
 	useEffect(() => {
-		fetchsSpots();
+		fetchSpots();
 		fetchCars()
-		fetchsAvailableSpots()
-		fetchsHistory();
+		fetchAvailableSpots()
+		fetchHistory();
 	}, [])
 
 	const fetchCars = () => {
@@ -51,19 +51,19 @@ const App = () => {
 		})
 	}
 
-	const fetchsAvailableSpots = () => {
+	const fetchAvailableSpots = () => {
 		Axios.get("http://localhost:8001/availableSpots").then((response) => {
 			setAvailableSpots(response.data);
 		})
 	}
 
-	const fetchsSpots = () => {
-		Axios.get("http://localhost:8001/getAllSpots").then((response) => {
+	const fetchSpots = () => {
+		Axios.get("http://localhost:8001/getAllSpots").then((response) => {	
 			setAllSpots(response.data);
 		})
 	}
 
-	const fetchsHistory = () =>{
+	const fetchHistory = () =>{
 		Axios.get("http://localhost:8001/getHistory"). then((response) =>{
 			setEventHistory(response.data);
 		})
@@ -71,8 +71,9 @@ const App = () => {
 
 	function update() {
 		fetchCars()
-		fetchsAvailableSpots()
-		fetchsHistory();
+		fetchSpots()
+		fetchAvailableSpots()
+		fetchHistory();
 	}
 
 	const { isLoading, user, isAuthenticated, loginWithRedirect } = useAuth0()
