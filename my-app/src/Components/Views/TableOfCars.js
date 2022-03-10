@@ -134,6 +134,16 @@ function TableOfCars(props) {
 		})
 	}
 
+	function deleteCar(car){
+		console.log(car.vin);
+		Axios.delete(`http://localhost:8001/deleteEventByVin/${car.vin}`).then((response) => {
+			Axios.delete(`http://localhost:8001/delete/${car.vin}`).then((response) => {
+				console.log("Successfully Deleted Car")
+				props.update();
+			})
+		})
+	}
+
 	function swalArchiveCar(car) {
 		Swal.fire({
 			title: 'Are you sure you would like to archive this car?',
@@ -183,15 +193,6 @@ function TableOfCars(props) {
 	}
 
 
-	
-
-	function deleteCar(car){
-		console.log(car.vin);
-		Axios.delete("http://localhost:8001/delete", {vin: car.vin}).then((response) => {
-			console.log("Successfully Deleted Car")
-			props.update()
-		})
-	}
 
 	return (
 		<div>

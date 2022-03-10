@@ -36,13 +36,27 @@ app.put("/update", (req, res) =>{
 	);
 });
 
-app.delete("/delete", (req, res) => {
-	const vin = req.body.vin;
+app.delete("/deleteEventByVin/:vin", (req,res) => {
+	const vin = req.params.vin;
+	db.query("DELETE FROM history WHERE car_id = ? ", vin, (err, result) => {
+		if(err) {
+			console.log("Error in delete:");
+			console.log(err);
+		}
+		else{
+			res.send(result);
+		}
+	})
+})
+
+app.delete("/delete/:vin", (req, res) => {
+	console.log(req.params);
+	const vin = req.params.vin;
 	console.log("vin:")
 	console.log(vin);
-	db.query("DELETE FROM cars WHERE vin = ?", [vin], (err, result) => {
+	db.query("DELETE FROM cars WHERE vin = ?", vin, (err, result) => {
 		if(err) {
-			console.log("Errory in delete:");
+			console.log("Error in delete:");
 			console.log(err);
 		}
 		else{
