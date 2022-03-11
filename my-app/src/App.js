@@ -10,7 +10,8 @@ import Swal from 'sweetalert2'
 import {
 	BrowserRouter as Router,
 	Routes,
-	Route
+	Route,
+	Redirect
 } from 'react-router-dom';
 import Axios from 'axios'
 import { useAuth0 } from '@auth0/auth0-react';
@@ -94,13 +95,10 @@ const App = () => {
 					{!isAuthenticated && warningMessage()}
 
 					{isAuthenticated && carList && <Routes>
-						<Route path="/" element={<Home carList={carList} availableSpots={availableSpots} allSpots={allSpots} edits={edits} update={() => update()} user={user} roles={roles} PATH={PATH} />}>
-						</Route>
-						<Route path="/map" element={<ParkingMap carList={carList} availableSpots={availableSpots} edits={edits} update={() => update()} user={user} roles={roles} PATH={PATH} />}>
-						</Route>
-						<Route path="/history" element={<Edits carList={carList} availableSpots={availableSpots} edits={eventHistory} update={() => update()} user={user} roles={roles} PATH={PATH} />}>
-						</Route>
-						<Route path="/account" element={<Account />}></Route>
+						<Route path="/" element={<Home carList={carList} availableSpots={availableSpots} allSpots={allSpots} edits={edits} update={() => update()} user={user} roles={roles} PATH={PATH} />}/>
+						<Route path="/map" element={<ParkingMap carList={carList} availableSpots={availableSpots} edits={edits} update={() => update()} user={user} roles={roles} PATH={PATH} />}/>
+						<Route path="/history" element={<Edits carList={carList} availableSpots={availableSpots} edits={eventHistory} update={() => update()} user={user} roles={roles} PATH={PATH} />}/>
+						<Route path="/account" element={<Account />}/>
 					</Routes>}
 
 				</div>}
