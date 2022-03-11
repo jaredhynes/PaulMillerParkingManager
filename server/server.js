@@ -13,9 +13,9 @@ app.use(cors());
 app.use(express.json());
 
 const db = mysql.createPool({
-	host: 'soccerdb.calingaiy4id.us-east-2.rds.amazonaws.com',
+	host: process.env.DB_HOST,
 	user: 'parkinguser',
-	password: 'Ydjgf35jaskjh92',
+	password: process.env.DB_PASS,
 	database: 'parking',
 });
 
