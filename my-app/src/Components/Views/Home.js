@@ -46,7 +46,7 @@ function Home(props) {
 
 	function swalAddCar(vin = "", make_model = "", year = "", stockNum = "", location = "") {
 		Swal.fire({
-			title: 'Edit Previous Information',
+			title: 'Add Car',
 			// want to have the information there in the edit, not just random values. using ${result.value.vin} does not work!
 			html: `<input type="text" id="vin" class="swal2-input" placeholder="VIN" value=${vin}>
 			<input type="text" id="make_model" class="swal2-input" placeholder="Make/Model" value=${make_model}>
