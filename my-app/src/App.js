@@ -38,6 +38,7 @@ const App = () => {
 		})
 	}
 
+	
 	function warningMessage() {
 		Swal.fire({
 			title: 'Warning! You are not signed in.',
