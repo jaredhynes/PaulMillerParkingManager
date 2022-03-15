@@ -114,7 +114,7 @@ function TableOfCars(props) {
     }
 
 	function editCar(car, newSpot) {
-		Axios.put("http://localhost:8001/update", {vin: car.vin, spot_id: getSpotID(newSpot)}).then(
+		Axios.put(props.PATH + "update", {vin: car.vin, spot_id: getSpotID(newSpot)}).then(
 			(response) => {
 				props.update()
 			}
@@ -122,7 +122,7 @@ function TableOfCars(props) {
 	}
 
 	function addEvent(car, oldSpot, newSpot, event_type){
-		Axios.post("http://localhost:8001/insertEvent", {
+		Axios.post(props.PATH + "insertEvent", {
 			car_id: car.vin,
 			old_spot_id: getSpotID(oldSpot),
 			new_spot_id: getSpotID(newSpot),
@@ -136,8 +136,8 @@ function TableOfCars(props) {
 
 	function deleteCar(car){
 		console.log(car.vin);
-		Axios.delete(`http://localhost:8001/deleteEventByVin/${car.vin}`).then((response) => {
-			Axios.delete(`http://localhost:8001/delete/${car.vin}`).then((response) => {
+		Axios.delete(props.PATH + `deleteEventByVin/${car.vin}`).then((response) => {
+			Axios.delete(props.PATH + `delete/${car.vin}`).then((response) => {
 				props.update();
 			})
 		})

@@ -13,7 +13,7 @@ ReactDOM.render(
 		<Auth0Provider
 			domain = "dev-w1z8wy-p.us.auth0.com"
 			clientId="RHaM86sHqrwsD6rk8wTpi1YsU2z9FyhQ"
-			redirectUri={'http://localhost:3000'}
+			redirectUri={"https://pm-parking.herokuapp.com/"}
 		>
 			<App/>
 		</Auth0Provider>

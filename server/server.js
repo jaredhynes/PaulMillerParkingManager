@@ -2,8 +2,6 @@ const express = require("express");
 const app = express();
 const path = require("path")
 
-const publicPath = path.join(__dirname, '..', 'public')
-
 const cors = require('cors')
 const mysql = require("mysql");
 
@@ -13,12 +11,11 @@ require("dotenv").config();
 
 app.use(cors());
 app.use(express.json());
-//app.use(express.static(publicPath))
 
 const db = mysql.createPool({
-	host: 'soccerdb.calingaiy4id.us-east-2.rds.amazonaws.com',
+	host: process.env.DB_HOST,
 	user: 'parkinguser',
-	password: 'Ydjgf35jaskjh92',
+	password: process.env.DB_PASS,
 	database: 'parking',
 });
 
