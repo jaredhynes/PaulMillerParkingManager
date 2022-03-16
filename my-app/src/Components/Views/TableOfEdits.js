@@ -3,7 +3,15 @@ import 'materialize-css/dist/css/materialize.min.css';
 import '../../App.css';
 import { MDBDataTable } from 'mdbreact';
 
+
 const TableOfEdits = (props) => {
+
+	function getSpotName(spotID){
+		return props.allSpots.find(el => 
+            el.spot_id === spotID
+        ).spot_name;
+	}
+
 	let datatable = {
 		columns: [
 			{
@@ -16,7 +24,7 @@ const TableOfEdits = (props) => {
 			},
 			{
 				label: 'Old Location',
-				field: 'old_spot_id',
+				field: `${getSpotName(old_spot_id)}`,
 			},
 			{
 				label: 'New Location',

@@ -97,9 +97,10 @@ const App = () => {
 					{!isAuthenticated && warningMessage()}
 
 					{isAuthenticated && carList && <Routes>
+
 						<Route path="/" element={<Home carList={carList} availableSpots={availableSpots} allSpots={allSpots} edits={edits} update={() => update()} user={user} roles={roles} PATH={PATH} />}/>
 						<Route path="/map" element={<ParkingMap carList={carList} availableSpots={availableSpots} edits={edits} update={() => update()} user={user} roles={roles} PATH={PATH} />}/>
-						<Route path="/history" element={<Edits carList={carList} availableSpots={availableSpots} edits={eventHistory} update={() => update()} user={user} roles={roles} PATH={PATH} />}/>
+						<Route path="/history" element={<Edits carList={carList} availableSpots={availableSpots} allSpots={allSpots} edits={eventHistory} update={() => update()} user={user} roles={roles} PATH={PATH} />}/>
 						<Route path="/account" element={<Account />}/>
 					</Routes>}
 
