@@ -10,13 +10,14 @@ import Swal from 'sweetalert2'
 import {
 	BrowserRouter as Router,
 	Routes,
-	Route
+	Route,
+	Redirect
 } from 'react-router-dom';
 import Axios from 'axios'
 import { useAuth0 } from '@auth0/auth0-react';
 let edits = []
 
-
+const PATH = "https://gentle-thicket-28075.herokuapp.com/"
 
 const App = () => {
 
@@ -33,7 +34,7 @@ const App = () => {
 	}, [])
 
 	const fetchCars = () => {
-		Axios.get("http://localhost:8001/cars").then((response) => {
+		Axios.get(PATH + "cars").then((response) => {
 			setCarList(response.data);
 		})
 	}
@@ -53,19 +54,19 @@ const App = () => {
 	}
 
 	const fetchAvailableSpots = () => {
-		Axios.get("http://localhost:8001/availableSpots").then((response) => {
+		Axios.get(PATH + "availableSpots").then((response) => {
 			setAvailableSpots(response.data);
 		})
 	}
 
 	const fetchSpots = () => {
-		Axios.get("http://localhost:8001/getAllSpots").then((response) => {	
+		Axios.get(PATH + "getAllSpots").then((response) => {	
 			setAllSpots(response.data);
 		})
 	}
 
 	const fetchHistory = () =>{
-		Axios.get("http://localhost:8001/getHistory").then((response) =>{
+		Axios.get(PATH + "getHistory").then((response) =>{
 			setEventHistory(response.data);
 		})
 	}
@@ -95,13 +96,11 @@ const App = () => {
 					{!isAuthenticated && warningMessage()}
 
 					{isAuthenticated && carList && <Routes>
-						<Route path="/" element={<Home carList={carList} availableSpots={availableSpots} allSpots={allSpots} edits={edits} update={() => update()} user={user} roles={roles} />}>
-						</Route>
-						<Route path="/map" element={<ParkingMap carList={carList} availableSpots={availableSpots} edits={edits} update={() => update()} user={user} roles={roles} />}>
-						</Route>
-						<Route path="/history" element={<Edits carList={carList} availableSpots={availableSpots} allSpots={allSpots} edits={eventHistory} update={() => update()} user={user} roles={roles} />}>
-						</Route>
-						<Route path="/account" element={<Account />}></Route>
+
+						<Route path="/" element={<Home carList={carList} availableSpots={availableSpots} allSpots={allSpots} edits={edits} update={() => update()} user={user} roles={roles} PATH={PATH} />}/>
+						<Route path="/map" element={<ParkingMap carList={carList} availableSpots={availableSpots} edits={edits} update={() => update()} user={user} roles={roles} PATH={PATH} />}/>
+						<Route path="/history" element={<Edits carList={carList} availableSpots={availableSpots} allSpots={allSpots} edits={eventHistory} update={() => update()} user={user} roles={roles} PATH={PATH} />}/>
+						<Route path="/account" element={<Account />}/>
 					</Routes>}
 
 				</div>}

@@ -5,8 +5,8 @@ import Button from "react-bootstrap/esm/Button";
 const LogoutButton = () => {
     const { logout } = useAuth0();
 
-    return (
-        <Button onClick={() => logout({ returnTo: "http://localhost:3000" })}>
+    return ( 
+        <Button onClick={() => logout({ returnTo: "https://pm-parking.herokuapp.com/" })}>
             Log Out
         </Button>
     );

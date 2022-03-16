@@ -20,7 +20,7 @@ function Home(props) {
 	}
 
 	function addCarDB(car) {
-		Axios.post("http://localhost:8001/insertNewCar", {
+		Axios.post(props.PATH + "insertNewCar", {
 			vin: car.value.vin,
 			make_model: car.value.make_model,
 			stockNum: car.value.stockNum,
@@ -32,7 +32,7 @@ function Home(props) {
 	}
 
 	function addEvent(car, oldSpot, newSpot, event_type){
-		Axios.post("http://localhost:8001/insertEvent", {
+		Axios.post(props.PATH + "insertEvent", {
 			car_id: car.value.vin,
 			old_spot_id: oldSpot,
 			new_spot_id: newSpot,
@@ -46,7 +46,7 @@ function Home(props) {
 
 	function swalAddCar(vin = "", make_model = "", year = "", stockNum = "", location = "") {
 		Swal.fire({
-			title: 'Edit Previous Information',
+			title: 'Add Car',
 			// want to have the information there in the edit, not just random values. using ${result.value.vin} does not work!
 			html: `<input type="text" id="vin" class="swal2-input" placeholder="VIN" value=${vin}>
 			<input type="text" id="make_model" class="swal2-input" placeholder="Make/Model" value=${make_model}>
@@ -118,7 +118,7 @@ function Home(props) {
 	}
 
 	const postDelete = (car) => {
-		fetch('http://localhost:8000/cars/' + car.id, {
+		fetch(props.PATH + 'cars/' + car.id, {
 			method: 'DELETE',
 			headers: {
 				"Content-Type": "application/json"
@@ -149,7 +149,7 @@ function Home(props) {
 	return (
 		<div className="App">
 			{props.carList.map(car => car.highlighted = false)}
-			{carList && <TableOfCars carList={carList} user={props.user} deleteCar={deleteCar} update={() => props.update()} isSpotAvailable={isSpotAvailable} availableSpots={availableSpots} allSpots={props.allSpots} />}
+			{carList && <TableOfCars carList={carList} user={props.user} PATH={props.PATH} deleteCar={deleteCar} update={() => props.update()} isSpotAvailable={isSpotAvailable} availableSpots={availableSpots} allSpots={props.allSpots} />}
 			<Button variant="dark" onClick={() => swalAddCar()}>Add Car</Button>
 		</div>
 	);
