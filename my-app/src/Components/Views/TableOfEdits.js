@@ -24,7 +24,7 @@ const TableOfEdits = (props) => {
 			},
 			{
 				label: 'Old Location',
-				field: `${getSpotName(old_spot_id)}`,
+				field: `${getSpotName("old_spot_id")}`,
 			},
 			{
 				label: 'New Location',
