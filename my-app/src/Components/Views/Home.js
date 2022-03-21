@@ -2,7 +2,6 @@ import React from 'react';
 import '../../App.css';
 import Swal from 'sweetalert2'
 import '../../Styles/sweetalert.css'
-import '../../Styles/home.css'
 import Button from 'react-bootstrap/Button'
 import TableOfCars from './TableOfCars';
 import Axios from 'axios'
@@ -36,7 +35,7 @@ function Home(props) {
 			car_id: car.value.vin,
 			old_spot_id: oldSpot,
 			new_spot_id: newSpot,
-			user_id: null,
+			user_id: props.user.email,
 			event_type: event_type,
 			event_date: Date().toLocaleString(),
 		}).then(() => {
