@@ -1,6 +1,6 @@
 import React from 'react';
 import '../../Styles/NavBar.css'
-// import 'materialize-css/dist/css/materialize.min.css';
+import 'materialize-css/dist/css/materialize.min.css';
 import { Link } from 'react-router-dom';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import Dropdown from 'react-bootstrap/Dropdown';

@@ -10,8 +10,7 @@ import Swal from 'sweetalert2'
 import {
 	BrowserRouter as Router,
 	Routes,
-	Route,
-	Redirect
+	Route
 } from 'react-router-dom';
 import Axios from 'axios'
 import { useAuth0 } from '@auth0/auth0-react';
