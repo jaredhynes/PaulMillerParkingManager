@@ -17,7 +17,9 @@ import { useAuth0 } from '@auth0/auth0-react';
 let edits = []
 
 
-const PATH = "https://gentle-thicket-28075.herokuapp.com/"
+//const PATH = "https://gentle-thicket-28075.herokuapp.com/"
+
+const PATH = "https://localhost:8001/"
 
 const App = () => {
 
