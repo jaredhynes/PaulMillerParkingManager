@@ -14,6 +14,7 @@ import {
 } from 'react-router-dom';
 import Axios from 'axios'
 import { useAuth0 } from '@auth0/auth0-react';
+import CarPage from './Components/Views/CarPage';
 let edits = []
 
 
@@ -101,6 +102,7 @@ const App = () => {
 						<Route path="/map" element={<ParkingMap carList={carList} availableSpots={availableSpots} edits={edits} update={() => update()} user={user} roles={roles} PATH={PATH} />}/>
 						<Route path="/history" element={<Edits carList={carList} availableSpots={availableSpots} allSpots={allSpots} edits={eventHistory} update={() => update()} user={user} roles={roles} PATH={PATH} />}/>
 						<Route path="/account" element={<Account />}/>
+						<Route path="/details/?=vin" element={<CarPage/>}/>
 					</Routes>}
 
 				</div>}
