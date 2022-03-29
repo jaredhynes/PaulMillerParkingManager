@@ -13,9 +13,9 @@ ReactDOM.render(
 		<Auth0Provider
 			domain = "dev-w1z8wy-p.us.auth0.com"
 			clientId="RHaM86sHqrwsD6rk8wTpi1YsU2z9FyhQ"
-			redirectUri={"https://pm-parking.herokuapp.com/"}
+			redirectUri={window.location.origin}
 		>
-			<App/>
+			<App />
 		</Auth0Provider>
 	</React.StrictMode>,
 	document.getElementById('root')
