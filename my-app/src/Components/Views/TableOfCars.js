@@ -98,7 +98,7 @@ function TableOfCars(props) {
 							<p>New Location: ${result.value.newSpot} </p>`,
 						})
 						editCar(car, result.value.newSpot);
-						addEvent(car, car.spot_name, result.value.newSpot, "Car Location was Changed")
+						props.addEvent(car, getSpotID(car.spot_name), getSpotID(result.value.newSpot), "Car was Moved")
 					}
 					else if (result.isDenied) {
 						swalEditCar(car, result.value.newSpot);
@@ -122,21 +122,7 @@ function TableOfCars(props) {
 		)
 	}
 
-	function addEvent(car, oldSpot, newSpot, event_type){
-		Axios.post(props.PATH + "insertEvent", {
-			car_id: car.vin,
-			old_spot_id: getSpotID(oldSpot),
-			new_spot_id: getSpotID(newSpot),
-			user_id: null,
-			event_type: event_type,
-			event_date: Date().toLocaleString(),
-		}).then(() => {
-			props.update();
-		})
-	}
-
 	function deleteCar(car){
-		console.log(car.vin);
 		Axios.delete(props.PATH + `deleteEventByVin/${car.vin}`).then((response) => {
 			Axios.delete(props.PATH + `delete/${car.vin}`).then((response) => {
 				props.update();

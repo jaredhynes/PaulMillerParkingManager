@@ -32,14 +32,14 @@ function Home(props) {
 
 	function addEvent(car, oldSpot, newSpot, event_type){
 		Axios.post(props.PATH + "insertEvent", {
-			car_id: car.value.vin,
+			car_id: car.vin,
 			old_spot_id: oldSpot,
 			new_spot_id: newSpot,
 			user_id: props.user.email,
 			event_type: event_type,
 			event_date: Date().toLocaleString(),
 		}).then(() => {
-			console.log("added event");
+			props.update();
 		})
 	}
 
@@ -102,7 +102,7 @@ function Home(props) {
 							<p>Location: ${result.value.location} </p>`,
 						})
 						addCarDB(result);
-						addEvent(result, getSpotID(result.value.location), getSpotID(result.value.location), "Added New Car")
+						addEvent(result.value, getSpotID(result.value.location), getSpotID(result.value.location), "Added New Car")
 					}
 					else if (result.isDenied) {
 						swalAddCar(result.value.vin, result.value.make_model, result.value.year, result.value.stockNum, result.value.location);
@@ -148,7 +148,7 @@ function Home(props) {
 	return (
 		<div className="App">
 			{props.carList.map(car => car.highlighted = false)}
-			{carList && <TableOfCars carList={carList} user={props.user} PATH={props.PATH} deleteCar={deleteCar} update={() => props.update()} isSpotAvailable={isSpotAvailable} availableSpots={availableSpots} allSpots={props.allSpots} />}
+			{carList && <TableOfCars carList={carList} user={props.user} PATH={props.PATH} deleteCar={deleteCar} update={() => props.update()} isSpotAvailable={isSpotAvailable} addEvent={addEvent} availableSpots={availableSpots} allSpots={props.allSpots} />}
 			<Button variant="dark" onClick={() => swalAddCar()}>Add Car</Button>
 		</div>
 	);
