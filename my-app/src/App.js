@@ -17,8 +17,8 @@ import { useAuth0 } from '@auth0/auth0-react';
 import CarPage from './Components/Views/CarPage';
 let edits = []
 
-const PATH = "https://gentle-thicket-28075.herokuapp.com/" // Use this for Heroku
-//const PATH = "http://localhost:8001/"  // Use this for local testing
+//const PATH = "https://gentle-thicket-28075.herokuapp.com/" // Use this for Heroku
+const PATH = "http://localhost:8001/"  // Use this for local testing
 
 const App = () => {
 	const [carList, setCarList] = useState(null);
