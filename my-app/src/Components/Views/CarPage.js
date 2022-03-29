@@ -3,9 +3,12 @@ import { Button } from "react-bootstrap";
 import { useParams } from "react-router";
 
 function CarPage(props) {
-    let vin = useParams(window.location.search);
+    const { vin } = useParams(window.location.search);
     let car = props.carList.find(car => car.vin === vin);
 
+    console.log(car);
+    console.log(vin);
+    
     return (
         <div>
             <h1>details</h1>
@@ -13,7 +16,7 @@ function CarPage(props) {
             {car.year}
             {car.vin}
             {car.location}
-            {/* {car.description} */}
+            {car.description}
             <Button>Edit</Button>
         </div>
     );
