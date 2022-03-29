@@ -102,7 +102,7 @@ const App = () => {
 						<Route path="/map" element={<ParkingMap carList={carList} availableSpots={availableSpots} edits={edits} update={() => update()} user={user} roles={roles} PATH={PATH} />}/>
 						<Route path="/history" element={<Edits carList={carList} availableSpots={availableSpots} allSpots={allSpots} edits={eventHistory} update={() => update()} user={user} roles={roles} PATH={PATH} />}/>
 						<Route path="/account" element={<Account />}/>
-						<Route path="/details/?=vin" element={<CarPage/>}/>
+						<Route path="/details/:vin" element={<CarPage carList={carList}/>}/>
 					</Routes>}
 
 				</div>}
