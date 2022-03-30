@@ -29,6 +29,7 @@ const App = () => {
 
 	const { isLoading, user, isAuthenticated, loginWithRedirect, getAccessTokenSilently } = useAuth0();
 
+	
 	useEffect(() => {
 		const getToken = async() => {
 			setAccessToken(await getAccessTokenSilently({

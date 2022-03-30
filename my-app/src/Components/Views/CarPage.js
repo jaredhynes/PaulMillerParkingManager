@@ -4,6 +4,9 @@ import { useParams } from "react-router";
 import TableOfEdits from "./TableOfEdits";
 import { useState } from 'react';
 import QRCode from "qrcode.react";
+import { EditText, EditTextarea } from 'react-edit-text';
+import 'react-edit-text/dist/index.css';
+
 
 function CarPage(props) {
     const { vin } = useParams(window.location.search);
@@ -20,6 +23,9 @@ function CarPage(props) {
             <h2>VIN: {car.vin}</h2>
             <h3>Stock Number: {car.stockNum}</h3>
             <h4>Location: {car.spot_name}</h4>
+            <EditTextarea
+              placeholder='Description will got here (Click to edit)'
+            />
             <Button>Edit Information</Button><Button onClick={getCurrentPage}>Generate QR-Code</Button>
 
             <div>
