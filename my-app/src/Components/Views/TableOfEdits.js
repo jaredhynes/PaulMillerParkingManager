@@ -4,7 +4,7 @@ import '../../App.css';
 import { MDBDataTable } from 'mdbreact';
 
 
-const TableOfEdits = (props) => {
+function TableOfEdits(props){
 
 	// function getSpotName(spotID){
 	// 	return props.allSpots.find(el => 

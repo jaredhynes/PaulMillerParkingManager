@@ -15,7 +15,7 @@ function TableOfCars(props) {
 			<Dropdown.Item onClick={() => swalArchiveCar(car)}>Archive Car</Dropdown.Item>
 			<Dropdown.Item onClick={() => swalDeleteCar(car)}>Delete Car</Dropdown.Item>
 			<Dropdown.Item onClick={() => highlightCar(car)}><Link to='/map'>Show on map</Link></Dropdown.Item>
-			<Dropdown.Item><Link to={`/details/${car.vin}`} >View Details</Link></Dropdown.Item>
+			<Dropdown.Item><Link to={`/details/${car.vin}`}>View Details</Link></Dropdown.Item>
 		</DropdownButton>
 	))
 	let datatable = {
@@ -23,12 +23,12 @@ function TableOfCars(props) {
 			{
 				label: 'Action',
 				field: 'bttn',
-				width: 400,
+				width: 150,
 			},
 			{
 				label: 'VIN',
 				field: 'vin',
-				width: 160,
+				width: 120,
 				attributes: {
 					'aria-controls': 'DataTable',
 					'aria-label': 'VIN',
@@ -37,17 +37,17 @@ function TableOfCars(props) {
 			{
 				label: 'Make Model',
 				field: 'make_model',
-				width: 280,
+				width: 150,
 			},
 			{
 				label: 'Stock Number',
 				field: 'stockNum',
-				width: 210,
+				width: 130,
 			},
 			{
 				label: 'Location',
 				field: 'spot_name',
-				width: 110,
+				width: 130,
 			}
 		],
 		rows: props.carList
@@ -98,7 +98,7 @@ function TableOfCars(props) {
 							<p>New Location: ${result.value.newSpot} </p>`,
 						})
 						editCar(car, result.value.newSpot);
-						addEvent(car, car.spot_name, result.value.newSpot, "Car Location was Changed")
+						props.addEvent(car, getSpotID(car.spot_name), getSpotID(result.value.newSpot), "Car was Moved")
 					}
 					else if (result.isDenied) {
 						swalEditCar(car, result.value.newSpot);
@@ -122,21 +122,7 @@ function TableOfCars(props) {
 		)
 	}
 
-	function addEvent(car, oldSpot, newSpot, event_type){
-		Axios.post(props.PATH + "insertEvent", {
-			car_id: car.vin,
-			old_spot_id: getSpotID(oldSpot),
-			new_spot_id: getSpotID(newSpot),
-			user_id: null,
-			event_type: event_type,
-			event_date: Date().toLocaleString(),
-		}).then(() => {
-			props.update();
-		})
-	}
-
 	function deleteCar(car){
-		console.log(car.vin);
 		Axios.delete(props.PATH + `deleteEventByVin/${car.vin}`).then((response) => {
 			Axios.delete(props.PATH + `delete/${car.vin}`).then((response) => {
 				props.update();
@@ -196,7 +182,7 @@ function TableOfCars(props) {
 
 	return (
 		<div>
-			<MDBDataTable entriesOptions={[5, 20, 25]} entries={5} pagesAmount={4} data={datatable} order={['key', 'asc']} />
+			<MDBDataTable hover scrollX entriesOptions={[5, 20, 25]} entries={5} pagesAmount={4} data={datatable} order={['key', 'asc']} />
 		</div>
 	)
 }
