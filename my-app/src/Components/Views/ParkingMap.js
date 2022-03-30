@@ -61,7 +61,6 @@ function ParkingMap(props) {
 
 		</div>
 		);
-
 	}
 // }
 // }
