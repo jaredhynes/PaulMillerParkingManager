@@ -4,10 +4,10 @@ import Swal from 'sweetalert2'
 import '../../Styles/sweetalert.css'
 import Button from 'react-bootstrap/Button'
 import TableOfCars from './TableOfCars';
-import Axios from 'axios'
-
 
 function Home(props) {
+	let Axios = props.Axios
+
 	let carList = props.carList
 	let availableSpots = props.availableSpots
 	let edits = props.edits;
@@ -19,7 +19,7 @@ function Home(props) {
 	}
 
 	function addCarDB(car) {
-		Axios.post(props.PATH + "insertNewCar", {
+		Axios.post("insertNewCar", {
 			vin: car.value.vin,
 			make_model: car.value.make_model,
 			stockNum: car.value.stockNum,
@@ -31,7 +31,7 @@ function Home(props) {
 	}
 
 	function addEvent(car, oldSpot, newSpot, event_type){
-		Axios.post(props.PATH + "insertEvent", {
+		Axios.post("insertEvent", {
 			car_id: car.vin,
 			old_spot_id: oldSpot,
 			new_spot_id: newSpot,
@@ -148,7 +148,7 @@ function Home(props) {
 	return (
 		<div className="App">
 			{props.carList.map(car => car.highlighted = false)}
-			{carList && <TableOfCars carList={carList} user={props.user} PATH={props.PATH} deleteCar={deleteCar} update={() => props.update()} isSpotAvailable={isSpotAvailable} addEvent={addEvent} availableSpots={availableSpots} allSpots={props.allSpots} />}
+			{carList && <TableOfCars Axios={Axios} carList={carList} user={props.user} PATH={props.PATH} deleteCar={deleteCar} update={() => props.update()} isSpotAvailable={isSpotAvailable} addEvent={addEvent} availableSpots={availableSpots} allSpots={props.allSpots} />}
 			<Button variant="dark" onClick={() => swalAddCar()}>Add Car</Button>
 		</div>
 	);

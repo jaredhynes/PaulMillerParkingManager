@@ -1,6 +1,13 @@
 const express = require("express");
 const app = express();
-const path = require("path")
+const { auth } = require('express-oauth2-jwt-bearer');
+
+// Authorization middleware. When used, the Access Token must
+// exist and be verified against the Auth0 JSON Web Key Set.
+const checkJwt = auth({
+  audience: 'https://quickstarts/api',
+  issuerBaseURL: `https://dev-w1z8wy-p.us.auth0.com/`,
+});
 
 const cors = require('cors')
 const mysql = require("mysql");
@@ -19,7 +26,7 @@ const db = mysql.createPool({
 	database: 'parking',
 });
 
-app.put("/update", (req, res) =>{
+app.put("/update", checkJwt, (req, res) =>{
 	const vin = req.body.vin;
 	const spot_id = req.body.spot_id;
 	db.query(
@@ -37,7 +44,7 @@ app.put("/update", (req, res) =>{
 	);
 });
 
-app.delete("/deleteEventByVin/:vin", (req,res) => {
+app.delete("/deleteEventByVin/:vin", checkJwt, (req,res) => {
 	const vin = req.params.vin;
 	db.query("DELETE FROM history WHERE car_id = ? ", vin, (err, result) => {
 		if(err) {
@@ -50,7 +57,7 @@ app.delete("/deleteEventByVin/:vin", (req,res) => {
 	})
 })
 
-app.delete("/delete/:vin", (req, res) => {
+app.delete("/delete/:vin", checkJwt, (req, res) => {
 	const vin = req.params.vin;
 	db.query("DELETE FROM cars WHERE vin = ?", vin, (err, result) => {
 		if(err) {
@@ -63,7 +70,7 @@ app.delete("/delete/:vin", (req, res) => {
 	})
 })
 
-app.post("/insertNewCar", (req, res) => {
+app.post("/insertNewCar", checkJwt, (req, res) => {
 	const vin = req.body.vin;
 	const make_model = req.body.make_model;
 	const stockNum = req.body.stockNum;
@@ -84,7 +91,7 @@ app.post("/insertNewCar", (req, res) => {
 	);
 })
 
-app.post("/insertEvent", (req, res) => {
+app.post("/insertEvent", checkJwt, (req, res) => {
 	const carID = req.body.car_id;
 	const old_spot_id = req.body.old_spot_id;
 	const new_spot_id = req.body.new_spot_id;
@@ -105,7 +112,7 @@ app.post("/insertEvent", (req, res) => {
 	});
 })
 
-app.get("/getHistory", (req, res) => {
+app.get("/getHistory", checkJwt, (req, res) => {
 	db.query("select * from history", (err, result) => {
 		if (err){
 			console.log("error at getHistory: ");
@@ -117,7 +124,7 @@ app.get("/getHistory", (req, res) => {
 	});
 })
 
-app.get("/availableSpots", (req, res) => {
+app.get("/availableSpots", checkJwt, (req, res) => {
 	db.query("select ps.spot_id, ps.spot_name from parking_spots ps left join cars c on ps.spot_id = c.spot_id where c.spot_id is null order by ps.spot_name", (err, result) => {
 		if (err) {
 			console.log("error: ");
@@ -129,7 +136,7 @@ app.get("/availableSpots", (req, res) => {
 	})
 })
 
-app.get("/cars", (req, res) => {
+app.get("/cars", checkJwt, (req, res) => {
 	db.query("select c.vin, c.stockNum, c.make_model, c.year, ps.spot_name from cars c, parking_spots ps where c.spot_id = ps.spot_id order by spot_name", (err, result) => {
 		if (err) {
 			console.log("error: ");
@@ -141,7 +148,7 @@ app.get("/cars", (req, res) => {
 	})
 })
 
-app.get("/getAllSpots", (req, res) => {
+app.get("/getAllSpots", checkJwt, (req, res) => {
 	db.query("select ps.spot_id, ps.spot_name from parking_spots ps", (err, result) => {
 		if(err) {
 			console.log("error: ");

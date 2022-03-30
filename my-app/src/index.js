@@ -14,6 +14,8 @@ ReactDOM.render(
 			domain = "dev-w1z8wy-p.us.auth0.com"
 			clientId="RHaM86sHqrwsD6rk8wTpi1YsU2z9FyhQ"
 			redirectUri={window.location.origin}
+			audience="https://quickstarts/api"
+    		scope="read:current_user update:current_user_metadata"
 		>
 			<App />
 		</Auth0Provider>

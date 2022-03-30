@@ -5,10 +5,11 @@ import Swal from 'sweetalert2'
 import '../../Styles/sweetalert.css'
 import { Link } from 'react-router-dom';
 import { MDBDataTable } from 'mdbreact';
-import Axios from 'axios'
 
 
 function TableOfCars(props) {
+	let Axios = props.Axios
+
 	props.carList.map(car => (
 		car.bttn = <DropdownButton id="dropdown-basic-button" variant="dark" title="Options">
 			<Dropdown.Item onClick={() => swalEditCar(car)}>Change Location</Dropdown.Item>
@@ -115,7 +116,7 @@ function TableOfCars(props) {
     }
 
 	function editCar(car, newSpot) {
-		Axios.put(props.PATH + "update", {vin: car.vin, spot_id: getSpotID(newSpot)}).then(
+		Axios.put("update", {vin: car.vin, spot_id: getSpotID(newSpot)}).then(
 			(response) => {
 				props.update()
 			}
@@ -123,8 +124,8 @@ function TableOfCars(props) {
 	}
 
 	function deleteCar(car){
-		Axios.delete(props.PATH + `deleteEventByVin/${car.vin}`).then((response) => {
-			Axios.delete(props.PATH + `delete/${car.vin}`).then((response) => {
+		Axios.delete(`deleteEventByVin/${car.vin}`).then((response) => {
+			Axios.delete(`delete/${car.vin}`).then((response) => {
 				props.update();
 			})
 		})
@@ -167,7 +168,6 @@ function TableOfCars(props) {
 					'The car and data have been successfully deleted.',
 					'success'
 				)
-				//props.deleteCar(car)
 				deleteCar(car);
 			}
 		})
