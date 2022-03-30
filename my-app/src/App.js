@@ -25,7 +25,8 @@ const App = () => {
 	const [carList, setCarList] = useState(null);
 	const [availableSpots, setAvailableSpots] = useState(null);
 	const [eventHistory, setEventHistory] = useState(null);
-	const [allSpots, setAllSpots] = useState(null);	const { isLoading, user, isAuthenticated, loginWithRedirect, getAccessTokenSilently } = useAuth0()
+	const [allSpots, setAllSpots] = useState(null);	
+	const { isLoading, user, isAuthenticated, loginWithRedirect, getAccessTokenSilently } = useAuth0()
 
 	let accessToken
 
