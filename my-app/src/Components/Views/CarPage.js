@@ -5,7 +5,6 @@ import TableOfEdits from "./TableOfEdits";
 import { useState } from 'react';
 import QRCode from "qrcode.react";
 
-
 function CarPage(props) {
     const { vin } = useParams(window.location.search);
     let car = props.carList.find(car => car.vin === vin);

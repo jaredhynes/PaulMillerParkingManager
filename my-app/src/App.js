@@ -30,18 +30,27 @@ const App = () => {
 	const { isLoading, user, isAuthenticated, loginWithRedirect, getAccessTokenSilently } = useAuth0();
 
 	useEffect(() => {
-		if (!accessToken){
-			getToken();
+		const getToken = async() => {
+			setAccessToken(await getAccessTokenSilently({
+				audience: `https://quickstarts/api`,
+				scope: "read:current_user",
+			}));
 		}
-		else {			
-			Axios.defaults.baseURL = PATH
-			Axios.defaults.headers.common = {'Authorization': `Bearer ${accessToken}`}
-			fetchSpots();
-			fetchCars();
-			fetchAvailableSpots();
-			fetchHistory();
+
+		if (isAuthenticated){
+			if (!accessToken){
+				getToken();
+			}
+			else {			
+				Axios.defaults.baseURL = PATH
+				Axios.defaults.headers.common = {'Authorization': `Bearer ${accessToken}`}
+				fetchSpots();
+				fetchCars();
+				fetchAvailableSpots();
+				fetchHistory();
+			}
 		}
-	}, []);
+	}, [accessToken, getAccessTokenSilently, isAuthenticated]);
 	
 	function warningMessage() {
 		Swal.fire({
@@ -54,13 +63,6 @@ const App = () => {
 		}).then((result) => {
 			loginWithRedirect()
 		})
-	}
-
-	async function getToken(){
-		setAccessToken(await getAccessTokenSilently({
-			audience: `https://quickstarts/api`,
-			scope: "read:current_user",
-		}));
 	}
 
 	const fetchCars = () => {
@@ -88,10 +90,6 @@ const App = () => {
 	}
 
 	function checkLists(){
-		console.log(carList)
-		console.log(availableSpots)
-		console.log(allSpots)
-		console.log(eventHistory)
 		return carList && availableSpots && allSpots && eventHistory
 	}
 
