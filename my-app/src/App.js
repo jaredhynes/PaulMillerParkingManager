@@ -30,6 +30,7 @@ const App = () => {
 
 	let accessToken
 
+	
 	useEffect(() => {
 		const getAccessToken = async () => {
 			accessToken = await getAccessTokenSilently({
@@ -40,13 +41,13 @@ const App = () => {
 			Axios.defaults.headers.common = {'Authorization': `bearer ${accessToken}`}
 	
 			fetchSpots();
-			fetchCars()
-			fetchAvailableSpots()
+			fetchCars();
+			fetchAvailableSpots();
 			fetchHistory();
 		};
-
 		getAccessToken();
 	}, [getAccessTokenSilently]);
+
 
 	const fetchCars = () => {
 		Axios.get("cars").then((response) => {
