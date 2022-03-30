@@ -12,13 +12,12 @@ const MapImage = () => {
 
 
     return ( 
-    
-        <ImageTooltips src={map} width={816} height={544} className="my-image" triggerEvent="click">
-            <ImageTooltipsItem top={226} left={280} trigger={MyTrigger} className="my-item">
+        <ImageTooltips src={map} width={900} height={800} className="my-image" triggerEvent="click">
+            <ImageTooltipsItem top={1} left={200} trigger={MyTrigger} className="my-item">
                 <p>Dummy Data:</p>
                 <p>Vin: 454345</p>
             </ImageTooltipsItem>
-            <ImageTooltipsItem top={300} left={504} trigger={MyTrigger} className="my-item">
+            <ImageTooltipsItem top={50} left={300} trigger={MyTrigger} className="my-item">
                 <p>Dummy Data:</p>
                 <p>Vin 3454345</p>
             </ImageTooltipsItem>
