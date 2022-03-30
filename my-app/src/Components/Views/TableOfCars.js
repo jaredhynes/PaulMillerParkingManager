@@ -8,8 +8,6 @@ import { MDBDataTable } from 'mdbreact';
 
 
 function TableOfCars(props) {
-	let Axios = props.Axios
-
 	props.carList.map(car => (
 		car.bttn = <DropdownButton id="dropdown-basic-button" variant="dark" title="Options">
 			<Dropdown.Item onClick={() => swalEditCar(car)}>Change Location</Dropdown.Item>
@@ -116,7 +114,7 @@ function TableOfCars(props) {
     }
 
 	function editCar(car, newSpot) {
-		Axios.put("update", {vin: car.vin, spot_id: getSpotID(newSpot)}).then(
+		props.Axios.put("update", {vin: car.vin, spot_id: getSpotID(newSpot)}).then(
 			(response) => {
 				props.update()
 			}
@@ -124,8 +122,8 @@ function TableOfCars(props) {
 	}
 
 	function deleteCar(car){
-		Axios.delete(`deleteEventByVin/${car.vin}`).then((response) => {
-			Axios.delete(`delete/${car.vin}`).then((response) => {
+		props.Axios.delete(`deleteEventByVin/${car.vin}`).then((response) => {
+			props.Axios.delete(`delete/${car.vin}`).then((response) => {
 				props.update();
 			})
 		})

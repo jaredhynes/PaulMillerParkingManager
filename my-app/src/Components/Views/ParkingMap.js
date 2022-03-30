@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 import '../../App.css';
 import '../../Styles/map.css';
 import 'materialize-css/dist/css/materialize.min.css';
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
-import map from "../../Images/prototype_map.png";
+// import map from "../../Images/prototype_map.png";
 import MapImage from "./MapImage.js"
 // import { Responsive, WidthProvider } from "react-grid-layout";
 
@@ -23,13 +23,13 @@ function ParkingMap(props) {
 		cars2d[xSpot][ySpot] = car
 	}
 
-	function highlightCar(car) {
-		if (car) {
-			props.carList.map(car => (car.highlighted = false))
-			car.highlighted = true
-			props.update()
-		}
-	}
+	// function highlightCar(car) {
+	// 	if (car) {
+	// 		props.carList.map(car => (car.highlighted = false))
+	// 		car.highlighted = true
+	// 		props.update()
+	// 	}
+	// }
 
 	// function getLayoutsFromSomewhere() {
 	// 	<Container>
