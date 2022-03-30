@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { Component } from 'react';
 import '../../App.css';
+import '../../Styles/map.css';
 import 'materialize-css/dist/css/materialize.min.css';
+import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import ShowOnHover from './ShowOnHover';
 import { Container, Row, Col } from 'react-grid-system';
+import map from "../../Images/prototype_map.png";
 // import { Responsive, WidthProvider } from "react-grid-layout";
 
 
@@ -49,7 +52,7 @@ function ParkingMap(props) {
 			
 
 	return (
-		<div>
+		<div className='mapImg'>
 			{/* <ResponsiveGridLayout
 				className="layout"
 				layouts ={layouts}
@@ -60,7 +63,7 @@ function ParkingMap(props) {
 					<div key="2">2</div>
 					<div key="3">3</div>
 				</ResponsiveGridLayout> */}
-			{ <Container fluid>
+			{/* { <Container fluid>
 				{cars2d.map((row) => (
 					<Row debug>
 						{row.map((car) => (
@@ -70,7 +73,14 @@ function ParkingMap(props) {
 						))}
 					</Row>
 				))}
-			</Container> }
+			</Container> } */}
+
+			<TransformWrapper>
+				<TransformComponent>
+					<img src={map} alt="test"/>
+				</TransformComponent>
+			</TransformWrapper>
+
 		</div>
 		);
 

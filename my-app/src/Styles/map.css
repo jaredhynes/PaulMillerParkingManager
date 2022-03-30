@@ -9,9 +9,14 @@ img{
     justify-content: center;
 }
 
-.mapImage{
-display: flex;
-justify-content: center;
+.mapImg{
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+    justify-content: center;
+
 }
 
 .close{
@@ -19,3 +24,4 @@ justify-content: center;
     margin-left: auto;
     margin-right: auto;
 }
+
