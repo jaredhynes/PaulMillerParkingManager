@@ -28,8 +28,7 @@ const Navbar = (props) => {
 										<Link to="/history">Edit History</Link>
 									</li>
 									<li>
-										{props.isAuthenticated && <Link to="/account">Account Settings</Link>}
-										{!props.isAuthenticated && <LoginButton />}
+										<Link to="/account">Account Settings</Link>
 									</li>
 								</ul>
 							</nav>
