@@ -11,10 +11,10 @@ const Navbar = (props) => {
 	return (
 		<header>
 			<nav>
-				<div class="nav-wrapper">
-					<a href="/" class="brand-logo">Paul Miller INC.</a>
-					{/* <a href="/" data-target="mobile-nav" class="sidenav-trigger">Mobile Menu</a> */}
-					<ul id="desktop-nav" class="right hide-on-med-and-down">
+				<div className="nav-wrapper">
+					<a href="/" className="brand-logo">Paul Miller INC.</a>
+					{/* <a href="/" data-target="mobile-nav" className="sidenav-trigger">Mobile Menu</a> */}
+					<ul id="desktop-nav" className="right hide-on-med-and-down">
 						<div>
 							<nav>
 								<ul>
@@ -38,7 +38,7 @@ const Navbar = (props) => {
 			</nav>
 			<div>
 			</div>
-			{<DropdownButton id="mobile-nav" class="sidenav" title="Menu" menuVariant="dark">
+			{<DropdownButton id="mobile-nav" title="Menu" menuVariant="dark">
 				<Dropdown.Item> <Link to="/">Home </Link></Dropdown.Item>
 				<Dropdown.Item> <Link to="/map">Map</Link></Dropdown.Item>
 				<Dropdown.Item><Link to="/history">Edit History</Link></Dropdown.Item>
