@@ -18,8 +18,8 @@ import CarPage from './Components/Views/CarPage';
 import { propTypes } from 'react-bootstrap/esm/Image';
 import { Button } from 'react-bootstrap';
 
-//const PATH = "https://gentle-thicket-28075.herokuapp.com/" // Use this for Heroku
-const PATH = "http://localhost:8001/"  // Use this for local testing
+const PATH = "https://gentle-thicket-28075.herokuapp.com/" // Use this for Heroku
+//const PATH = "http://localhost:8001/"  // Use this for local testing
 
 const App = () => {
 	const [carList, setCarList] = useState(null);
@@ -100,10 +100,9 @@ const App = () => {
 		<Router>
 
 			<Navbar edits={eventHistory} app={this} isAuthenticated={isAuthenticated} />
-			<Button onClick={() => console.log(accessToken)}>token</Button>
 
-			{isLoading && <h1>Loading Data...</h1>}
-			{!isLoading &&
+			{isLoading || !accessToken && <h1>Loading Data...</h1>}
+			{!isLoading && accessToken &&
 				<div>
 					{!isAuthenticated && warningMessage()}
 
