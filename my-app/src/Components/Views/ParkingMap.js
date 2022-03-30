@@ -3,9 +3,8 @@ import '../../App.css';
 import '../../Styles/map.css';
 import 'materialize-css/dist/css/materialize.min.css';
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
-import ShowOnHover from './ShowOnHover';
-import { Container, Row, Col } from 'react-grid-system';
 import map from "../../Images/prototype_map.png";
+import MapImage from "./MapImage.js"
 // import { Responsive, WidthProvider } from "react-grid-layout";
 
 
@@ -55,9 +54,10 @@ function ParkingMap(props) {
 		<div className='mapImg'>
 			<TransformWrapper>
 				<TransformComponent>
-					<img src={map} alt="test"/>
+				<MapImage/>
 				</TransformComponent>
 			</TransformWrapper>
+			{/* <MapImage/> */}
 
 		</div>
 		);
