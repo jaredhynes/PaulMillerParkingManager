@@ -96,8 +96,8 @@ function TableOfCars(props) {
 							html: `<p> Old Location: ${car.spot_name} </p>
 							<p>New Location: ${result.value.newSpot} </p>`,
 						})
+						props.addEvent(car, getSpotID(result.value.newSpot), result.value.newSpot, "Car was Moved")
 						editCar(car, result.value.newSpot);
-						props.addEvent(car, getSpotID(car.spot_name), getSpotID(result.value.newSpot), "Car was Moved")
 					}
 					else if (result.isDenied) {
 						swalEditCar(car, result.value.newSpot);

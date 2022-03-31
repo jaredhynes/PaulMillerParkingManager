@@ -137,7 +137,7 @@ app.get("/availableSpots", checkJwt, (req, res) => {
 })
 
 app.get("/cars", checkJwt, (req, res) => {
-	db.query("select c.vin, c.stockNum, c.make_model, c.year, ps.spot_name from cars c, parking_spots ps where c.spot_id = ps.spot_id order by spot_name", (err, result) => {
+	db.query("select c.vin, c.stockNum, c.make_model, c.year, ps.spot_name, ps.spot_id from cars c, parking_spots ps where c.spot_id = ps.spot_id order by spot_name", (err, result) => {
 		if (err) {
 			console.log("error: ");
 			console.log(err);
