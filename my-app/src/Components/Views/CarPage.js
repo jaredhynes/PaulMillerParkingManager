@@ -8,6 +8,7 @@ import { EditText, EditTextarea } from 'react-edit-text';
 import 'react-edit-text/dist/index.css';
 
 
+
 function CarPage(props) {
     const { vin } = useParams(window.location.search);
     let car = props.carList.find(car => car.vin === vin);
