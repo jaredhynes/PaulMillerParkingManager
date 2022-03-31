@@ -28,11 +28,24 @@ function Home(props) {
 		})
 	}
 
-	function addEvent(car, oldSpot, newSpot, event_type){
+	function addEvent(car, newSpotid, newSpotname, event_type){
 		props.Axios.post("insertEvent", {
 			car_id: car.vin,
-			old_spot_id: oldSpot,
-			new_spot_id: newSpot,
+			old_spot_id: car.spot_id,
+			new_spot_id: newSpotid,
+			user_id: props.user.email,
+			event_type: event_type,
+			event_date: Date().toLocaleString(),
+		}).then(() => {
+			props.update();
+		})
+	}
+
+	function addEventNewCar(car, old_spot_id, old_spot_name, new_spot_id, newSpotname, event_type){
+		props.Axios.post("insertEvent", {
+			car_id: car.vin,
+			old_spot_id: old_spot_id,
+			new_spot_id: new_spot_id,
 			user_id: props.user.email,
 			event_type: event_type,
 			event_date: Date().toLocaleString(),
@@ -100,7 +113,8 @@ function Home(props) {
 							<p>Location: ${result.value.location} </p>`,
 						})
 						addCarDB(result);
-						addEvent(result.value, getSpotID(result.value.location), getSpotID(result.value.location), "Added New Car")
+						addEventNewCar(result.value, getSpotID(result.value.location), result.value.location, getSpotID(result.value.location), result.value.location, "Added New Car");
+						//addEvent(result.value, getSpotID(result.value.location), getSpotID(result.value.location), "Added New Car")
 					}
 					else if (result.isDenied) {
 						swalAddCar(result.value.vin, result.value.make_model, result.value.year, result.value.stockNum, result.value.location);
