@@ -11,6 +11,11 @@ function TableOfEdits(props){
     //         el.spot_id === spotID
     //     ).spot_name;
 	// }
+	
+	//Sort events by date
+	props.edits.sort((a, b) => {
+		return new Date(b.event_date) - new Date(a.event_date);
+	});
 
 	let datatable = {
 		columns: [
