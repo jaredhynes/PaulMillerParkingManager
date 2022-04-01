@@ -6,10 +6,12 @@ import { useState } from 'react';
 import QRCode from "qrcode.react";
 import { EditText, EditTextarea } from 'react-edit-text';
 import 'react-edit-text/dist/index.css';
-
+import QRCodeGenerator from './QRCodeGenerator';
 
 
 function CarPage(props) {
+    const [generateQR, setGenerateQR] = useState(false);
+    const [valueStrings, setValueStrings] = useState([]);
     const { vin } = useParams(window.location.search);
     let car = props.carList.find(car => car.vin === vin);
 
@@ -27,7 +29,9 @@ function CarPage(props) {
             <EditTextarea
               placeholder='Description will got here (Click to edit)'
             />
-            <Button>Edit Information</Button><Button onClick={getCurrentPage}>Generate QR-Code</Button>
+            <Button>Edit Information</Button>
+            {generateQR ? <QRCodeGenerator valueStrings = {valueStrings} /> : null}
+            <Button onClick={getCurrentPage}>Generate QR-Code</Button>
 
             <div>
                 {currentLink && <QRCode value={currentLink}/>}
@@ -36,6 +40,7 @@ function CarPage(props) {
             <h4>Car History:</h4>
             <TableOfEdits edits={props.edits.filter(edit => edit.car_id === vin)}/>
         </div>
+
     );
 }
 export default CarPage;

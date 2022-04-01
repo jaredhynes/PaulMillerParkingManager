@@ -1,5 +1,7 @@
 import React from 'react';
 import { Document, Page, Text, Image, View, StyleSheet } from '@react-pdf/renderer';
+// import logo from '../../../public/audi.png';
+
 
 function PDFGenerator(props) {
 
@@ -31,7 +33,7 @@ function PDFGenerator(props) {
 
 
     const resultArray = PDFImageIds.map(id => {
-        IdsArray.push(id);
+        // IdsArray.push(id);
         return document.getElementById(id).toDataURL();
     })
 
@@ -45,15 +47,16 @@ function PDFGenerator(props) {
                         <View style={styles.view}>
                             <Image allowDangerousPaths src={dataURL} style={styles.QRImage} />    
                         </View>
-                        <View style={styles.view}>
+                        {/* <View style={styles.view}>
                             <Text style={styles.text}>{IdsArray[id]}</Text>    
-                        </View>
-                        <View style={styles.view}>
+                        </View> */}
+                        {/* <View style={styles.view}>
                             <Image src={logo} style={styles.logoImage}/>    
-                        </View>
+                        </View> */}
                     </Page>
                 );
             })}
         </Document>
     )
 }
+export default PDFGenerator;
