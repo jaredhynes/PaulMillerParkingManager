@@ -11,7 +11,6 @@ import { Auth0Provider } from '@auth0/auth0-react';
 const onRedirectCallback = (appState) => {
 	try{
 		let path = appState && appState.targetUrl? appState.targetUrl : window.location.origin
-		console.log(path)
 		window.history.pushState(null, "", path);
 	}
 	catch(err){

@@ -97,7 +97,7 @@ const App = () => {
 	if (user) {
 		roles = user['http://demozero.net/roles']
 	}
-
+	
 	function update(){
 		fetchSpots();
 		fetchCars();
