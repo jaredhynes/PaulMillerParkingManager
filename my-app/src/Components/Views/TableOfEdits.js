@@ -49,7 +49,7 @@ function TableOfEdits(props){
 
 	return (
 		<div>
-			<MDBDataTable entriesOptions={[5, 20, 25]} entries={5} pagesAmount={4} data={datatable} />
+			<MDBDataTable hover scrollX entriesOptions={[5, 20, 25]} entries={5} pagesAmount={4} data={datatable} />
 		</div>
 	)
 }
