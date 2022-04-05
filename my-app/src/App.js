@@ -51,7 +51,7 @@ const App = () => {
 			}
 		}
 	}, [accessToken, getAccessTokenSilently, isAuthenticated]);
-	
+
 	function warningMessage() {
 		Swal.fire({
 			title: 'Warning! You are not signed in.',
@@ -61,7 +61,7 @@ const App = () => {
 			confirmButtonColor: '#3085d6',
 			confirmButtonText: 'Login!'
 		}).then((result) => {
-			loginWithRedirect()
+			loginWithRedirect({appState: {targetUrl: window.location.pathname}});	
 		})
 	}
 
