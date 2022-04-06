@@ -23,27 +23,27 @@ const App = () => {
 	const [carList, setCarList] = useState(null);
 	const [availableSpots, setAvailableSpots] = useState(null);
 	const [eventHistory, setEventHistory] = useState(null);
-	const [allSpots, setAllSpots] = useState(null);	
+	const [allSpots, setAllSpots] = useState(null);
 	const [accessToken, setAccessToken] = useState(null);
 
 	const { isLoading, user, isAuthenticated, loginWithRedirect, getAccessTokenSilently } = useAuth0();
 
-	
+
 	useEffect(() => {
-		const getToken = async() => {
+		const getToken = async () => {
 			setAccessToken(await getAccessTokenSilently({
 				audience: `https://quickstarts/api`,
 				scope: "read:current_user",
 			}));
 		}
 
-		if (isAuthenticated){
-			if (!accessToken){
+		if (isAuthenticated) {
+			if (!accessToken) {
 				getToken();
 			}
-			else {			
+			else {
 				Axios.defaults.baseURL = PATH
-				Axios.defaults.headers.common = {'Authorization': `Bearer ${accessToken}`}
+				Axios.defaults.headers.common = { 'Authorization': `Bearer ${accessToken}` }
 				fetchSpots();
 				fetchCars();
 				fetchAvailableSpots();
@@ -61,7 +61,7 @@ const App = () => {
 			confirmButtonColor: '#3085d6',
 			confirmButtonText: 'Login!'
 		}).then((result) => {
-			loginWithRedirect({appState: {targetUrl: window.location.pathname}});	
+			loginWithRedirect({ appState: { targetUrl: window.location.pathname } });
 		})
 	}
 
@@ -78,18 +78,18 @@ const App = () => {
 	}
 
 	const fetchSpots = () => {
-		Axios.get("getAllSpots").then((response) => {	
+		Axios.get("getAllSpots").then((response) => {
 			setAllSpots(response.data);
 		})
 	}
 
-	const fetchHistory = () =>{
-		Axios.get("getHistory").then((response) =>{
+	const fetchHistory = () => {
+		Axios.get("getHistory").then((response) => {
 			setEventHistory(response.data);
 		})
 	}
 
-	function checkLists(){
+	function checkLists() {
 		return carList && availableSpots && allSpots && eventHistory
 	}
 
@@ -97,8 +97,8 @@ const App = () => {
 	if (user) {
 		roles = user['http://demozero.net/roles']
 	}
-	
-	function update(){
+
+	function update() {
 		fetchSpots();
 		fetchCars();
 		fetchAvailableSpots();
@@ -108,7 +108,7 @@ const App = () => {
 	return (
 		<Router>
 			<Navbar edits={eventHistory} app={this} isAuthenticated={isAuthenticated} />
-			{isLoading ? <h1>Loading...</h1> : 
+			{isLoading ? <h1>Loading...</h1> :
 				(!isAuthenticated ? warningMessage() :
 					(checkLists() ?
 						<Routes>
@@ -116,9 +116,9 @@ const App = () => {
 							<Route path="/map" element={<ParkingMap carList={carList} update={() => update()} availableSpots={availableSpots} edits={eventHistory} user={user} roles={roles} PATH={PATH} accessToken={accessToken} />} />
 							<Route path="/history" element={<Edits carList={carList} update={() => update()} availableSpots={availableSpots} allSpots={allSpots} edits={eventHistory} user={user} roles={roles} PATH={PATH} accessToken={accessToken} />} />
 							<Route path="/account" element={<Account PATH={PATH} update={() => update()} accessToken={accessToken} user={user} />} />
-							<Route path="/details/:vin" element={<CarPage carList={carList} update={() => update()} edits={eventHistory} accessToken={accessToken} />} />
+							<Route path="/details/:vin" element={<CarPage carList={carList} update={() => update()} edits={eventHistory} accessToken={accessToken} roles={roles} />} />
 						</Routes> :
-						<h1>Fetching Data...</h1> 
+						<h1>Fetching Data...</h1>
 					)
 				)}
 		</Router>

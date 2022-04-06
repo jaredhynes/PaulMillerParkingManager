@@ -28,7 +28,7 @@ function Home(props) {
 		})
 	}
 
-	function addEvent(car, newSpotid, newSpotname, event_type){
+	function addEvent(car, newSpotid, newSpotname, event_type) {
 		props.Axios.post("insertEvent", {
 			car_id: car.vin,
 			old_spot_id: car.spot_id,
@@ -41,7 +41,7 @@ function Home(props) {
 		})
 	}
 
-	function addEventNewCar(car, old_spot_id, old_spot_name, new_spot_id, newSpotname, event_type){
+	function addEventNewCar(car, old_spot_id, old_spot_name, new_spot_id, newSpotname, event_type) {
 		props.Axios.post("insertEvent", {
 			car_id: car.vin,
 			old_spot_id: old_spot_id,
@@ -159,10 +159,9 @@ function Home(props) {
 
 	return (
 		<div className="App">
-			{props.carList.map(car => car.highlighted = false)}
 			{carList && <TableOfCars Axios={props.Axios} update={() => props.update()} carList={carList} user={props.user} PATH={props.PATH} deleteCar={deleteCar} isSpotAvailable={isSpotAvailable} addEvent={addEvent} availableSpots={availableSpots} allSpots={props.allSpots} />}
 			<Button variant="dark" onClick={() => swalAddCar()}>Add Car</Button>
-		</div> 
+		</div>
 	);
 }
 

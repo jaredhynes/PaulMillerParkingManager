@@ -9,23 +9,18 @@ import reportWebVitals from './reportWebVitals';
 import { Auth0Provider } from '@auth0/auth0-react';
 
 const onRedirectCallback = (appState) => {
-	try{
-		let path = appState && appState.targetUrl? appState.targetUrl : window.location.origin
-		window.history.pushState(null, "", path);
-	}
-	catch(err){
-		console.log(err);
-	}	
+	let path = appState && appState.targetUrl ? appState.targetUrl : window.location.origin
+	window.location.href = window.location.origin + path
 }
 
 ReactDOM.render(
 	<React.StrictMode>
 		<Auth0Provider
-			domain = "dev-w1z8wy-p.us.auth0.com"
+			domain="dev-w1z8wy-p.us.auth0.com"
 			clientId="RHaM86sHqrwsD6rk8wTpi1YsU2z9FyhQ"
 			redirectUri={window.location.origin}
 			audience="https://quickstarts/api"
-    		scope="read:current_user update:current_user_metadata"
+			scope="read:current_user update:current_user_metadata"
 			onRedirectCallback={onRedirectCallback}
 		>
 			<App />
