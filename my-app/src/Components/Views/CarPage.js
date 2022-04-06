@@ -27,7 +27,7 @@ function CarPage(props) {
             <h3>Stock Number: {car.stockNum}</h3>
             <h4>Location: {car.spot_name}</h4>
             <EditTextarea
-                placeholder='Description will got here (Click to edit)'
+                placeholder='Description will go here (Click to edit)'
             />
             <Button>Edit Information</Button>
             {generateQR ? <QRCodeGenerator valueStrings={valueStrings} /> : null}
