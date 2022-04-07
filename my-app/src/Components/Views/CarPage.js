@@ -17,7 +17,7 @@ function CarPage(props) {
 
     const [currentLink, setCurrentLink] = useState(null);
 
-    function getCurrentPage(){
+    function getCurrentPage() {
         setCurrentLink(window.location.href);
     }
     return (
@@ -27,18 +27,18 @@ function CarPage(props) {
             <h3>Stock Number: {car.stockNum}</h3>
             <h4>Location: {car.spot_name}</h4>
             <EditTextarea
-              placeholder='Description will got here (Click to edit)'
+                placeholder='Description will go here (Click to edit)'
             />
             <Button>Edit Information</Button>
-            {generateQR ? <QRCodeGenerator valueStrings = {valueStrings} /> : null}
+            {generateQR ? <QRCodeGenerator valueStrings={valueStrings} /> : null}
             <Button onClick={getCurrentPage}>Generate QR-Code</Button>
 
             <div>
-                {currentLink && <QRCode value={currentLink}/>}
+                {currentLink && <QRCode value={currentLink} />}
             </div>
-
-            <h4>Car History:</h4>
-            <TableOfEdits edits={props.edits.filter(edit => edit.car_id === vin)}/>
+            {props.roles.includes("Admin") &&
+                <h4>Car History:</h4> &&
+                <TableOfEdits edits={props.edits.filter(edit => edit.car_id === vin)} />}
         </div>
 
     );
