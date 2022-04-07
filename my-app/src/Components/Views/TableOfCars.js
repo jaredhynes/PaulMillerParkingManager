@@ -12,7 +12,7 @@ function TableOfCars(props) {
 		car.bttn = <DropdownButton id="dropdown-basic-button" variant="dark" title="Options">
 			<Dropdown.Item onClick={() => swalEditCar(car)}>Change Location</Dropdown.Item>
 			<Dropdown.Item onClick={() => swalArchiveCar(car)}>Archive Car</Dropdown.Item>
-			<Dropdown.Item onClick={() => swalDeleteCar(car)}>Delete Car</Dropdown.Item>
+			{props.roles.includes("admin") && <Dropdown.Item onClick={() => swalDeleteCar(car)}>Delete Car</Dropdown.Item>}
 			<Dropdown.Item onClick={() => highlightCar(car)}><Link to='/map'>Show on map</Link></Dropdown.Item>
 			<Dropdown.Item><Link to={`/details/${car.vin}`}>View Details</Link></Dropdown.Item>
 		</DropdownButton>
