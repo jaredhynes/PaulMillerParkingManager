@@ -4,7 +4,9 @@ import TableOfEdits from './TableOfEdits';
 function Edits(props) {
 	return (
 		<div className="App">
-			<TableOfEdits edits={props.edits} roles={props.roles} />
+			{props.roles.includes("admin") ?
+				<TableOfEdits edits={props.edits}  />:
+				<h1>You need admin access to view edits</h1>}
 		</div>
 	);
 }

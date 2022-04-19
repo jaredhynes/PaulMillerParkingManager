@@ -49,9 +49,7 @@ function TableOfEdits(props) {
 
 	return (
 		<div>
-			{props.roles.includes("Admin") ?
-				<MDBDataTable hover scrollX entriesOptions={[5, 20, 25]} entries={5} pagesAmount={4} data={datatable} /> :
-				<h1>You need admin access to view edits</h1>}
+			<MDBDataTable hover scrollX entriesOptions={[5, 20, 25]} entries={5} pagesAmount={4} data={datatable} />
 		</div>
 	)
 }

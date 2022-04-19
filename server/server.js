@@ -21,7 +21,7 @@ app.use(express.json());
 
 const db = mysql.createPool({
 	host: process.env.DB_HOST,
-	user: 'parkinguser',
+	user: 'parkingusr',
 	password: process.env.DB_PASS,
 	database: 'parking',
 });
