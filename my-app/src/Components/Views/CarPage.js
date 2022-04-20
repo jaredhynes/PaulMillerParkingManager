@@ -3,15 +3,12 @@ import { Button } from "react-bootstrap";
 import { useParams } from "react-router";
 import TableOfEdits from "./TableOfEdits";
 import QRCode from "qrcode.react";
-import { EditText, EditTextarea } from 'react-edit-text';
+import { EditTextarea } from 'react-edit-text';
 import 'react-edit-text/dist/index.css';
-import QRCodeGenerator from './QRCodeGenerator';
 import {swalEditCar} from '../../functions.js';
 
 
 function CarPage(props) {
-    const [generateQR, setGenerateQR] = useState(null);
-    const [valueStrings, setValueStrings] = useState(null);
     const { vin } = useParams(window.location.search);
     let car = props.carList.find(car => car.vin === vin);
 
@@ -46,7 +43,6 @@ function CarPage(props) {
             />
             <Button onClick={() => swalEditCar(car, props.Axios, props.update, props.user, props.availableSpots, props.allSpots)}>Move Car</Button>
             <Button>Edit Information</Button>
-            {generateQR ? <QRCodeGenerator valueStrings={valueStrings} /> : null}
             <Button onClick={getCurrentPage}>Generate QR-Code</Button>
 
             <div>

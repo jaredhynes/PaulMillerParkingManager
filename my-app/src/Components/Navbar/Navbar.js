@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import Dropdown from 'react-bootstrap/Dropdown';
 import '../../Styles/sweetalert.css'
-import LoginButton from '../Login/LoginButton';
 
 const Navbar = (props) => {
 	return (
@@ -39,11 +38,10 @@ const Navbar = (props) => {
 			<div>
 			</div>
 			{<DropdownButton id="mobile-nav" title="Menu" menuVariant="dark">
-				<Dropdown.Item> <Link to="/">Home </Link></Dropdown.Item>
-				<Dropdown.Item> <Link to="/map">Map</Link></Dropdown.Item>
-				<Dropdown.Item><Link to="/history">Edit History</Link></Dropdown.Item>
-				<Dropdown.Item>{props.isAuthenticated && <Link to="/account">Account Settings</Link>}
-					{!props.isAuthenticated && <LoginButton />}</Dropdown.Item>
+				<Dropdown.Item as={Link} to="/">Home</Dropdown.Item>
+				<Dropdown.Item as={Link} to="/map">Map</Dropdown.Item>
+				<Dropdown.Item as={Link} to="/history">Edit History</Dropdown.Item>
+				<Dropdown.Item as={Link} to="/account">Account Settings</Dropdown.Item>
 			</DropdownButton>}
 		</header>
 	)
