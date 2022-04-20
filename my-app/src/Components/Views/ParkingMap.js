@@ -54,7 +54,7 @@ function ParkingMap(props) {
 		<div className='mapImg'>
 			<TransformWrapper>
 				<TransformComponent>
-				<MapImage/>
+				<MapImage carList={props.carList}/>
 				</TransformComponent>
 			</TransformWrapper>
 			{/* <MapImage/> */}
