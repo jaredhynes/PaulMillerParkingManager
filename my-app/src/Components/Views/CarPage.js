@@ -1,8 +1,7 @@
-import React from "react";
+import { React, useEffect, useState } from 'react';
 import { Button } from "react-bootstrap";
 import { useParams } from "react-router";
 import TableOfEdits from "./TableOfEdits";
-import { useState } from 'react';
 import QRCode from "qrcode.react";
 import { EditText, EditTextarea } from 'react-edit-text';
 import 'react-edit-text/dist/index.css';
@@ -12,6 +11,7 @@ import QRCodeGenerator from './QRCodeGenerator';
 function CarPage(props) {
     const [generateQR, setGenerateQR] = useState(false);
     const [valueStrings, setValueStrings] = useState([]);
+    const[carDescription, setcarDescription] = useState(null);
     const { vin } = useParams(window.location.search);
     let car = props.carList.find(car => car.vin === vin);
 
@@ -20,6 +20,20 @@ function CarPage(props) {
     function getCurrentPage() {
         setCurrentLink(window.location.href);
     }
+    
+    useEffect(() => {
+        setcarDescription(car.description)
+    },[]);
+    
+    const changeDescription = (text) => {
+        props.Axios.put(`${props.PATH}updateDescription`, {vin: car.vin, description: text.value}).then(
+			(response) => {
+				props.update();
+			}
+		)
+    }
+
+
     return (
         <div>
             <h1>{car.make_model} {car.year}</h1>
@@ -27,7 +41,10 @@ function CarPage(props) {
             <h3>Stock Number: {car.stockNum}</h3>
             <h4>Location: {car.spot_name}</h4>
             <EditTextarea
-                placeholder= {car.description}
+                id="carDes"
+                //placeholder={car.description}
+                defaultValue={car.description}
+                onSave={changeDescription}
                 // Remember to check if this works once development server is working again
             />
             <Button>Edit Information</Button>

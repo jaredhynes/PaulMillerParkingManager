@@ -44,6 +44,24 @@ app.put("/update", checkJwt, (req, res) =>{
 	);
 });
 
+app.put("/updateDescription", checkJwt, (req,res) =>{
+	const vin = req.body.vin;
+	const des = req.body.description;
+	db.query(
+		"UPDATE cars SET description = ? where vin = ?",
+		[des, vin],
+		(err, result) =>{
+			if(err){
+				console.log("Error in updateDescription:")
+				console.log(err);
+			}
+			else{
+				res.send(result)
+			}
+		}
+	);
+});
+
 app.delete("/deleteEventByVin/:vin", checkJwt, (req,res) => {
 	const vin = req.params.vin;
 	db.query("DELETE FROM history WHERE car_id = ? ", vin, (err, result) => {
