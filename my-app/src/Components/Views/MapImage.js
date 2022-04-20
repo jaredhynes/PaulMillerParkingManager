@@ -9,6 +9,13 @@ const MapImage = (props) => {
     </ImageTooltipsTrigger>);
 
     return ( 
+        // <ImageTooltips src={map} width={900} height={800} className="my-image" triggerEvent="click"></ImageTooltips>
+        // {props.carList.map(car => <ImageTooltipsItem top={car.y_val} left={car.x_val} trigger={MyTrigger} className="my-item">
+        // <p>{car.make_model}</p>
+        // <p>Vin: {car.vin}</p>
+        // </ImageTooltipsItem>) } 
+        // </ImageTooltips>
+        
         <ImageTooltips src={map} width={900} height={800} className="my-image" triggerEvent="click">
             <ImageTooltipsItem top={1} left={200} trigger={MyTrigger} className="my-item">
                 <p>Dummy Data:</p>
