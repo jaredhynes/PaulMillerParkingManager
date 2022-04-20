@@ -1,6 +1,5 @@
 import React from 'react';
 import '../../App.css';
-import Swal from 'sweetalert2'
 import '../../Styles/sweetalert.css'
 import Button from 'react-bootstrap/Button'
 import TableOfCars from './TableOfCars';
@@ -9,7 +8,6 @@ import swalAddCar from '../../functions.js'
 function Home(props) {
 	let carList = props.carList
 	let availableSpots = props.availableSpots
-	let edits = props.edits;
 
 	return (
 		<div className="App">

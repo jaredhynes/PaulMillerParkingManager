@@ -1,4 +1,4 @@
-import { React, useEffect, useState } from 'react';
+import { React, useState } from 'react';
 import { Button } from "react-bootstrap";
 import { useParams } from "react-router";
 import TableOfEdits from "./TableOfEdits";
@@ -10,8 +10,8 @@ import {swalEditCar} from '../../functions.js';
 
 
 function CarPage(props) {
-    const [generateQR, setGenerateQR] = useState(false);
-    const [valueStrings, setValueStrings] = useState([]);
+    const [generateQR, setGenerateQR] = useState(null);
+    const [valueStrings, setValueStrings] = useState(null);
     const { vin } = useParams(window.location.search);
     let car = props.carList.find(car => car.vin === vin);
 

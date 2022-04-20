@@ -1,10 +1,9 @@
 import React from 'react';
-import { Document, Page, Text, Image, View, StyleSheet } from '@react-pdf/renderer';
+import { Document, Page, Image, View, StyleSheet } from '@react-pdf/renderer';
 // import logo from '../../../public/audi.png';
 
 
 function PDFGenerator(props) {
-
     const styles = StyleSheet.create({
         page: {
             backgroundColor: 'white',
@@ -30,14 +29,12 @@ function PDFGenerator(props) {
         },
     });
 
-
+    const { PDFImageIds } = props;
 
     const resultArray = PDFImageIds.map(id => {
         // IdsArray.push(id);
         return document.getElementById(id).toDataURL();
     })
-
-    const { PDFImageIds } = props;
 
     return (
         <Document>
