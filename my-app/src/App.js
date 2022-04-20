@@ -32,8 +32,7 @@ const App = () => {
 	useEffect(() => {
 		const getToken = async () => {
 			setAccessToken(await getAccessTokenSilently({
-				audience: `https://quickstarts/api`,
-				scope: "read:current_user",
+				audience: roles.includes("admin") ? 'https://quickstarts/api/admin' : 'https://quickstarts/api',
 			}));
 		}
 
@@ -44,6 +43,7 @@ const App = () => {
 			else {
 				Axios.defaults.baseURL = PATH
 				Axios.defaults.headers.common = { 'Authorization': `Bearer ${accessToken}` }
+				console.log(accessToken);
 				fetchSpots();
 				fetchCars();
 				fetchAvailableSpots();
@@ -116,7 +116,7 @@ const App = () => {
 							<Route path="/map" element={<ParkingMap carList={carList} update={() => update()} availableSpots={availableSpots} edits={eventHistory} user={user} roles={roles} PATH={PATH} accessToken={accessToken} />} />
 							<Route path="/history" element={<Edits carList={carList} update={() => update()} availableSpots={availableSpots} allSpots={allSpots} edits={eventHistory} user={user} roles={roles} PATH={PATH} accessToken={accessToken} />} />
 							<Route path="/account" element={<Account PATH={PATH} update={() => update()} accessToken={accessToken} user={user} />} />
-							<Route path="/details/:vin" element={<CarPage carList={carList} update={() => update()} edits={eventHistory} accessToken={accessToken} roles={roles} />} />
+							<Route path="/details/:vin" element={<CarPage carList={carList} Axios={Axios} update={() => update()} edits={eventHistory} accessToken={accessToken} roles={roles} availableSpots={availableSpots} allSpots={allSpots} user={user}/>} />
 						</Routes> :
 						<h1>Fetching Data...</h1>
 					)
