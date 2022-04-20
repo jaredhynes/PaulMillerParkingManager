@@ -11,7 +11,6 @@ import QRCodeGenerator from './QRCodeGenerator';
 function CarPage(props) {
     const [generateQR, setGenerateQR] = useState(false);
     const [valueStrings, setValueStrings] = useState([]);
-    const[carDescription, setcarDescription] = useState(null);
     const { vin } = useParams(window.location.search);
     let car = props.carList.find(car => car.vin === vin);
 
@@ -20,10 +19,7 @@ function CarPage(props) {
     function getCurrentPage() {
         setCurrentLink(window.location.href);
     }
-    
-    useEffect(() => {
-        setcarDescription(car.description)
-    },[]);
+
     
     const changeDescription = (text) => {
         props.Axios.put(`${props.PATH}updateDescription`, {vin: car.vin, description: text.value}).then(
