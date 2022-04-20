@@ -6,6 +6,7 @@ import QRCode from "qrcode.react";
 import { EditText, EditTextarea } from 'react-edit-text';
 import 'react-edit-text/dist/index.css';
 import QRCodeGenerator from './QRCodeGenerator';
+import {swalEditCar} from '../../functions.js';
 
 
 function CarPage(props) {
@@ -43,6 +44,7 @@ function CarPage(props) {
                 onSave={changeDescription}
                 // Remember to check if this works once development server is working again
             />
+            <Button onClick={() => swalEditCar(car, props.Axios, props.update, props.user, props.availableSpots, props.allSpots)}>Move Car</Button>
             <Button>Edit Information</Button>
             {generateQR ? <QRCodeGenerator valueStrings={valueStrings} /> : null}
             <Button onClick={getCurrentPage}>Generate QR-Code</Button>
@@ -50,7 +52,7 @@ function CarPage(props) {
             <div>
                 {currentLink && <QRCode value={currentLink} />}
             </div>
-            {props.roles.includes("Admin") &&
+            {props.roles.includes("admin") &&
                 <h4>Car History:</h4> &&
                 <TableOfEdits edits={props.edits.filter(edit => edit.car_id === vin)} />}
         </div>
