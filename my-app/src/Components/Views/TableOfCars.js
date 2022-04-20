@@ -13,8 +13,8 @@ function TableOfCars(props) {
 			<Dropdown.Item onClick={() => swalEditCar(car, props.Axios, props.update, props.user, props.availableSpots, props.allSpots)}>Change Location</Dropdown.Item>
 			<Dropdown.Item onClick={() => swalArchiveCar(car, props.Axios, props.update, props.user)}>Archive Car</Dropdown.Item>
 			{props.roles.includes("admin") && <Dropdown.Item onClick={() => swalDeleteCar(car, props.Axios, props.update, props.user)}>Delete Car</Dropdown.Item>}
-			<Dropdown.Item onClick={() => highlightCar(car)}><Link to='/map'>Show on map</Link></Dropdown.Item>
-			<Dropdown.Item><Link to={`/details/${car.vin}`}>View Details</Link></Dropdown.Item>
+			<Dropdown.Item onClick={() => highlightCar(car)} as={Link} to='/map'>Show on map</Dropdown.Item>
+			<Dropdown.Item as={Link} to={`/details/${car.vin}`}>View Details</Dropdown.Item>
 		</DropdownButton>
 	))
 	let datatable = {
