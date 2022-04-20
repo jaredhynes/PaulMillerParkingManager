@@ -23,7 +23,7 @@ html {
   }
   
   nav .btn, .sidenav .btn {
-    background-color: #d84315; /*deep-orange darken-3*/
+    background-color: #f50537; /*deep-orange darken-3*/
   }
   nav .btn:hover, .sidenav .btn:hover{
     background-color: #f4511e; /*deep-orange darken-1*/
