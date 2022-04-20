@@ -15,6 +15,7 @@ const MapImage = (props) => {
         // <p>Vin: {car.vin}</p>
         // </ImageTooltipsItem>) } 
         // </ImageTooltips>
+        // uncomment this and comment out the bottomw to work on it (doesn't currently work)
         
         <ImageTooltips src={map} width={900} height={800} className="my-image" triggerEvent="click">
             <ImageTooltipsItem top={1} left={200} trigger={MyTrigger} className="my-item">
