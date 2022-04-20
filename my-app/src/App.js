@@ -26,13 +26,14 @@ const App = () => {
 	const [allSpots, setAllSpots] = useState(null);
 	const [accessToken, setAccessToken] = useState(null);
 
-	const { isLoading, user, isAuthenticated, loginWithRedirect, getAccessTokenSilently } = useAuth0();
+	const { isLoading, user, isAuthenticated, loginWithRedirect, getAccessTokenSilently} = useAuth0();
 
 
 	useEffect(() => {
 		const getToken = async () => {
 			setAccessToken(await getAccessTokenSilently({
-				audience: roles.includes("admin") ? 'https://quickstarts/api/admin' : 'https://quickstarts/api',
+				audience: 'https://quickstarts/api',
+				scope: "delete:cars read:cars read:edits update:cars"
 			}));
 		}
 
@@ -43,7 +44,6 @@ const App = () => {
 			else {
 				Axios.defaults.baseURL = PATH
 				Axios.defaults.headers.common = { 'Authorization': `Bearer ${accessToken}` }
-				console.log(accessToken);
 				fetchSpots();
 				fetchCars();
 				fetchAvailableSpots();
@@ -68,7 +68,6 @@ const App = () => {
 	const fetchCars = () => {
 		Axios.get("cars").then((response) => {
 			setCarList(response.data);
-			console.log(response.data);
 		})
 	}
 

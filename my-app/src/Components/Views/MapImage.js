@@ -1,7 +1,7 @@
 import {ImageTooltips, ImageTooltipsItem, ImageTooltipsTrigger} from "react-image-tooltips";
 import "react-image-tooltips/dist/index.css";
 import map from "../../Images/prototype_map.png";
-import "../../Styles/mapimage.css"
+import '../../Styles/mapimage.css'
 
 
 
