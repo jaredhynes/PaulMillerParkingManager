@@ -68,6 +68,7 @@ const App = () => {
 	const fetchCars = () => {
 		Axios.get("cars").then((response) => {
 			setCarList(response.data);
+			console.log(response.data);
 		})
 	}
 

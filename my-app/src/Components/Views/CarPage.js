@@ -28,7 +28,8 @@ function CarPage(props) {
             <h3>Stock Number: {car.stockNum}</h3>
             <h4>Location: {car.spot_name}</h4>
             <EditTextarea
-                placeholder='Description will go here (Click to edit)'
+                placeholder= {car.description}
+                // Remember to check if this works once development server is working again
             />
             <Button onClick={() => swalEditCar(car, props.Axios, props.update, props.user, props.availableSpots, props.allSpots)}>Move Car</Button>
             <Button>Edit Information</Button>
