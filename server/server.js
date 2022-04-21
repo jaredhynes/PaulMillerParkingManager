@@ -45,6 +45,27 @@ app.put("/update", checkJwt, (req, res) =>{
 	);
 });
 
+app.put("/updateInfo", checkJwt, (req, res) =>{
+	const vin = req.body.vin;
+	const stockNum = req.body.stockNum;
+	const makeModel = req.body.makeModel;
+	const year = req.body.year;
+
+	db.query(
+		"UPDATE cars SET stockNum = ?, make_model = ?, year = ? where vin = ?",
+		[stockNum, makeModel, year, vin],
+		(err, result) => {
+			if (err){
+				console.log("Error in updateInfo:")
+				console.log(err);
+			}
+			else{
+				res.send(result);
+			}
+		}
+	);
+});
+
 app.put("/updateDescription", checkJwt, (req,res) =>{
 	const vin = req.body.vin;
 	const des = req.body.description;

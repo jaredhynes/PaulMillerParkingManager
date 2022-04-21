@@ -5,7 +5,7 @@ import TableOfEdits from "./TableOfEdits";
 import QRCode from "qrcode.react";
 import { EditTextarea } from 'react-edit-text';
 import 'react-edit-text/dist/index.css';
-import {swalEditCar, swalEditCarAll} from '../../functions.js';
+import {swalEditCar, swalEditCarInfo} from '../../functions.js';
 
 
 function CarPage(props) {
@@ -44,7 +44,7 @@ function CarPage(props) {
                 // Remember to check if this works once development server is working again
             />
             <Button onClick={() => swalEditCar(car, data)}>Move Car</Button>
-            <Button onClick={() => swalEditCarAll(car, data)}>Edit Information</Button>
+            <Button onClick={() => swalEditCarInfo(car, data)}>Edit Information</Button>
             <Button onClick={getCurrentPage}>Generate QR-Code</Button>
 
             <div>
