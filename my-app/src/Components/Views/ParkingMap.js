@@ -11,7 +11,8 @@ import MapImage from "./MapImage.js"
 // const ResponsiveGridLayout = WidthProvider(Responsive);
 
 function ParkingMap(props) {
-	let carList = props.carList
+	let data = props.data
+	let carList = data.carList
 
 	let cars2d = [...Array(6)].map(() => Array(6).fill(null));
 
@@ -54,7 +55,7 @@ function ParkingMap(props) {
 		<div className='mapImg'>
 			<TransformWrapper>
 				<TransformComponent>
-				<MapImage carList={props.carList}/>
+				<MapImage carList={carList}/>
 				</TransformComponent>
 			</TransformWrapper>
 			{/* <MapImage/> */}

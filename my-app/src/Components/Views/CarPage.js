@@ -5,12 +5,14 @@ import TableOfEdits from "./TableOfEdits";
 import QRCode from "qrcode.react";
 import { EditTextarea } from 'react-edit-text';
 import 'react-edit-text/dist/index.css';
-import {swalEditCar} from '../../functions.js';
+import {swalEditCar, swalEditCarAll} from '../../functions.js';
 
 
 function CarPage(props) {
+    let data = props.data;
+
     const { vin } = useParams(window.location.search);
-    let car = props.carList.find(car => car.vin === vin);
+    let car = data.carList.find(car => car.vin === vin);
 
     const [currentLink, setCurrentLink] = useState(null);
 
@@ -20,7 +22,7 @@ function CarPage(props) {
 
     
     const changeDescription = (text) => {
-        props.Axios.put(`${props.PATH}updateDescription`, {vin: car.vin, description: text.value}).then(
+        data.Axios.put(`${props.PATH}updateDescription`, {vin: car.vin, description: text.value}).then(
 			(response) => {
 				props.update();
 			}
@@ -41,16 +43,16 @@ function CarPage(props) {
                 onSave={changeDescription}
                 // Remember to check if this works once development server is working again
             />
-            <Button onClick={() => swalEditCar(car, props.Axios, props.update, props.user, props.availableSpots, props.allSpots)}>Move Car</Button>
-            <Button>Edit Information</Button>
+            <Button onClick={() => swalEditCar(car, data)}>Move Car</Button>
+            <Button onClick={() => swalEditCarAll(car, data)}>Edit Information</Button>
             <Button onClick={getCurrentPage}>Generate QR-Code</Button>
 
             <div>
                 {currentLink && <QRCode value={currentLink} />}
             </div>
-            {props.roles.includes("admin") &&
+            {data.roles.includes("admin") &&
                 <h4>Car History:</h4> &&
-                <TableOfEdits edits={props.edits.filter(edit => edit.car_id === vin)} />}
+                <TableOfEdits edits={data.edits.filter(edit => edit.car_id === vin)} />}
         </div>
 
     );

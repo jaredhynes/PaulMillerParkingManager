@@ -8,15 +8,18 @@ import {swalArchiveCar, swalDeleteCar, swalEditCar} from "../../functions.js"
 
 
 function TableOfCars(props) {
-	props.carList.map(car => (
+	let data = props.data
+
+	data.carList.map(car => (
 		car.bttn = <DropdownButton id="dropdown-basic-button" variant="dark" title="Options">
-			<Dropdown.Item onClick={() => swalEditCar(car, props.Axios, props.update, props.user, props.availableSpots, props.allSpots)}>Change Location</Dropdown.Item>
-			<Dropdown.Item onClick={() => swalArchiveCar(car, props.Axios, props.update, props.user)}>Archive Car</Dropdown.Item>
-			{props.roles.includes("admin") && <Dropdown.Item onClick={() => swalDeleteCar(car, props.Axios, props.update, props.user)}>Delete Car</Dropdown.Item>}
+			<Dropdown.Item onClick={() => swalEditCar(car, data)}>Change Location</Dropdown.Item>
+			<Dropdown.Item onClick={() => swalArchiveCar(car, data)}>Archive Car</Dropdown.Item>
+			{data.roles.includes("admin") && <Dropdown.Item onClick={() => swalDeleteCar(car, data)}>Delete Car</Dropdown.Item>}
 			<Dropdown.Item onClick={() => highlightCar(car)} as={Link} to='/map'>Show on map</Dropdown.Item>
 			<Dropdown.Item as={Link} to={`/details/${car.vin}`}>View Details</Dropdown.Item>
 		</DropdownButton>
 	))
+
 	let datatable = {
 		columns: [
 			{
@@ -49,11 +52,11 @@ function TableOfCars(props) {
 				width: 130,
 			}
 		],
-		rows: props.carList
+		rows: data.carList
 	}
 
 	function highlightCar(car) {
-		props.carList.map(car => (car.highlighted = false))
+		data.carList.map(car => (car.highlighted = false))
 		car.highlighted = true
 	}
 

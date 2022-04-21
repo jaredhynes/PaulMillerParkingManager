@@ -1,7 +1,7 @@
 import Swal from 'sweetalert2'
 
 //Swal functions
-export function swalAddCar(axios, update, user, availableSpots, allSpots, vin = "", make_model = "", year = "", stockNum = "", location = "") {
+export function swalAddCar(data, vin = "", make_model = "", year = "", stockNum = "", location = "") {
     Swal.fire({
         title: 'Add Car',
         // want to have the information there in the edit, not just random values. using ${result.value.vin} does not work!
@@ -24,7 +24,7 @@ export function swalAddCar(axios, update, user, availableSpots, allSpots, vin = 
                 Swal.showValidationMessage(`Please enter all information`)
             }
 
-            if (!isSpotAvailable(location, availableSpots)) {
+            if (!isSpotAvailable(location, data.availableSpots)) {
                 Swal.showValidationMessage(`${location} is not an available spot.`)
             }
 
@@ -60,19 +60,19 @@ export function swalAddCar(axios, update, user, availableSpots, allSpots, vin = 
                         <p>Stock Number: ${result.value.stockNum} </p>
                         <p>Location: ${result.value.location} </p>`,
                     })
-                    addCar(result, axios, update, allSpots);
-                    addNewCarEvent(result.value, getSpotID(result.value.location, allSpots), getSpotID(result.value.location, allSpots), "Added New Car", axios, update, user);
-                    //addEvent(result.value, getSpotID(result.value.location), getSpotID(result.value.location), "Added New Car", axios, update, user)
+                    addCar(result, data.Axios, data.update, data.allSpots);
+                    addNewCarEvent(result.value, getSpotID(result.value.location, data.allSpots), getSpotID(result.value.location, data.allSpots), "Added New Car", data.Axios, data.update, data.user);
+                    //addEvent(result.value, getSpotID(result.value.location), getSpotID(result.value.location), "Added New Car", data.Axios, update, user)
                 }
                 else if (result.isDenied) {
-                    swalAddCar(result.value.vin, result.value.make_model, result.value.year, result.value.stockNum, result.value.location, axios);
+                    swalAddCar(data, result.value.vin, result.value.make_model, result.value.year, result.value.stockNum, result.value.location);
                 }
             })
         }
     })
 }
 
-export function swalEditCar(car, axios, update, user, availableSpots, allSpots) {
+export function swalEditCar(car, data) {
     Swal.fire({
         title: 'Edit Car Location',
         html: `<input type="text" id="newSpot" class="swal2-input" placeholder=${car.spot_name}>`,
@@ -86,7 +86,7 @@ export function swalEditCar(car, axios, update, user, availableSpots, allSpots) 
                 Swal.showValidationMessage(`Please enter a location`)
             }
 
-            if (!isSpotAvailable(newSpot, availableSpots)) {
+            if (!isSpotAvailable(newSpot, data.availableSpots)) {
                 Swal.showValidationMessage(`${newSpot} is not an available spot.`)
             }
 
@@ -100,13 +100,13 @@ export function swalEditCar(car, axios, update, user, availableSpots, allSpots) 
                     html: `<p> Old Location: ${car.spot_name} </p>
                     <p>New Location: ${result.value.newSpot} </p>`,
                 })
-                editCar(car, result.value.newSpot, axios, update, allSpots);
-                addEvent(car, getSpotID(result.value.newSpot, allSpots), result.value.newSpot, "Car was Moved", axios, update, user)
+                editCar(car, result.value.newSpot, data.Axios, data.update, data.allSpots);
+                addEvent(car, getSpotID(result.value.newSpot, data.allSpots), result.value.newSpot, "Car was Moved", data.Axios, data.update, data.user)
             }
         })
 }
 
-export function swalArchiveCar(car, axios, update) {
+export function swalArchiveCar(car, data) {
     Swal.fire({
         title: 'Are you sure you would like to archive this car?',
         text: "This will remove it from the parking lot but keep it stored in the database.",
@@ -126,7 +126,7 @@ export function swalArchiveCar(car, axios, update) {
     })
 }
 
-export function swalDeleteCar(car, axios, update) {
+export function swalDeleteCar(car, data) {
     Swal.fire({
         title: 'Are you sure you would like to delete this car?',
         text: "This will remove it from the parking lot and delete all stored data.",
@@ -143,14 +143,18 @@ export function swalDeleteCar(car, axios, update) {
                 'The car and data have been successfully deleted.',
                 'success'
             )
-            deleteCar(car, axios, update);
+            deleteCar(car, data.Axios, data.update);
         }
     })
 }
 
+export function swalEditCarAll(car, data) {
+    // TODO    
+}
+
 //Push to server
-function addCar(car, axios, update, allSpots) {
-    axios.post("insertNewCar", {
+function addCar(car, Axios, update, allSpots) {
+    Axios.post("insertNewCar", {
         vin: car.value.vin,
         make_model: car.value.make_model,
         stockNum: car.value.stockNum,
@@ -161,24 +165,24 @@ function addCar(car, axios, update, allSpots) {
     })
 }
 
-function editCar(car, newSpot, axios, update, allSpots) {
-    axios.put("update", {vin: car.vin, spot_id: getSpotID(newSpot, allSpots)}).then(
+function editCar(car, newSpot, Axios, update, allSpots) {
+    Axios.put("update", {vin: car.vin, spot_id: getSpotID(newSpot, allSpots)}).then(
         (response) => {
             update()
         }
     )
 }
 
-function deleteCar(car, axios, update){
-    axios.delete(`deleteEventByVin/${car.vin}`).then((response) => {
-        axios.delete(`delete/${car.vin}`).then((response) => {
+function deleteCar(car, Axios, update){
+    Axios.delete(`deleteEventByVin/${car.vin}`).then((response) => {
+        Axios.delete(`delete/${car.vin}`).then((response) => {
             update();
         })
     })
 }
 
-function addNewCarEvent(car, old_spot_id, new_spot_id, event_type, axios, update, user) {
-    axios.post("insertEvent", {
+function addNewCarEvent(car, old_spot_id, new_spot_id, event_type, Axios, update, user) {
+    Axios.post("insertEvent", {
         car_id: car.vin,
         old_spot_id: old_spot_id,
         new_spot_id: new_spot_id,
@@ -190,8 +194,8 @@ function addNewCarEvent(car, old_spot_id, new_spot_id, event_type, axios, update
     })
 }
 
-function addEvent(car, newSpotid, newSpotName, event_type, axios, update, user) {
-    axios.post("insertEvent", {
+function addEvent(car, newSpotid, newSpotName, event_type, Axios, update, user) {
+    Axios.post("insertEvent", {
         car_id: car.vin,
         old_spot_id: car.spot_id,
         new_spot_id: newSpotid,

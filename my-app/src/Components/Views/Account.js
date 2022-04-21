@@ -2,11 +2,12 @@ import React from "react";
 import LogoutButton from "../Login/LogoutButton";
 
 const Account = (props) => {
+    let data = props.data;
     return (
         <div>
-            <img src={props.user.picture} alt={props.user.name} />
-            <h2>{props.user.name}</h2>
-            <p>{props.user.email}</p>
+            <img src={data.user.picture} alt={data.user.name} />
+            <h2>{data.user.name}</h2>
+            <p>{data.user.email}</p>
             <LogoutButton/>
         </div>
     );

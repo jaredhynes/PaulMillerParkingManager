@@ -6,13 +6,12 @@ import TableOfCars from './TableOfCars';
 import swalAddCar from '../../functions.js'
 
 function Home(props) {
-	let carList = props.carList
-	let availableSpots = props.availableSpots
+	let data = props.data
 
 	return (
 		<div className="App">
-			{carList && <TableOfCars Axios={props.Axios} update={() => props.update()} carList={carList} user={props.user} PATH={props.PATH} availableSpots={availableSpots} allSpots={props.allSpots} roles={props.roles} />}
-			<Button variant="dark" onClick={() => swalAddCar(props.Axios, props.update, props.user, props.availableSpots, props.allSpots)}>Add Car</Button>
+			{data.carList && <TableOfCars data={data} />}
+			<Button variant="dark" onClick={() => swalAddCar(data)}>Add Car</Button>
 		</div>
 	);
 }

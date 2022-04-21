@@ -22,7 +22,7 @@ const PATH = "https://gentle-thicket-28075.herokuapp.com/" // Use this for Herok
 const App = () => {
 	const [carList, setCarList] = useState(null);
 	const [availableSpots, setAvailableSpots] = useState(null);
-	const [eventHistory, setEventHistory] = useState(null);
+	const [edits, setEdits] = useState(null);
 	const [allSpots, setAllSpots] = useState(null);
 	const [accessToken, setAccessToken] = useState(null);
 
@@ -85,12 +85,12 @@ const App = () => {
 
 	const fetchHistory = () => {
 		Axios.get("getHistory").then((response) => {
-			setEventHistory(response.data);
+			setEdits(response.data);
 		})
 	}
 
 	function checkLists() {
-		return carList && availableSpots && allSpots && eventHistory
+		return carList && availableSpots && allSpots && edits
 	}
 
 	let roles = []
@@ -105,19 +105,20 @@ const App = () => {
 		fetchHistory();
 	}
 
+	let data = {Axios, update, carList, availableSpots, allSpots, edits, user, roles, PATH, accessToken}
+
 	return (
 		<Router>
-			<Navbar edits={eventHistory} app={this} isAuthenticated={isAuthenticated} />
+			<Navbar edits={edits} app={this} isAuthenticated={isAuthenticated} />
 			{isLoading ? <h1>Loading...</h1> :
 				(!isAuthenticated ? warningMessage() :
 					(checkLists() ?
 						<Routes>
-							<Route path="/" element={<Home Axios={Axios} update={() => update()} carList={carList} availableSpots={availableSpots} allSpots={allSpots} edits={eventHistory} user={user} roles={roles} PATH={PATH} accessToken={accessToken} />} />
-							<Route path="/map" element={<ParkingMap carList={carList} update={() => update()} availableSpots={availableSpots} edits={eventHistory} user={user} roles={roles} PATH={PATH} accessToken={accessToken} />} />
-							<Route path="/history" element={<Edits carList={carList} update={() => update()} availableSpots={availableSpots} allSpots={allSpots} edits={eventHistory} user={user} roles={roles} PATH={PATH} accessToken={accessToken} />} />
-							<Route path="/account" element={<Account PATH={PATH} update={() => update()} accessToken={accessToken} user={user} />} />
-
-							<Route path="/details/:vin" element={<CarPage carList={carList} Axios={Axios} update={() => update()} edits={eventHistory} accessToken={accessToken} roles={roles} availableSpots={availableSpots} allSpots={allSpots} user={user}/>} />
+							<Route path="/" element={<Home data={data} />} />
+							<Route path="/map" element={<ParkingMap data={data} />} />
+							<Route path="/history" element={<Edits data={data} />} />
+							<Route path="/account" element={<Account data={data} />} />
+							<Route path="/details/:vin" element={<CarPage data={data} />} />
 						</Routes> :
 						<h1>Fetching Data...</h1>
 					)
