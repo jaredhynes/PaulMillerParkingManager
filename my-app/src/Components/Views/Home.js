@@ -4,6 +4,7 @@ import '../../Styles/sweetalert.css'
 import Button from 'react-bootstrap/Button'
 import TableOfCars from './TableOfCars';
 import swalAddCar from '../../functions.js'
+import video from "../video/Paul_Miller_Audi.mp4"
 
 function Home(props) {
 	let data = props.data
