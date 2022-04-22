@@ -1,5 +1,5 @@
 html {
-  background-color: #e51e1e ; /*blue lighten-3*/
+  background-color: red ; /*blue lighten-3*/
 }
 
 
@@ -7,6 +7,16 @@ tr {
   border-color: black;
   background-color: #ff0a0a57;
   
+}
+
+video{
+  position: absolute;
+   width:100%;
+  left:50%;
+  top: 50%;
+  height:100%;
+  /* object-fit: cover; */
+  z-index: -1;
 }
 
 button.listedButton{
