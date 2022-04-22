@@ -109,7 +109,7 @@ const App = () => {
 
 	return (
 		<Router>
-			<Navbar edits={edits} app={this} isAuthenticated={isAuthenticated} />
+			<Navbar edits={edits} app={this} isAuthenticated={isAuthenticated} data={data}/>
 			{isLoading ? <h1>Loading...</h1> :
 				(!isAuthenticated ? warningMessage() :
 					(checkLists() ?

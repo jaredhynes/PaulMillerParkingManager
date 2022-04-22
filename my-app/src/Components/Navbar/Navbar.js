@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import Dropdown from 'react-bootstrap/Dropdown';
 import '../../Styles/sweetalert.css'
+import { Button } from 'react-bootstrap';
 
 const Navbar = (props) => {
 	return (
@@ -29,6 +30,7 @@ const Navbar = (props) => {
 									<li>
 										<Link to="/account">Account Settings ⚙︎</Link>
 									</li>
+									<Button onClick={props.data.update()}>Update</Button>
 								</ul>
 							</nav>
 						</div>
