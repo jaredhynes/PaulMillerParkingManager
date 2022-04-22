@@ -18,16 +18,16 @@ const Navbar = (props) => {
 							<nav>
 								<ul>
 									<li>
-										<Link to="/">Home</Link>
+										<Link to="/">Home ⌂</Link>
 									</li>
 									<li>
-										<Link to="/map">Map</Link>
+										<Link to="/map">Map 🖈</Link>
 									</li>
 									<li>
 										<Link to="/history">Edit History</Link>
 									</li>
 									<li>
-										<Link to="/account">Account Settings</Link>
+										<Link to="/account">Account Settings ⚙︎</Link>
 									</li>
 								</ul>
 							</nav>
