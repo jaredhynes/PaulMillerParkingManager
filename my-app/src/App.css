@@ -2,6 +2,27 @@ html {
   background-color: red ; /*blue lighten-3*/
 }
 
+nav .nav-wrapper i {
+  height: 66px !important;
+  line-height: 66px !important;
+}
+
+nav a.sidenav-trigger {
+  height: 66px !important;
+  line-height: 66px !important;
+}
+
+nav a.sidenav-trigger i {
+  height: 66px !important;
+  line-height: 66px !important;
+}
+
+nav {
+  height: 66px !important;
+  line-height: 66px !important;
+  color: #fff;
+  background-color: #4d4d4d !important;
+}
 
 tr {
   border-color: black;
