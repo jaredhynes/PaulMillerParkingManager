@@ -2,6 +2,16 @@ html {
   background-color: red ; /*blue lighten-3*/
 }
 
+/* Options button */
+.btn-dark.dropdown-toggle {
+  background-color: #4d4d4d !important;
+}
+
+/* Add car button */
+.btn-dark {
+  background-color: #4d4d4d !important;
+}
+
 nav .nav-wrapper i {
   height: 66px !important;
   line-height: 66px !important;
