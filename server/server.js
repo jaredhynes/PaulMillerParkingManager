@@ -133,15 +133,14 @@ app.post("/insertNewCar", checkJwt, (req, res) => {
 
 app.post("/insertEvent", checkJwt, (req, res) => {
 	const carID = req.body.car_id;
-	const old_spot_id = req.body.old_spot_id;
-	const new_spot_id = req.body.new_spot_id;
+	const event_description = req.body.description;
 	const user_id = req.body.user_id;
 	const event_type = req.body.event_type;
 	const event_date = req.body.event_date;
 
 	db.query(
-		"INSERT INTO history (car_id, old_spot_id, new_spot_id, user_id, event_type, event_date) VALUES (?,?,?,?,?,?)",
-		[carID, old_spot_id, new_spot_id, user_id, event_type, event_date],
+		"INSERT INTO history (car_id, user_id, event_type, event_date, event_description) VALUES (?,?,?,?,?)",
+		[carID, user_id, event_type, event_date, event_description],
 		(err, result) => {
 			if(err){
 				console.log(err);

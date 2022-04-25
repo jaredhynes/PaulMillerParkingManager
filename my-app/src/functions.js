@@ -61,7 +61,7 @@ export function swalAddCar(data, vin = "", make_model = "", year = "", stockNum 
                         <p>Location: ${result.value.location} </p>`,
                     })
                     addCar(result, data.Axios, data.update, data.allSpots);
-                    addNewCarEvent(result.value, getSpotID(result.value.location, data.allSpots), getSpotID(result.value.location, data.allSpots), "Added New Car", data.Axios, data.update, data.user);
+                    addEvent(result.value, result.value, "Add Car", data.Axios, data.update, data.user);
                 }
                 else if (result.isDenied) {
                     swalAddCar(data, result.value.vin, result.value.make_model, result.value.year, result.value.stockNum, result.value.location);
@@ -89,7 +89,7 @@ export function swalEditCar(car, data) {
                 Swal.showValidationMessage(`${newSpot} is not an available spot.`)
             }
 
-            return { car: car, newSpot: newSpot }
+            return { newSpot: newSpot, vin:car.vin }
         }
     }).then((result) => {
         if (result.isConfirmed) {
@@ -100,7 +100,7 @@ export function swalEditCar(car, data) {
                     <p>New Location: ${result.value.newSpot} </p>`,
                 })
                 editCar(car, result.value.newSpot, data.Axios, data.update, data.allSpots);
-                addEvent(car, getSpotID(result.value.newSpot, data.allSpots), "Car was Moved", data.Axios, data.update, data.user)
+                addEvent(car, result.value, "Move Car", data.Axios, data.update, data.user)
             }
         })
 }
@@ -143,7 +143,7 @@ export function swalDeleteCar(car, data) {
                 'success'
             )
             deleteCar(car, data.Axios, data.update);
-            addEvent(car, getSpotID(car.spot_name, data.allSpots), "Car was Deleted", data.Axios, data.update, data.user)
+            //addEvent(car, car, "Delete Car", data.Axios, data.update, data.user)
         }
     })
 }
@@ -154,18 +154,18 @@ export function swalEditCarInfo(car, data) {
     Swal.fire({
         title: 'Edit Car Information',
         html: `<p> Vin Number: ${car.vin} </p>
-        <input type="text" id="newMakeModel" class="swal2-input" placeholder=${car.make_model}>
-        <input type="text" id="newYear" class="swal2-input" placeholder=${car.year}>
-        <input type="text" id="newStockNum" class="swal2-input" placeholder=${car.stockNum}>`,
+        <input type="text" id="make_model" class="swal2-input" placeholder=${car.make_model}>
+        <input type="text" id="year" class="swal2-input" placeholder=${car.year}>
+        <input type="text" id="stockNum" class="swal2-input" placeholder=${car.stockNum}>`,
         confirmButtonText: 'Edit Car',
         showCancelButton: true,
         focusConfirm: false,
         preConfirm: () => {
-            const newMakeModel = Swal.getPopup().querySelector('#newMakeModel').value ? Swal.getPopup().querySelector('#newMakeModel').value : car.make_model;
-            const newYear = Swal.getPopup().querySelector('#newYear').value ? Swal.getPopup().querySelector('#newYear').value : car.year;
-            const newStockNum = Swal.getPopup().querySelector('#newStockNum').value ? Swal.getPopup().querySelector('#newStockNum').value : car.stockNum;
+            const make_model = Swal.getPopup().querySelector('#make_model').value ? Swal.getPopup().querySelector('#make_model').value : car.make_model;
+            const year = Swal.getPopup().querySelector('#year').value ? Swal.getPopup().querySelector('#year').value : car.year;
+            const stockNum = Swal.getPopup().querySelector('#stockNum').value ? Swal.getPopup().querySelector('#stockNum').value : car.stockNum;
 
-            return { newMakeModel: newMakeModel, newYear: newYear, newStockNum: newStockNum }
+            return { make_model: make_model, year: year, stockNum: stockNum }
         }
     }).then((result) => {  
         if (result.isConfirmed) {
@@ -173,17 +173,17 @@ export function swalEditCarInfo(car, data) {
                 icon: 'question',
                 title: "Is this Information Correct?",
                 html: `<p> Vin Number: ${car.vin} </p>
-                <p>Make/Model: ${result.value.newMakeModel} </p>
-                <p>Make/Model: ${result.value.newYear} </p>
-                <p>Stock Number: ${result.value.newStockNum} </p>`,
+                <p>Make/Model: ${result.value.make_model} </p>
+                <p>Make/Model: ${result.value.year} </p>
+                <p>Stock Number: ${result.value.stockNum} </p>`,
                 showDenyButton: true,
                 confirmButtonText: "Yes",
                 denyButtonText: "No",
                 preConfirm: () => {
-                    return { vin: car.vin, newMakeModel: result.value.newMakeModel, newYear: result.value.newYear, newStockNum: result.value.newStockNum }
+                    return { vin: car.vin, make_model: result.value.make_model, year: result.value.year, stockNum: result.value.stockNum }
                 },
                 preDeny: () => {
-                    return { vin: car.vin, newMakeModel: result.value.newMakeModel, newYear: result.value.newYear, newStockNum: result.value.newStockNum }
+                    return { vin: car.vin, make_model: result.value.make_model, year: result.value.year, stockNum: result.value.stockNum }
                 }
             }).then((result) => {
                 if (result.isConfirmed) {
@@ -191,12 +191,12 @@ export function swalEditCarInfo(car, data) {
                         icon: "success",
                         title: "Saved",
                         html: `<p> Vin Number: ${result.value.vin} </p>
-                        <p>Make/Model: ${result.value.newMakeModel} </p>
-                        <p>Make/Model: ${result.value.newYear} </p>
-                        <p>Stock Number: ${result.value.newStockNum} </p>`,
+                        <p>Make/Model: ${result.value.make_model} </p>
+                        <p>Make/Model: ${result.value.year} </p>
+                        <p>Stock Number: ${result.value.stockNum} </p>`,
                     })
                     editCarInfo(result.value, data.Axios, data.update);
-                    addEvent(car, car.spot_id, "Changed car info", data.Axios, data.update, data.user)
+                    addEvent(car, result.value, "Edit Car", data.Axios, data.update, data.user)
                 }
                 else if (result.isDenied) {
                     swalEditCarInfo(car, data);
@@ -228,7 +228,7 @@ function editCar(car, newSpot, Axios, update, allSpots) {
 }
 
 function editCarInfo(newInfo, Axios, update){
-    Axios.put("updateInfo", {vin: newInfo.vin, stockNum: newInfo.newStockNum, makeModel: newInfo.newMakeModel, year: newInfo.newYear}).then((response) => {
+    Axios.put("updateInfo", {vin: newInfo.vin, stockNum: newInfo.stockNum, makeModel: newInfo.make_model, year: newInfo.year}).then((response) => {
         update()
     });
 }
@@ -241,27 +241,31 @@ function deleteCar(car, Axios, update){
     })
 }
 
-function addNewCarEvent(car, old_spot_id, new_spot_id, event_type, Axios, update, user) {
-    Axios.post("insertEvent", {
-        car_id: car.vin,
-        old_spot_id: old_spot_id,
-        new_spot_id: new_spot_id,
-        user_id: user.email,
-        event_type: event_type,
-        event_date: Date().toLocaleString(),
-    }).then(() => {
-        update();
-    })
-}
+function addEvent(oldCar, newCar, event_type, Axios, update, user) {
+    let description
+    
+    switch(event_type) {
+        case "Move Car":
+            description = `Location: ${oldCar.spot_name} -> ${newCar.newSpot} <br> `
+            break
+        case "Edit Car":
+            description = `Make/Model: ${oldCar.make_model} -> ${newCar.make_model} <br> Year: ${oldCar.year} -> ${newCar.year} <br> Stock Number: ${oldCar.stockNum} -> ${newCar.stockNum}`;
+            break
+        case "Add Car":
+            description = `Make/Model: ${newCar.make_model} <br> Year: ${newCar.year} <br> Stock Number: ${newCar.stockNum} <br> Location: ${newCar.location}`;
+            break
+        default:
+            description = "";
+            break
+    }
 
-function addEvent(car, newSpotid, event_type, Axios, update, user) {
+    console.log(description)
     Axios.post("insertEvent", {
-        car_id: car.vin,
-        old_spot_id: car.spot_id,
-        new_spot_id: newSpotid,
+        car_id: newCar.vin,
         user_id: user.email,
+        description: description,
         event_type: event_type,
-        event_date: Date().toLocaleString(),
+        event_date: (new Date()).toLocaleString("en-US", {timeZone: "America/New_York"}),
     }).then(() => {
         update();
     })

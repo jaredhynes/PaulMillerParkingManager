@@ -62,7 +62,7 @@ function TableOfCars(props) {
 
 	return (
 		<div>
-			<MDBDataTable hover scrollX entriesOptions={[5, 20, 25]} entries={5} pagesAmount={4} data={datatable} order={['key', 'asc']} />
+			<MDBDataTable hover scrollX entriesOptions={[5, 20, 25]} entries={5} pagesAmount={4} data={datatable} order={['key']} />
 		</div>
 	)
 }
