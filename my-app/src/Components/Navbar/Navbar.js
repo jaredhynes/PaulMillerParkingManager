@@ -11,10 +11,6 @@ import video from "../video/Paul_Miller_Audi.mp4"
 const Navbar = (props) => {
 	return (
 		<div>
-		<video autoPlay loop muted>
-				<source src={video} type="video/mp4"/>
-			</video>
-			
 		<header>
 			<nav>
 				<div className="nav-wrapper">
