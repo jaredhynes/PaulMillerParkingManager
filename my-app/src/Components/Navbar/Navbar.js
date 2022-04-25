@@ -36,7 +36,7 @@ const Navbar = (props) => {
 									<li>
 										<Link to="/account">Account Settings ⚙︎</Link>
 									</li>
-									<Button onClick={() => props.data.update()}>Update</Button>
+									<Button onClick={() => props.data.update()}>Update Data</Button>
 								</ul>
 							</nav>
 						</div>
