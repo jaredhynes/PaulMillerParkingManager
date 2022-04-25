@@ -72,8 +72,8 @@ html {
   
   li{
     background-color: rgb(229, 30, 30);
-    margin-top: 1px;
-    outline: 1px solid #000;
+    /* margin-top: 1px; */
+    /* outline: 1px solid #000; */
     
   
   }
