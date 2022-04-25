@@ -8,7 +8,7 @@ const checkJwt = auth({
   audience: 'https://quickstarts/api',
   issuerBaseURL: `https://dev-w1z8wy-p.us.auth0.com/`,
 });
-const checkScopes = requiredScopes("update:current_user_metadata");
+const checkScopes = requiredScopes("delete:cars");
 
 const cors = require('cors')
 const mysql = require("mysql");
@@ -84,7 +84,7 @@ app.put("/updateDescription", checkJwt, (req,res) =>{
 	);
 });
 
-app.delete("/deleteEventByVin/:vin", checkJwt, (req,res) => {
+app.delete("/deleteEventByVin/:vin", checkJwt, checkScopes, (req,res) => {
 	const vin = req.params.vin;
 	db.query("DELETE FROM history WHERE car_id = ? ", vin, (err, result) => {
 		if(err) {
@@ -97,7 +97,7 @@ app.delete("/deleteEventByVin/:vin", checkJwt, (req,res) => {
 	})
 })
 
-app.delete("/delete/:vin", checkJwt, (req, res) => {
+app.delete("/delete/:vin", checkJwt, checkScopes, (req, res) => {
 	const vin = req.params.vin;
 	db.query("DELETE FROM cars WHERE vin = ?", vin, (err, result) => {
 		if(err) {
