@@ -20,6 +20,7 @@ function TableOfEdits(props) {
 			{
 				label: 'Edit Type',
 				field: 'event_type',
+				width: '120'
 			},
 			{
 				label: 'VIN',
@@ -36,6 +37,7 @@ function TableOfEdits(props) {
 			{
 				label: 'Details',
 				field: "bttn",
+				width: '210'
 			}
 		],
 		rows: props.edits

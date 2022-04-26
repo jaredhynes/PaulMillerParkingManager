@@ -17,6 +17,14 @@ nav .nav-wrapper i {
   line-height: 66px !important;
 }
 
+.btn-primary {
+  background-color: #4d4d4d !important;
+}
+
+.dropdown-menu.show {
+  background-color: #e51e1e !important;
+}
+
 nav a.sidenav-trigger {
   height: 66px !important;
   line-height: 66px !important;
