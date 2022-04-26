@@ -6,7 +6,7 @@ import DropdownButton from 'react-bootstrap/DropdownButton';
 import Dropdown from 'react-bootstrap/Dropdown';
 import '../../Styles/sweetalert.css'
 import { Button } from 'react-bootstrap';
-import video from "../video/Paul_Miller_Audi.mp4"
+
 
 const Navbar = (props) => {
 	return (
