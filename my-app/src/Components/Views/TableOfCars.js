@@ -23,12 +23,12 @@ function TableOfCars(props) {
 	let datatable = {
 		columns: [
 			{
-				label: 'Action',
+				label: <b>Action</b>,
 				field: 'bttn',
 				width: 150,
 			},
 			{
-				label: 'VIN',
+				label: <b>VIN</b>,
 				field: 'vin',
 				width: 120,
 				attributes: {
@@ -37,17 +37,17 @@ function TableOfCars(props) {
 				},
 			},
 			{
-				label: 'Make Model',
+				label: <b>Make Model</b>,
 				field: 'make_model',
 				width: 150,
 			},
 			{
-				label: 'Stock Number',
+				label: <b>Stock Number</b>,
 				field: 'stockNum',
 				width: 130,
 			},
 			{
-				label: 'Location',
+				label: <b>Location</b>,
 				field: 'spot_name',
 				width: 130,
 			}
