@@ -21,7 +21,7 @@ const MapImage = (props) => {
         {/* attemnpt to put a regular popper here and use the tooltips library to place them on image */}
     </ImageTooltipsTrigger>);
 
-    const Trigger2 = (<ImageTooltipsTrigger className="trigger2">
+    const MyTrigger2 = (<ImageTooltipsTrigger className="trigger2">
     {/* <DirectionsCarIcon fontSize="large"/> */}
     +
     </ImageTooltipsTrigger>);
