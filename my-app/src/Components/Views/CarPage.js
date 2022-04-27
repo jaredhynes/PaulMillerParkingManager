@@ -14,6 +14,8 @@ function CarPage(props) {
     const { vin } = useParams(window.location.search);
     let car = data.carList.find(car => car.vin === vin);
 
+
+    const[carDescription, setCarDescription] = useState(car.description);
     const [currentLink, setCurrentLink] = useState(null);
 
     function getCurrentPage() {
@@ -21,10 +23,10 @@ function CarPage(props) {
     }
 
     
-    const changeDescription = (text) => {
-        data.Axios.put(`${props.PATH}updateDescription`, {vin: car.vin, description: text.value}).then(
+    const changeDescription = () => {
+        data.Axios.put("updateDescription", {vin: car.vin, description: carDescription}).then(
 			(response) => {
-				props.update();
+				data.update();
 			}
 		)
     }
@@ -38,8 +40,8 @@ function CarPage(props) {
             <h4>Location: {car.spot_name}</h4>
             <EditTextarea
                 id="carDes"
-                //placeholder={car.description}
-                defaultValue={car.description}
+                value={carDescription}
+                onChange={setCarDescription}
                 onSave={changeDescription}
                 // Remember to check if this works once development server is working again
             />
