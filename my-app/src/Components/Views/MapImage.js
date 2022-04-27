@@ -12,8 +12,9 @@ import '../../Styles/mapimage.css'
 const MapImage = (props) => {
 
     const MyTrigger = (<ImageTooltipsTrigger className="my-trigger">
-        <DirectionsCarIcon fontSize="large"/>
-        +
+        <IconButton>
+            <DirectionsCarIcon fontSize="large"/>
+        </IconButton>
     </ImageTooltipsTrigger>);
 
     const Trigger2 = (<ImageTooltipsTrigger className="trigger2">
