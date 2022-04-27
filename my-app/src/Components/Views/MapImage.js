@@ -10,13 +10,20 @@ import { faCarSide } from '@fortawesome/free-solid-svg-icons'
 import '../../Styles/mapimage.css'
 
 const MapImage = (props) => {
+
     const MyTrigger = (<ImageTooltipsTrigger className="my-trigger">
-        <DirectionsCarIcon fontSize="large"/>
+        {/* <DirectionsCarIcon fontSize="large"/> */}
         +
     </ImageTooltipsTrigger>);
 
+    const Trigger2 = (<ImageTooltipsTrigger className="trigger2">
+    {/* <DirectionsCarIcon fontSize="large"/> */}
+    +
+    </ImageTooltipsTrigger>);
+
+
     return (
-        <ImageTooltips src={map} width={900} height={800} className="my-image" triggerEvent="click">
+        <ImageTooltips src={map} width={900} height={900} className="my-image" triggerEvent="click">
         {props.carList.map(car => <ImageTooltipsItem top={car.y_val} left={car.x_val} trigger={MyTrigger} className="my-item">
         <p>{car.make_model}</p>
         <p>Vin: {car.vin}</p>
