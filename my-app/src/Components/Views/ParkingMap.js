@@ -4,8 +4,9 @@ import '../../Styles/map.css';
 import 'materialize-css/dist/css/materialize.min.css';
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 // import map from "../../Images/prototype_map.png";
-import MapImage from "./MapImage.js"
+import MapImage from "./MapImage.js";
 import { Button } from 'react-bootstrap';
+
 
 // import { Responsive, WidthProvider } from "react-grid-layout";
 
@@ -56,7 +57,7 @@ function ParkingMap(props) {
 	return (
 		<div className='mapImg'>
 			<TransformWrapper>
-				<TransformComponent>
+				<TransformComponent minScale={8}>
 				<MapImage carList={carList}/>
 				</TransformComponent>
 			</TransformWrapper>
