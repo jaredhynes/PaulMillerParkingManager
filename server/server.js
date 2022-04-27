@@ -8,7 +8,8 @@ const checkJwt = auth({
   audience: 'https://quickstarts/api',
   issuerBaseURL: `https://dev-w1z8wy-p.us.auth0.com/`,
 });
-const checkScopes = requiredScopes("delete:cars");
+const checkDeleteCars = requiredScopes("delete:cars");
+const checkReadEdits = requiredScopes("read:edits");
 
 const cors = require('cors')
 const mysql = require("mysql");
@@ -84,7 +85,7 @@ app.put("/updateDescription", checkJwt, (req,res) =>{
 	);
 });
 
-app.delete("/deleteEventByVin/:vin", checkJwt, checkScopes, (req,res) => {
+app.delete("/deleteEventByVin/:vin", checkJwt, checkDeleteCars, (req,res) => {
 	const vin = req.params.vin;
 	db.query("DELETE FROM history WHERE car_id = ? ", vin, (err, result) => {
 		if(err) {
@@ -97,7 +98,7 @@ app.delete("/deleteEventByVin/:vin", checkJwt, checkScopes, (req,res) => {
 	})
 })
 
-app.delete("/delete/:vin", checkJwt, checkScopes, (req, res) => {
+app.delete("/delete/:vin", checkJwt, checkDeleteCars, (req, res) => {
 	const vin = req.params.vin;
 	db.query("DELETE FROM cars WHERE vin = ?", vin, (err, result) => {
 		if(err) {
@@ -151,7 +152,7 @@ app.post("/insertEvent", checkJwt, (req, res) => {
 	});
 })
 
-app.get("/getHistory", checkJwt, (req, res) => {
+app.get("/getHistory", checkJwt, checkReadEdits, (req, res) => {
 	db.query("select * from history", (err, result) => {
 		if (err){
 			console.log("error at getHistory: ");

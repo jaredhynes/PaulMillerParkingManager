@@ -90,7 +90,7 @@ const App = () => {
 	}
 
 	function checkLists() {
-		return carList && availableSpots && allSpots && edits
+		return carList && availableSpots && allSpots
 	}
 
 	let roles = []

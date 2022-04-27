@@ -24,7 +24,23 @@ export function swalAddCar(data, vin = "", make_model = "", year = "", stockNum 
                 Swal.showValidationMessage(`Please enter all information`)
             }
 
-            if (!isSpotAvailable(location, data.availableSpots)) {
+            else if (!validateVin(vin)) {
+                Swal.showValidationMessage(`${vin} is not a valid VIN.`)
+            }
+
+            else if (!/^[A-Za-z0-9]*$/.test(make_model)){
+                Swal.showValidationMessage(`${make_model} is not a valid make/model.`)
+            }
+
+            else if (!/^[0-9]*$/.test(year)){
+                Swal.showValidationMessage(`${year} is not a valid year.`)
+            }
+
+            else if (!/^[A-Za-z0-9]*$/.test(stockNum)){
+                Swal.showValidationMessage(`${stockNum} is not a valid stock number.`)
+            }
+
+            else if (!isSpotAvailable(location, data.availableSpots)) {
                 Swal.showValidationMessage(`${location} is not an available spot.`)
             }
 
@@ -148,7 +164,7 @@ export function swalDeleteCar(car, data) {
     })
 }
 
-//Edit any of car's infor besides vin and location
+//Edit any of car's info besides vin and location
 export function swalEditCarInfo(car, data) {
     // TODO
     Swal.fire({
@@ -164,6 +180,18 @@ export function swalEditCarInfo(car, data) {
             const make_model = Swal.getPopup().querySelector('#make_model').value ? Swal.getPopup().querySelector('#make_model').value : car.make_model;
             const year = Swal.getPopup().querySelector('#year').value ? Swal.getPopup().querySelector('#year').value : car.year;
             const stockNum = Swal.getPopup().querySelector('#stockNum').value ? Swal.getPopup().querySelector('#stockNum').value : car.stockNum;
+
+            if (!/^[A-Za-z0-9]*$/.test(make_model)){
+                Swal.showValidationMessage(`${make_model} is not a valid make and model.`)
+            }
+
+            if (!/^[0-9]*$/.test(year)){
+                Swal.showValidationMessage(`${year} is not a valid year.`)
+            }
+
+            if (!/^[A-Za-z0-9]*$/.test(stockNum)){
+                Swal.showValidationMessage(`${stockNum} is not a valid stock number.`)
+            }
 
             return { make_model: make_model, year: year, stockNum: stockNum }
         }
@@ -258,8 +286,7 @@ function addEvent(oldCar, newCar, event_type, Axios, update, user) {
             description = "";
             break
     }
-
-    console.log(description)
+    
     Axios.post("insertEvent", {
         car_id: newCar.vin,
         user_id: user.email,
@@ -281,5 +308,28 @@ function getSpotID(spotName, allSpots){
 function isSpotAvailable(spotName, availableSpots) {
     return availableSpots.find(spot => spot.spot_name === spotName);
 }
-
+  
+function validateVin(vin) {
+    return validate(vin);
+}
+  
+function transliterate(c) {
+    return '0123456789.ABCDEFGH..JKLMN.P.R..STUVWXYZ'.indexOf(c) % 10;
+}
+  
+//eslint-disable-next-line
+function get_check_digit(vin) {
+    var map = '0123456789X';
+    var weights = '8765432X098765432';
+    var sum = 0;
+    for (var i = 0; i < 17; ++i)
+        sum += transliterate(vin[i]) * map.indexOf(weights[i]);
+    return map[sum % 11];
+}
+  
+function validate(vin) {
+    // if (vin.length !== 17) return false;
+    //     return get_check_digit(vin) === vin[8];
+    return /^[A-Z0-9]*$/.test(vin)
+}
 export default swalAddCar;
