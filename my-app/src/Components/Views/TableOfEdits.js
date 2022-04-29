@@ -4,16 +4,19 @@ import '../../App.css';
 import { MDBDataTable } from 'mdbreact';
 import { Button } from 'react-bootstrap';
 import Swal from 'sweetalert2';
-
+import { swalRevertEdit } from '../../functions.js'
 
 function TableOfEdits(props) {
+	let data = props.data
 
-	props.edits.map(edit => {
+	data.edits.forEach(edit => {
 		switch(edit.event_type) {
+			case "Undo Move":
 			case "Move Car":
 				edit.description = `Location: ${edit.old_location} -> ${edit.new_location} <br> `
 				break
 			case "Edit Car":
+			case "Undo Edit":
 				edit.description = `Make/Model: ${edit.old_make_model} -> ${edit.new_make_model} <br> Year: ${edit.old_year} -> ${edit.new_year} <br> Stock Number: ${edit.old_stock_num} -> ${edit.new_stock_num}`;
 				break
 			case "Add Car":
@@ -26,8 +29,8 @@ function TableOfEdits(props) {
 		edit.bttn = <Button onClick={() => showEditDetails(edit)}>Show Details</Button>
 	})
 
-	//SOrt edit by date
-	props.edits.sort((a, b) => (a.event_date > b.event_date) ? -1 : 1)
+	//Sort edit by date
+	data.edits.sort((a, b) => (a.event_date > b.event_date) ? -1 : 1)
 
 	let datatable = {
 		columns: [
@@ -54,14 +57,22 @@ function TableOfEdits(props) {
 				width: '210'
 			}
 		],
-		rows: props.edits
+		rows: props.filter ? data.edits.filter(edit => edit.car_id === props.filter) : data.edits
 	}
 
 	function showEditDetails(edit) {
 		Swal.fire({
 			title: 'Edit Details',
 			html: `<p> ${edit.event_type} <br> ${edit.description} </p>`,
-			confirmButtonText: 'Close'
+			showDenyButton: true,
+			confirmButtonText: 'Close',
+			denyButtonText: `Revert Edit`,
+		}).then((result) => {
+			if (result.isConfirmed) {
+				Swal.close()
+			} else if (result.isDenied) {
+			  	swalRevertEdit(edit, data)
+			}
 		})
 	}
 

@@ -28,6 +28,10 @@ export function swalAddCar(data, vin = "", make_model = "", year = "", stockNum 
                 Swal.showValidationMessage(`${vin} is not a valid VIN.`)
             }
 
+            else if (data.carList.find(car => car.vin === vin)) {
+                Swal.showValidationMessage(`Cannot have duplicate VINs!`)
+            }
+
             else if (!/^[A-Za-z0-9 ]*$/.test(make_model)){
                 Swal.showValidationMessage(`${make_model} is not a valid make/model.`)
             }
@@ -234,6 +238,73 @@ export function swalEditCarInfo(car, data) {
     })
 }
 
+export function swalRevertEdit(edit, data){
+    Swal.fire({
+        title: 'Are you sure you would like to revert this edit?',
+        text: "This will revert the edit to the previous state.",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, revert it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            switch(edit.event_type){
+                case "Add Car":
+                    Swal.fire({
+                        title: 'Confirm Delete',
+                        text: 'Are you sure you want to delete this car? This cannot be undone.',
+                        icon: 'warning',              
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes, delete it!'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            Swal.fire(
+                                'Deleted!',
+                                'The car has been successfully deleted.',
+                                'success'
+                            )
+                            deleteCar({vin:edit.car_id}, data.Axios, data.update);                        }
+                    })
+                    break
+                case "Edit Car":
+                case "Undo Edit":
+                    editCarInfo({vin:edit.car_id, stockNum:edit.old_stock_num, make_model:edit.old_make_model, year:edit.old_year}, data.Axios, data.update);
+                    addEvent({vin:edit.car_id, stockNum:edit.new_stock_num, make_model:edit.new_make_model, year:edit.new_year}, {vin:edit.car_id, stockNum:edit.old_stock_num, make_model:edit.old_make_model, year:edit.old_year}, "Undo Edit", data.Axios, data.update, data.user)
+                    Swal.fire(
+                        'Reverted!',
+                        'The edit has been successfully reverted.',
+                        'success'
+                    )
+                    break
+                case "Move Car":
+                case "Undo Move":
+                    if (isSpotAvailable(edit.old_location, data.availableSpots)){
+                        editCar({vin:edit.car_id}, edit.old_location, data.Axios, data.update, data.allSpots);
+                        addEvent({vin:edit.car_id, spot_name:edit.new_location}, {vin:edit.car_id, spot_name:edit.old_location}, "Undo Move", data.Axios, data.update, data.user)
+                        Swal.fire(
+                            'Reverted!',
+                            'The edit has been successfully reverted.',
+                            'success'
+                        )
+                    }
+                    else{
+                        Swal.fire(
+                            'Error!',
+                            'The spot you are trying to move to is not available.',
+                            'error'
+                        )
+                    }
+                    break
+                default:
+                    break
+            }
+        }
+    })
+}
+
 //Push to server
 function addCar(car, Axios, update, allSpots) {
     Axios.post("insertNewCar", {
@@ -259,7 +330,12 @@ function editCar(car, spot_name, Axios, update, allSpots) {
 }
 
 function editCarInfo(newInfo, Axios, update){
-    Axios.put("updateInfo", {vin: newInfo.vin, stockNum: newInfo.stockNum, makeModel: newInfo.make_model, year: newInfo.year}).then((response) => {
+    Axios.put("updateInfo", {
+        vin: newInfo.vin, 
+        stockNum: newInfo.stockNum, 
+        makeModel: newInfo.make_model, 
+        year: newInfo.year
+    }).then((response) => {
         update()
     });
 }

@@ -90,7 +90,7 @@ const App = () => {
 	}
 
 	function checkLists() {
-		return carList && availableSpots && allSpots
+		return carList && availableSpots && allSpots && (roles.includes("admin") && edits)
 	}
 
 	let roles = []

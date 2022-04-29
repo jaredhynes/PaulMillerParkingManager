@@ -14,7 +14,6 @@ function CarPage(props) {
     const { vin } = useParams(window.location.search);
     let car = data.carList.find(car => car.vin === vin);
 
-
     const[carDescription, setCarDescription] = useState(car.description);
     const [currentLink, setCurrentLink] = useState(null);
 
@@ -54,7 +53,7 @@ function CarPage(props) {
             </div>
             {data.roles.includes("admin") &&
                 <h4>Car History:</h4> &&
-                <TableOfEdits edits={data.edits.filter(edit => edit.car_id === vin)} />}
+                <TableOfEdits data={data} filter={vin} />}
         </div>
 
     );
