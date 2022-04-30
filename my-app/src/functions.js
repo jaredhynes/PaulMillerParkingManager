@@ -306,8 +306,8 @@ export function swalRevertEdit(edit, data){
 }
 
 //Push to server
-function addCar(car, Axios, update, allSpots) {
-    Axios.post("insertNewCar", {
+async function addCar(car, Axios, update, allSpots) {
+    await Axios.post("insertNewCar", {
         vin: car.value.vin,
         make_model: car.value.make_model,
         stockNum: car.value.stockNum,
@@ -318,8 +318,8 @@ function addCar(car, Axios, update, allSpots) {
     })
 }
 
-function editCar(car, spot_name, Axios, update, allSpots) {
-    Axios.put("update", {
+async function editCar(car, spot_name, Axios, update, allSpots) {
+    await Axios.put("update", {
         vin: car.vin, 
         spot_id: getSpotID(spot_name, allSpots),
     }).then(
@@ -329,8 +329,8 @@ function editCar(car, spot_name, Axios, update, allSpots) {
     )
 }
 
-function editCarInfo(newInfo, Axios, update){
-    Axios.put("updateInfo", {
+async function editCarInfo(newInfo, Axios, update){
+    await Axios.put("updateInfo", {
         vin: newInfo.vin, 
         stockNum: newInfo.stockNum, 
         makeModel: newInfo.make_model, 
@@ -340,16 +340,16 @@ function editCarInfo(newInfo, Axios, update){
     });
 }
 
-function deleteCar(car, Axios, update){
-    Axios.delete(`deleteEventByVin/${car.vin}`).then((response) => {
+async function deleteCar(car, Axios, update){
+    await Axios.delete(`deleteEventByVin/${car.vin}`).then((response) => {
         Axios.delete(`delete/${car.vin}`).then((response) => {
             update();
         })
     })
 }
 
-function addEvent(oldCar, newCar, event_type, Axios, update, user) { 
-    Axios.post("insertEvent", {
+async function addEvent(oldCar, newCar, event_type, Axios, update, user) { 
+    await Axios.post("insertEvent", {
         car_id: newCar.vin,
         old_make_model: oldCar.make_model,
         new_make_model: newCar.make_model, 
