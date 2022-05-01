@@ -26,7 +26,7 @@ const App = () => {
 	const [allSpots, setAllSpots] = useState(null);
 	const [accessToken, setAccessToken] = useState(null);
 
-	const { isLoading, user, isAuthenticated, loginWithRedirect, getAccessTokenSilently} = useAuth0();
+	const { isLoading, user, isAuthenticated, loginWithRedirect, getAccessTokenSilently } = useAuth0();
 
 
 	useEffect(() => {
@@ -105,11 +105,11 @@ const App = () => {
 		fetchHistory();
 	}
 
-	let data = {Axios, update, carList, availableSpots, allSpots, edits, user, roles, PATH, accessToken}
+	let data = { Axios, update, carList, availableSpots, allSpots, edits, user, roles, PATH, accessToken }
 
 	return (
 		<Router>
-			<Navbar edits={edits} app={this} isAuthenticated={isAuthenticated} data={data}/>
+			<Navbar edits={edits} app={this} isAuthenticated={isAuthenticated} data={data} />
 			{isLoading ? <h1>Loading...</h1> :
 				(!isAuthenticated ? warningMessage() :
 					(checkLists() ?

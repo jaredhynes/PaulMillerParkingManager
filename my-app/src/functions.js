@@ -32,15 +32,15 @@ export function swalAddCar(data, vin = "", make_model = "", year = "", stockNum 
                 Swal.showValidationMessage(`Cannot have duplicate VINs!`)
             }
 
-            else if (!/^[A-Za-z0-9 ]*$/.test(make_model)){
+            else if (!/^[A-Za-z0-9 ]*$/.test(make_model)) {
                 Swal.showValidationMessage(`${make_model} is not a valid make/model.`)
             }
 
-            else if (!/^[0-9]*$/.test(year)){
+            else if (!/^[0-9]*$/.test(year)) {
                 Swal.showValidationMessage(`${year} is not a valid year.`)
             }
 
-            else if (!/^[A-Za-z0-9]*$/.test(stockNum)){
+            else if (!/^[A-Za-z0-9]*$/.test(stockNum)) {
                 Swal.showValidationMessage(`${stockNum} is not a valid stock number.`)
             }
 
@@ -109,20 +109,20 @@ export function swalEditCar(car, data) {
                 Swal.showValidationMessage(`${spot_name} is not an available spot.`)
             }
 
-            return { spot_name: spot_name, vin:car.vin }
+            return { spot_name: spot_name, vin: car.vin }
         }
     }).then((result) => {
         if (result.isConfirmed) {
-                Swal.fire({
-                    icon: "success",
-                    title: "Saved",
-                    html: `<p> Old Location: ${car.spot_name} </p>
+            Swal.fire({
+                icon: "success",
+                title: "Saved",
+                html: `<p> Old Location: ${car.spot_name} </p>
                     <p>New Location: ${result.value.spot_name} </p>`,
-                })
-                editCar(car, result.value.spot_name, data.Axios, data.update, data.allSpots);
-                addEvent(car, result.value, "Move Car", data.Axios, data.update, data.user)
-            }
-        })
+            })
+            editCar(car, result.value.spot_name, data.Axios, data.update, data.allSpots);
+            addEvent(car, result.value, "Move Car", data.Axios, data.update, data.user)
+        }
+    })
 }
 
 export function swalArchiveCar(car, data) {
@@ -141,6 +141,9 @@ export function swalArchiveCar(car, data) {
                 'The data has been successfully stored.',
                 'success'
             )
+            car.archived = 1
+            archiveCar(car, data.Axios, data.update);
+            addEvent(car, car, "Archive Car", data.Axios, data.update, data.user)
         }
     })
 }
@@ -168,7 +171,6 @@ export function swalDeleteCar(car, data) {
     })
 }
 
-//Edit any of car's info besides vin and location
 export function swalEditCarInfo(car, data) {
     // TODO
     Swal.fire({
@@ -185,21 +187,21 @@ export function swalEditCarInfo(car, data) {
             const year = Swal.getPopup().querySelector('#year').value ? Swal.getPopup().querySelector('#year').value : car.year;
             const stockNum = Swal.getPopup().querySelector('#stockNum').value ? Swal.getPopup().querySelector('#stockNum').value : car.stockNum;
 
-            if (!/^[A-Za-z0-9 ]*$/.test(make_model)){
+            if (!/^[A-Za-z0-9 ]*$/.test(make_model)) {
                 Swal.showValidationMessage(`${make_model} is not a valid make and model.`)
             }
 
-            if (!/^[0-9]*$/.test(year)){
+            if (!/^[0-9]*$/.test(year)) {
                 Swal.showValidationMessage(`${year} is not a valid year.`)
             }
 
-            if (!/^[A-Za-z0-9]*$/.test(stockNum)){
+            if (!/^[A-Za-z0-9]*$/.test(stockNum)) {
                 Swal.showValidationMessage(`${stockNum} is not a valid stock number.`)
             }
 
             return { make_model: make_model, year: year, stockNum: stockNum }
         }
-    }).then((result) => {  
+    }).then((result) => {
         if (result.isConfirmed) {
             Swal.fire({
                 icon: 'question',
@@ -238,7 +240,7 @@ export function swalEditCarInfo(car, data) {
     })
 }
 
-export function swalRevertEdit(edit, data){
+export function swalRevertEdit(edit, data) {
     Swal.fire({
         title: 'Are you sure you would like to revert this edit?',
         text: "This will revert the edit to the previous state.",
@@ -249,12 +251,12 @@ export function swalRevertEdit(edit, data){
         confirmButtonText: 'Yes, revert it!'
     }).then((result) => {
         if (result.isConfirmed) {
-            switch(edit.event_type){
+            switch (edit.event_type) {
                 case "Add Car":
                     Swal.fire({
                         title: 'Confirm Delete',
                         text: 'Are you sure you want to delete this car? This cannot be undone.',
-                        icon: 'warning',              
+                        icon: 'warning',
                         showCancelButton: true,
                         confirmButtonColor: '#3085d6',
                         cancelButtonColor: '#d33',
@@ -266,13 +268,14 @@ export function swalRevertEdit(edit, data){
                                 'The car has been successfully deleted.',
                                 'success'
                             )
-                            deleteCar({vin:edit.car_id}, data.Axios, data.update);                        }
+                            deleteCar({ vin: edit.car_id }, data.Axios, data.update);
+                        }
                     })
                     break
                 case "Edit Car":
                 case "Undo Edit":
-                    editCarInfo({vin:edit.car_id, stockNum:edit.old_stock_num, make_model:edit.old_make_model, year:edit.old_year}, data.Axios, data.update);
-                    addEvent({vin:edit.car_id, stockNum:edit.new_stock_num, make_model:edit.new_make_model, year:edit.new_year}, {vin:edit.car_id, stockNum:edit.old_stock_num, make_model:edit.old_make_model, year:edit.old_year}, "Undo Edit", data.Axios, data.update, data.user)
+                    editCarInfo({ vin: edit.car_id, stockNum: edit.old_stock_num, make_model: edit.old_make_model, year: edit.old_year }, data.Axios, data.update);
+                    addEvent({ vin: edit.car_id, stockNum: edit.new_stock_num, make_model: edit.new_make_model, year: edit.new_year }, { vin: edit.car_id, stockNum: edit.old_stock_num, make_model: edit.old_make_model, year: edit.old_year }, "Undo Edit", data.Axios, data.update, data.user)
                     Swal.fire(
                         'Reverted!',
                         'The edit has been successfully reverted.',
@@ -281,22 +284,33 @@ export function swalRevertEdit(edit, data){
                     break
                 case "Move Car":
                 case "Undo Move":
-                    if (isSpotAvailable(edit.old_location, data.availableSpots)){
-                        editCar({vin:edit.car_id}, edit.old_location, data.Axios, data.update, data.allSpots);
-                        addEvent({vin:edit.car_id, spot_name:edit.new_location}, {vin:edit.car_id, spot_name:edit.old_location}, "Undo Move", data.Axios, data.update, data.user)
+                    if (isSpotAvailable(edit.old_location, data.availableSpots)) {
+                        editCar({ vin: edit.car_id }, edit.old_location, data.Axios, data.update, data.allSpots);
+                        addEvent({ vin: edit.car_id, spot_name: edit.new_location }, { vin: edit.car_id, spot_name: edit.old_location }, "Undo Move", data.Axios, data.update, data.user)
                         Swal.fire(
                             'Reverted!',
-                            'The edit has been successfully reverted.',
+                            'The move has been successfully reverted.',
                             'success'
                         )
                     }
-                    else{
+                    else {
                         Swal.fire(
                             'Error!',
                             'The spot you are trying to move to is not available.',
                             'error'
                         )
                     }
+                    break
+                case "Archive Car":
+                case "Undo Archive":
+                    let a = edit.archived === 0 ? 1 : 0
+                    archiveCar({ vin: edit.car_id, archived: a }, data.Axios, data.update);
+                    addEvent({ vin: edit.car_id }, { vin: edit.car_id, archived: a }, "Undo Archive", data.Axios, data.update, data.user)
+                    Swal.fire(
+                        'Reverted!',
+                        'The archive has been successfully reverted.',
+                        'success'
+                    )
                     break
                 default:
                     break
@@ -320,7 +334,7 @@ async function addCar(car, Axios, update, allSpots) {
 
 async function editCar(car, spot_name, Axios, update, allSpots) {
     await Axios.put("update", {
-        vin: car.vin, 
+        vin: car.vin,
         spot_id: getSpotID(spot_name, allSpots),
     }).then(
         (response) => {
@@ -329,18 +343,18 @@ async function editCar(car, spot_name, Axios, update, allSpots) {
     )
 }
 
-async function editCarInfo(newInfo, Axios, update){
+async function editCarInfo(newInfo, Axios, update) {
     await Axios.put("updateInfo", {
-        vin: newInfo.vin, 
-        stockNum: newInfo.stockNum, 
-        makeModel: newInfo.make_model, 
+        vin: newInfo.vin,
+        stockNum: newInfo.stockNum,
+        makeModel: newInfo.make_model,
         year: newInfo.year
     }).then((response) => {
         update()
     });
 }
 
-async function deleteCar(car, Axios, update){
+async function deleteCar(car, Axios, update) {
     await Axios.delete(`deleteEventByVin/${car.vin}`).then((response) => {
         Axios.delete(`delete/${car.vin}`).then((response) => {
             update();
@@ -348,28 +362,38 @@ async function deleteCar(car, Axios, update){
     })
 }
 
-async function addEvent(oldCar, newCar, event_type, Axios, update, user) { 
+async function addEvent(oldCar, newCar, event_type, Axios, update, user) {
     await Axios.post("insertEvent", {
         car_id: newCar.vin,
         old_make_model: oldCar.make_model,
-        new_make_model: newCar.make_model, 
-	    old_year: oldCar.year,
+        new_make_model: newCar.make_model,
+        old_year: oldCar.year,
         new_year: newCar.year,
         old_stock_num: oldCar.stockNum,
         new_stock_num: newCar.stockNum,
-	    old_location: oldCar.spot_name,
+        old_location: oldCar.spot_name,
         new_location: newCar.spot_name,
+        archived: newCar.archived,
         user_id: user.email,
         event_type: event_type,
-        event_date: (new Date()).toLocaleString("en-US", {timeZone: "America/New_York"}),
+        event_date: (new Date()).toLocaleString("en-US", { timeZone: "America/New_York" }),
+    }).then(() => {
+        update();
+    })
+}
+
+function archiveCar(car, Axios, update) {
+    Axios.put("archive", {
+        vin: car.vin,
+        archived: car.archived
     }).then(() => {
         update();
     })
 }
 
 //Helper Functions
-function getSpotID(spot_name, allSpots){
-    return allSpots.find(el => 
+function getSpotID(spot_name, allSpots) {
+    return allSpots.find(el =>
         el.spot_name === spot_name
     ).spot_id;
 }
@@ -377,15 +401,15 @@ function getSpotID(spot_name, allSpots){
 function isSpotAvailable(spot_name, availableSpots) {
     return availableSpots.find(spot => spot.spot_name === spot_name);
 }
-  
+
 function validateVin(vin) {
     return validate(vin);
 }
-  
+
 function transliterate(c) {
     return '0123456789.ABCDEFGH..JKLMN.P.R..STUVWXYZ'.indexOf(c) % 10;
 }
-  
+
 //eslint-disable-next-line
 function get_check_digit(vin) {
     var map = '0123456789X';
@@ -395,10 +419,11 @@ function get_check_digit(vin) {
         sum += transliterate(vin[i]) * map.indexOf(weights[i]);
     return map[sum % 11];
 }
-  
+
 function validate(vin) {
     // if (vin.length !== 17) return false;
     //     return get_check_digit(vin) === vin[8];
     return /^[A-Z0-9]*$/.test(vin)
 }
+
 export default swalAddCar;

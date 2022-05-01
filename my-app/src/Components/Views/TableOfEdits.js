@@ -10,7 +10,7 @@ function TableOfEdits(props) {
 	let data = props.data
 
 	data.edits.forEach(edit => {
-		switch(edit.event_type) {
+		switch (edit.event_type) {
 			case "Undo Move":
 			case "Move Car":
 				edit.description = `Location: ${edit.old_location} -> ${edit.new_location} <br> `
@@ -22,6 +22,10 @@ function TableOfEdits(props) {
 			case "Add Car":
 				edit.description = `Make/Model: ${edit.new_make_model} <br> Year: ${edit.new_year} <br> Stock Number: ${edit.new_stock_num} <br> Location: ${edit.new_location}`;
 				break
+			case "Archive Car":
+			case "Undo Archive":
+				edit.description = edit.archived == 1 ? `Car was archived` : `Car was unarchived`;
+				break
 			default:
 				edit.description = "";
 				break
@@ -29,8 +33,11 @@ function TableOfEdits(props) {
 		edit.bttn = <Button onClick={() => showEditDetails(edit)}>Show Details</Button>
 	})
 
-	//Sort edit by date
-	data.edits.sort((a, b) => (a.event_date > b.event_date) ? -1 : 1)
+	data.edits.sort((a, b) => {
+		let dateA = new Date(a.event_date)
+		let dateB = new Date(b.event_date)
+		return dateB - dateA
+	})
 
 	let datatable = {
 		columns: [
@@ -71,7 +78,7 @@ function TableOfEdits(props) {
 			if (result.isConfirmed) {
 				Swal.close()
 			} else if (result.isDenied) {
-			  	swalRevertEdit(edit, data)
+				swalRevertEdit(edit, data)
 			}
 		})
 	}

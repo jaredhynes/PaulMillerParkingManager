@@ -5,8 +5,8 @@ const { auth, requiredScopes } = require('express-oauth2-jwt-bearer');
 // Authorization middleware. When used, the Access Token must
 // exist and be verified against the Auth0 JSON Web Key Set.
 const checkJwt = auth({
-  audience: 'https://quickstarts/api',
-  issuerBaseURL: `https://dev-w1z8wy-p.us.auth0.com/`,
+	audience: 'https://quickstarts/api',
+	issuerBaseURL: `https://dev-w1z8wy-p.us.auth0.com/`,
 });
 const checkDeleteCars = requiredScopes("delete:cars");
 const checkReadEdits = requiredScopes("read:edits");
@@ -28,25 +28,25 @@ const db = mysql.createPool({
 	database: 'parking',
 });
 
-app.put("/update", checkJwt, (req, res) =>{
+app.put("/update", checkJwt, (req, res) => {
 	const vin = req.body.vin;
 	const spot_id = req.body.spot_id;
 	db.query(
 		"UPDATE cars SET spot_id = ? where vin = ?",
 		[spot_id, vin],
 		(err, result) => {
-			if (err){
+			if (err) {
 				console.log("Error in Update:")
 				console.log(err);
 			}
-			else{
+			else {
 				res.send(result);
 			}
 		}
 	);
 });
 
-app.put("/updateInfo", checkJwt, (req, res) =>{
+app.put("/updateInfo", checkJwt, (req, res) => {
 	const vin = req.body.vin;
 	const stockNum = req.body.stockNum;
 	const makeModel = req.body.makeModel;
@@ -56,43 +56,43 @@ app.put("/updateInfo", checkJwt, (req, res) =>{
 		"UPDATE cars SET stockNum = ?, make_model = ?, year = ? where vin = ?",
 		[stockNum, makeModel, year, vin],
 		(err, result) => {
-			if (err){
+			if (err) {
 				console.log("Error in updateInfo:")
 				console.log(err);
 			}
-			else{
+			else {
 				res.send(result);
 			}
 		}
 	);
 });
 
-app.put("/updateDescription", checkJwt, (req,res) =>{
+app.put("/updateDescription", checkJwt, (req, res) => {
 	const vin = req.body.vin;
 	const des = req.body.description;
 	db.query(
 		"UPDATE cars SET description = ? where vin = ?",
 		[des, vin],
-		(err, result) =>{
-			if(err){
+		(err, result) => {
+			if (err) {
 				console.log("Error in updateDescription:")
 				console.log(err);
 			}
-			else{
+			else {
 				res.send(result)
 			}
 		}
 	);
 });
 
-app.delete("/deleteEventByVin/:vin", checkJwt, checkDeleteCars, (req,res) => {
+app.delete("/deleteEventByVin/:vin", checkJwt, checkDeleteCars, (req, res) => {
 	const vin = req.params.vin;
 	db.query("DELETE FROM history WHERE car_id = ? ", vin, (err, result) => {
-		if(err) {
+		if (err) {
 			console.log("Error in delete:");
 			console.log(err);
 		}
-		else{
+		else {
 			res.send(result);
 		}
 	})
@@ -101,11 +101,25 @@ app.delete("/deleteEventByVin/:vin", checkJwt, checkDeleteCars, (req,res) => {
 app.delete("/delete/:vin", checkJwt, checkDeleteCars, (req, res) => {
 	const vin = req.params.vin;
 	db.query("DELETE FROM cars WHERE vin = ?", vin, (err, result) => {
-		if(err) {
+		if (err) {
 			console.log("Error in delete:");
 			console.log(err);
 		}
-		else{
+		else {
+			res.send(result);
+		}
+	})
+})
+
+app.put("/archive", checkJwt, checkDeleteCars, (req, res) => {
+	const vin = req.body.vin;
+	const archived = req.body.archived
+	db.query("UPDATE cars SET archived = ? WHERE vin = ?", [archived, vin], (err, result) => {
+		if (err) {
+			console.log("Error in archive:");
+			console.log(err);
+		}
+		else {
 			res.send(result);
 		}
 	})
@@ -135,37 +149,38 @@ app.post("/insertNewCar", checkJwt, (req, res) => {
 app.post("/insertEvent", checkJwt, (req, res) => {
 	const carID = req.body.car_id;
 	const old_make_model = req.body.old_make_model;
-    const new_make_model = req.body.new_make_model; 
+	const new_make_model = req.body.new_make_model;
 	const old_year = req.body.old_year;
-    const new_year = req.body.new_year;
-    const old_stock_num = req.body.old_stock_num;
-    const new_stock_num = req.body.new_stock_num;
+	const new_year = req.body.new_year;
+	const old_stock_num = req.body.old_stock_num;
+	const new_stock_num = req.body.new_stock_num;
 	const old_location = req.body.old_location;
-    const new_location = req.body.new_location;
+	const new_location = req.body.new_location;
 	const user_id = req.body.user_id;
 	const event_type = req.body.event_type;
 	const event_date = req.body.event_date;
+	const archived = req.body.archived;
 
 	db.query(
-		"INSERT INTO history (car_id, user_id, event_type, event_date, old_make_model, new_make_model, old_year, new_year, old_stock_num, new_stock_num, old_location, new_location) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)",
-		[carID, user_id, event_type, event_date, old_make_model, new_make_model, old_year, new_year, old_stock_num, new_stock_num, old_location, new_location],
+		"INSERT INTO history (car_id, user_id, event_type, event_date, old_make_model, new_make_model, old_year, new_year, old_stock_num, new_stock_num, old_location, new_location, archived) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)",
+		[carID, user_id, event_type, event_date, old_make_model, new_make_model, old_year, new_year, old_stock_num, new_stock_num, old_location, new_location, archived],
 		(err, result) => {
-			if(err){
+			if (err) {
 				console.log(err);
 			}
-			else{
+			else {
 				res.send("Values Inserted");
 			}
-	});
+		});
 })
 
 app.get("/getHistory", checkJwt, checkReadEdits, (req, res) => {
 	db.query("select * from history", (err, result) => {
-		if (err){
+		if (err) {
 			console.log("error at getHistory: ");
 			console.log(err);
 		}
-		else{
+		else {
 			res.send(result);
 		}
 	});
@@ -184,7 +199,7 @@ app.get("/availableSpots", checkJwt, (req, res) => {
 })
 
 app.get("/cars", checkJwt, (req, res) => {
-	db.query("select c.vin, c.stockNum, c.make_model, c.year, c.description, ps.spot_name, ps.spot_id, ps.x_val, ps.y_val from cars c, parking_spots ps where c.spot_id = ps.spot_id order by spot_name", (err, result) => {
+	db.query("select c.vin, c.stockNum, c.make_model, c.year, c.description, c.archived, ps.spot_name, ps.spot_id, ps.x_val, ps.y_val from cars c, parking_spots ps where c.spot_id = ps.spot_id order by spot_name", (err, result) => {
 		if (err) {
 			console.log("error: ");
 			console.log(err);
@@ -197,11 +212,11 @@ app.get("/cars", checkJwt, (req, res) => {
 
 app.get("/getAllSpots", checkJwt, (req, res) => {
 	db.query("select ps.spot_id, ps.spot_name from parking_spots ps", (err, result) => {
-		if(err) {
+		if (err) {
 			console.log("error: ");
 			console.log(err);
 		}
-		else{
+		else {
 			res.send(result);
 		}
 	})
