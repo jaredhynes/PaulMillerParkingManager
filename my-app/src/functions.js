@@ -148,6 +148,18 @@ export function swalArchiveCar(car, data) {
     })
 }
 
+export function swalUnArchiveCar(car, data) {
+    Swal.fire({
+        title: 'Archive Removed',
+        text: "The data has been successfully stored.",
+        icon: 'success'
+        
+    })
+    car.archived = 0
+    archiveCar(car, data.Axios, data.update);
+    addEvent(car, car, "Undo Archive", data.Axios, data.update, data.user)
+}
+
 export function swalDeleteCar(car, data) {
     Swal.fire({
         title: 'Are you sure you would like to delete this car?',

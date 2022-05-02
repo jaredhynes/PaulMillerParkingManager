@@ -24,7 +24,7 @@ function TableOfEdits(props) {
 				break
 			case "Archive Car":
 			case "Undo Archive":
-				edit.description = edit.archived == 1 ? `Car was archived` : `Car was unarchived`;
+				edit.description = edit.archived === 1 ? `Car was archived` : `Car was unarchived`;
 				break
 			default:
 				edit.description = "";
