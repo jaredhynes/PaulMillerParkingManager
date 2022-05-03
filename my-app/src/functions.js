@@ -127,31 +127,18 @@ export function swalEditCar(car, data) {
 
 export function swalArchiveCar(car, data) {
     Swal.fire({
-        title: 'Are you sure you would like to archive this car?',
-        text: "This will remove it from the parking lot but keep it stored in the database.",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, archive it!'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            Swal.fire(
-                'Archived!',
-                'The data has been successfully stored.',
-                'success'
-            )
-            car.archived = 1
-            archiveCar(car, data.Axios, data.update);
-            addEvent(car, car, "Archive Car", data.Axios, data.update, data.user)
-        }
+        title: 'Archived Car',
+        icon: 'success'
+        
     })
+    car.archived = 1
+    archiveCar(car, data.Axios, data.update);
+    addEvent(car, car, "Archive Car", data.Axios, data.update, data.user)
 }
 
 export function swalUnArchiveCar(car, data) {
     Swal.fire({
         title: 'Archive Removed',
-        text: "The data has been successfully stored.",
         icon: 'success'
         
     })

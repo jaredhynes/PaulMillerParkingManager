@@ -1,13 +1,16 @@
 import React from 'react';
-import QRCode from  'qrcode.react';
+//import QRCode from  'qrcode.react';
+
+const QRCode = require("qrcode")
 
 const QRGenerator = props => {
     const {valueString, documentId } = props;
 
+    
 
     return (
         <div>
-            <QRCode
+            {/* <QRCode
             id={documentId}
             value={valueString}
             size={128}
@@ -15,7 +18,8 @@ const QRGenerator = props => {
             fgColor={'#000000'}
             level={'H'}
             includeMargin={true}
-            />
+            /> */}
+            hi
         </div>
     );
 };

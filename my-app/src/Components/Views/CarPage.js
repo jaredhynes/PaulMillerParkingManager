@@ -2,11 +2,13 @@ import { React, useState } from 'react';
 import { Button } from "react-bootstrap";
 import { useParams } from "react-router";
 import TableOfEdits from "./TableOfEdits";
-import QRCode from "qrcode.react";
 import { EditTextarea } from 'react-edit-text';
 import 'react-edit-text/dist/index.css';
-import {swalEditCar, swalEditCarInfo} from '../../functions.js';
+import {swalEditCar, swalEditCarInfo, swalArchiveCar, swalUnArchiveCar} from '../../functions.js';
+import PDFGenerator from './PDFGenerator';
+import { PDFDownloadLink, PDFViewer } from '@react-pdf/renderer';
 
+const QRCode = require("qrcode") 
 
 function CarPage(props) {
     let data = props.data;
@@ -14,14 +16,14 @@ function CarPage(props) {
     const { vin } = useParams(window.location.search);
     let car = data.carList.find(car => car.vin === vin);
 
+    const [dataURL, setDataURL] = useState(null);
     const[carDescription, setCarDescription] = useState(car.description);
-    const [currentLink, setCurrentLink] = useState(null);
 
-    function getCurrentPage() {
-        setCurrentLink(window.location.href);
+    async function generateQR() {
+        let qr = await QRCode.toDataURL(window.location.href, {type: 'image/png'});
+        setDataURL(qr);
     }
 
-    
     const changeDescription = () => {
         data.Axios.put("updateDescription", {vin: car.vin, description: carDescription}).then(
 			(response) => {
@@ -30,6 +32,7 @@ function CarPage(props) {
 		)
     }
 
+    generateQR()
 
     return (
         <div>
@@ -46,11 +49,14 @@ function CarPage(props) {
             />
             <Button onClick={() => swalEditCar(car, data)}>Move Car</Button>
             <Button onClick={() => swalEditCarInfo(car, data)}>Edit Information</Button>
-            <Button onClick={getCurrentPage}>Generate QR-Code</Button>
-
-            <div>
-                {currentLink && <QRCode value={currentLink} />}
-            </div>
+            {car.archived ? <Button onClick={() => swalUnArchiveCar(car, data)}>Undo Archive</Button> : <Button onClick={() => swalArchiveCar(car, data)}>Archive Car</Button>}
+            {car &&
+            <Button>
+                <PDFDownloadLink document={<PDFGenerator dataURL={dataURL} car={car}/>} fileName={`QRCode_${vin}.pdf`}>
+                    {({ blob, url, loading, error }) => loading ? 'Loading document...' : 'Download QR Code!'}
+                </PDFDownloadLink>
+            </Button>}
+            
             {data.roles.includes("admin") &&
                 <h4>Car History:</h4> &&
                 <TableOfEdits data={data} filter={vin} />}

@@ -108,22 +108,24 @@ const App = () => {
 	let data = { Axios, update, carList, availableSpots, allSpots, edits, user, roles, PATH, accessToken }
 
 	return (
-		<Router>
-			<Navbar edits={edits} app={this} isAuthenticated={isAuthenticated} data={data} />
-			{isLoading ? <h1>Loading...</h1> :
-				(!isAuthenticated ? warningMessage() :
-					(checkLists() ?
-						<Routes>
-							<Route path="/" element={<Home data={data} />} />
-							<Route path="/map" element={<ParkingMap data={data} />} />
-							<Route path="/history" element={<Edits data={data} />} />
-							<Route path="/account" element={<Account data={data} />} />
-							<Route path="/details/:vin" element={<CarPage data={data} />} />
-						</Routes> :
-						<h1>Fetching Data...</h1>
-					)
-				)}
-		</Router>
+		<div>
+			<Router>
+				<Navbar edits={edits} app={this} isAuthenticated={isAuthenticated} data={data} />
+				{isLoading ? <h1>Loading...</h1> :
+					(!isAuthenticated ? warningMessage() :
+						(checkLists() ?
+							<Routes>
+								<Route path="/" element={<Home data={data} />} />
+								<Route path="/map" element={<ParkingMap data={data} />} />
+								<Route path="/history" element={<Edits data={data} />} />
+								<Route path="/account" element={<Account data={data} />} />
+								<Route path="/details/:vin" element={<CarPage data={data} />} />
+							</Routes> :
+							<h1>Fetching Data...</h1>
+						)
+					)}
+			</Router>
+		</div>
 	);
 }
 
