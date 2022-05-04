@@ -7,11 +7,7 @@ import Account from "./Components/Views/Account.js"
 import Edits from "./Components/Views/Edits.js"
 import 'materialize-css/dist/css/materialize.min.css';
 import Swal from 'sweetalert2'
-import {
-	BrowserRouter as Router,
-	Routes,
-	Route
-} from 'react-router-dom';
+import {Routes,	Route} from 'react-router-dom';
 import Axios from 'axios'
 import { useAuth0 } from '@auth0/auth0-react';
 import CarPage from './Components/Views/CarPage';
@@ -61,7 +57,7 @@ const App = () => {
 			confirmButtonColor: '#3085d6',
 			confirmButtonText: 'Login!'
 		}).then((result) => {
-			loginWithRedirect({ appState: { targetUrl: window.location.pathname } });
+			loginWithRedirect({ appState: { returnTo: window.location.pathname } });
 		})
 	}
 
@@ -109,22 +105,20 @@ const App = () => {
 
 	return (
 		<div>
-			<Router>
-				<Navbar edits={edits} app={this} isAuthenticated={isAuthenticated} data={data} />
-				{isLoading ? <h1>Loading...</h1> :
-					(!isAuthenticated ? warningMessage() :
-						(checkLists() ?
-							<Routes>
-								<Route path="/" element={<Home data={data} />} />
-								<Route path="/map" element={<ParkingMap data={data} />} />
-								<Route path="/history" element={<Edits data={data} />} />
-								<Route path="/account" element={<Account data={data} />} />
-								<Route path="/details/:vin" element={<CarPage data={data} />} />
-							</Routes> :
-							<h1>Fetching Data...</h1>
-						)
-					)}
-			</Router>
+			<Navbar edits={edits} app={this} isAuthenticated={isAuthenticated} data={data} />
+			{isLoading ? <h1>Loading...</h1> :
+				(!isAuthenticated ? warningMessage() :
+					(checkLists() ?
+						<Routes>
+							<Route path="/" element={<Home data={data} />} />
+							<Route path="/map" element={<ParkingMap data={data} />} />
+							<Route path="/history" element={<Edits data={data} />} />
+							<Route path="/account" element={<Account data={data} />} />
+							<Route path="/details/:vin" element={<CarPage data={data} />} />
+						</Routes> :
+						<h1>Fetching Data...</h1>
+					)
+				)}
 		</div>
 	);
 }

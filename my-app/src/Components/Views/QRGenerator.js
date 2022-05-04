@@ -1,15 +1,9 @@
 import React from 'react';
 //import QRCode from  'qrcode.react';
 
-const QRCode = require("qrcode")
-
 const QRGenerator = props => {
-    const {valueString, documentId } = props;
-
-    
-
     return (
-        <div>
+        <div> 
             {/* <QRCode
             id={documentId}
             value={valueString}

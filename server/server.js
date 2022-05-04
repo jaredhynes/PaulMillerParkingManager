@@ -52,19 +52,21 @@ app.put("/updateInfo", checkJwt, (req, res) => {
 	const makeModel = req.body.makeModel;
 	const year = req.body.year;
 
-	db.query(
-		"UPDATE cars SET stockNum = ?, make_model = ?, year = ? where vin = ?",
-		[stockNum, makeModel, year, vin],
-		(err, result) => {
-			if (err) {
-				console.log("Error in updateInfo:")
-				console.log(err);
+	if (/^[A-Za-z0-9 ]*$/.test(makeModel) && /^[0-9]*$/.test(year) && /^[A-Za-z0-9]*$/.test(stockNum)) {
+		db.query(
+			"UPDATE cars SET stockNum = ?, make_model = ?, year = ? where vin = ?",
+			[stockNum, makeModel, year, vin],
+			(err, result) => {
+				if (err) {
+					console.log("Error in updateInfo:")
+					console.log(err);
+				}
+				else {
+					res.send(result);
+				}
 			}
-			else {
-				res.send(result);
-			}
-		}
-	);
+		);
+	}
 });
 
 app.put("/updateDescription", checkJwt, (req, res) => {
@@ -132,18 +134,20 @@ app.post("/insertNewCar", checkJwt, (req, res) => {
 	const year = req.body.year;
 	const spot_id = req.body.spot_id;
 
-	db.query(
-		"INSERT INTO cars (vin, stockNum, make_model, year, spot_id) VALUES (?,?,?,?,?)",
-		[vin, stockNum, make_model, year, spot_id],
-		(err, result) => {
-			if (err) {
-				console.log(err);
+	if (validateVin(vin) && /^[A-Za-z0-9 ]*$/.test(make_model) && /^[0-9]*$/.test(year) && /^[A-Za-z0-9]*$/.test(stockNum)) {
+		db.query(
+			"INSERT INTO cars (vin, stockNum, make_model, year, spot_id) VALUES (?,?,?,?,?)",
+			[vin, stockNum, make_model, year, spot_id],
+			(err, result) => {
+				if (err) {
+					console.log(err);
+				}
+				else {
+					res.send("Values Inserted");
+				}
 			}
-			else {
-				res.send("Values Inserted");
-			}
-		}
-	);
+		);
+	}
 })
 
 app.post("/insertEvent", checkJwt, (req, res) => {
@@ -221,6 +225,30 @@ app.get("/getAllSpots", checkJwt, (req, res) => {
 		}
 	})
 })
+
+function validateVin(vin) {
+    return validate(vin);
+}
+
+function transliterate(c) {
+    return '0123456789.ABCDEFGH..JKLMN.P.R..STUVWXYZ'.indexOf(c) % 10;
+}
+
+//eslint-disable-next-line
+function get_check_digit(vin) {
+    var map = '0123456789X';
+    var weights = '8765432X098765432';
+    var sum = 0;
+    for (var i = 0; i < 17; ++i)
+        sum += transliterate(vin[i]) * map.indexOf(weights[i]);
+    return map[sum % 11];
+}
+
+function validate(vin) {
+    // if (vin.length !== 17) return false;
+    //     return get_check_digit(vin) === vin[8];
+    return /^[A-Z0-9]*$/.test(vin)
+}
 
 app.listen(PORT, () => {
 	console.log(`running on port ${PORT}`);

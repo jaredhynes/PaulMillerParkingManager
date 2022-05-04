@@ -7,24 +7,37 @@ import 'mdbreact/dist/css/mdb.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Auth0Provider } from '@auth0/auth0-react';
+import { useNavigate } from 'react-router';
+import { BrowserRouter } from 'react-router-dom';
 
-const onRedirectCallback = (appState) => {
-	let path = appState && appState.targetUrl ? appState.targetUrl : window.location.origin
-	window.location.href = window.location.origin + path
-}
+
+const Auth0ProviderWithRedirectCallback = ({children,...props}) => {
+	const navigate = useNavigate();
+  
+	const onRedirectCallback = (appState) => {
+	  navigate((appState && appState.returnTo) || window.location.pathname);
+	};
+  
+	return (
+	  <Auth0Provider onRedirectCallback={onRedirectCallback} {...props}>
+		{children}
+	  </Auth0Provider>
+	);
+  };
 
 ReactDOM.render(
 	<React.StrictMode>
-		<Auth0Provider
-			domain="dev-w1z8wy-p.us.auth0.com"
-			clientId="RHaM86sHqrwsD6rk8wTpi1YsU2z9FyhQ"
-			redirectUri={window.location.origin}
-			audience="https://quickstarts/api"
-			scope="read:current_user update:current_user_metadata"
-			onRedirectCallback={onRedirectCallback}
-		>
-			<App />
-		</Auth0Provider>
+		<BrowserRouter>
+			<Auth0ProviderWithRedirectCallback
+				domain="dev-w1z8wy-p.us.auth0.com"
+				clientId="RHaM86sHqrwsD6rk8wTpi1YsU2z9FyhQ"
+				redirectUri={window.location.origin}
+				audience="https://quickstarts/api"
+				useRefreshTokens={true}
+			>
+				<App />
+			</Auth0ProviderWithRedirectCallback>
+		</BrowserRouter>
 	</React.StrictMode>,
 	document.getElementById('root')
 );
