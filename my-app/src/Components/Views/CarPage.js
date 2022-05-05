@@ -22,6 +22,7 @@ function CarPage(props) {
     async function generateQR() {
         let qr = await QRCode.toDataURL(window.location.href, {type: 'image/png'});
         setDataURL(qr);
+        return dataURL
     }
 
     const changeDescription = () => {
@@ -32,7 +33,7 @@ function CarPage(props) {
 		)
     }
 
-    generateQR()
+    const PDF = <PDFGenerator dataURL={generateQR()} car={car}/>
 
     return (
         <div>
@@ -50,12 +51,11 @@ function CarPage(props) {
             <Button onClick={() => swalEditCar(car, data)}>Move Car</Button>
             <Button onClick={() => swalEditCarInfo(car, data)}>Edit Information</Button>
             {car.archived ? <Button onClick={() => swalUnArchiveCar(car, data)}>Undo Archive</Button> : <Button onClick={() => swalArchiveCar(car, data)}>Archive Car</Button>}
-            {car &&
             <Button>
-                <PDFDownloadLink document={<PDFGenerator dataURL={dataURL} car={car}/>} fileName={`QRCode_${vin}.pdf`}>
-                    {({ blob, url, loading, error }) => loading ? 'Loading document...' : 'Download QR Code!'}
+                <PDFDownloadLink document={PDF} fileName={`QRCode_${vin}.pdf`}>
+                    {({ blob, url, loading, error }) => loading ? 'Loading document...' : 'Download QR Code'}
                 </PDFDownloadLink>
-            </Button>}
+            </Button>
             
             {data.roles.includes("admin") &&
                 <h4>Car History:</h4> &&

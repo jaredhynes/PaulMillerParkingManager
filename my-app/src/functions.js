@@ -94,7 +94,7 @@ export function swalAddCar(data, vin = "", make_model = "", year = "", stockNum 
 export function swalEditCar(car, data) {
     Swal.fire({
         title: 'Edit Car Location',
-        html: `<input type="text" id="spot_name" class="swal2-input" placeholder=${car.spot_name}>`,
+        html: `<input type="text" id="spot_name" class="swal2-input" placeholder="${car.spot_name}">`,
         confirmButtonText: 'Edit Car',
         showCancelButton: true,
         focusConfirm: false,
@@ -175,9 +175,9 @@ export function swalEditCarInfo(car, data) {
     Swal.fire({
         title: 'Edit Car Information',
         html: `<p> Vin Number: ${car.vin} </p>
-        <input type="text" id="make_model" class="swal2-input" placeholder=${car.make_model}>
-        <input type="text" id="year" class="swal2-input" placeholder=${car.year}>
-        <input type="text" id="stockNum" class="swal2-input" placeholder=${car.stockNum}>`,
+        <input type="text" id="make_model" class="swal2-input" placeholder="${car.make_model}">
+        <input type="text" id="year" class="swal2-input" placeholder="${car.year}">
+        <input type="text" id="stockNum" class="swal2-input" placeholder="${car.stockNum}">`,
         confirmButtonText: 'Edit Car',
         showCancelButton: true,
         focusConfirm: false,

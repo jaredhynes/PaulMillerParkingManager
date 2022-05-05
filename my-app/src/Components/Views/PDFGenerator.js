@@ -1,6 +1,6 @@
 import React from 'react';
 import { Document, Page, Image, Text, StyleSheet } from '@react-pdf/renderer';
-import audi from '../../Images/audi.png';
+// import audi from '../../Images/audi.png';
 
 const styles = StyleSheet.create({
     page: {
