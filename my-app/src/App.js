@@ -10,46 +10,58 @@ import { Routes, Route } from 'react-router-dom';
 import Axios from 'axios'
 import { useAuth0 } from '@auth0/auth0-react';
 import CarPage from './Components/Views/CarPage';
+import createAuth0Client from '@auth0/auth0-spa-js';
 
 const PATH = "https://gentle-thicket-28075.herokuapp.com/" // Use this for Heroku
 //const PATH = "http://localhost:8001/"  // Use this for local testing
+
+
 
 const App = () => {
 	const [carList, setCarList] = useState(null);
 	const [availableSpots, setAvailableSpots] = useState(null);
 	const [edits, setEdits] = useState(null);
 	const [allSpots, setAllSpots] = useState(null);
-	let { isLoading, user, isAuthenticated, loginWithRedirect, getAccessTokenWithPopup } = useAuth0();
+	const [authClient, setAuthClient] = useState(null);
+	let { isLoading, user, isAuthenticated } = useAuth0();
 
 
 	useEffect(() => {
 		const fn = async () => {
+			!authClient && setAuthClient(await createAuth0Client({
+				domain: "dev-w1z8wy-p.us.auth0.com",
+				client_id: "RHaM86sHqrwsD6rk8wTpi1YsU2z9FyhQ",
+				redirect_uri: PATH,
+				useRefreshTokens: true,
+				cacheLocation: 'localstorage',
+				audience: "https://quickstarts/api",
+				scope: "delete:cars read:cars read:edits update:cars"
+			}))
+
 			if (isLoading) {
 				return
 			}
 
-			if (!isAuthenticated) {
-				await loginWithRedirect({ redirect_uri: window.location.origin, appState: { returnTo: window.location.pathname } });
+			if (!isAuthenticated && authClient) {
+				await authClient.loginWithRedirect({ redirect_uri: window.location.origin, appState: { returnTo: window.location.pathname } });
 			}
 
-			if (isAuthenticated) {
-				getAccessTokenWithPopup({
+			if (isAuthenticated && authClient) {
+				const token = await authClient.getTokenSilently({
 					audience: 'https://quickstarts/api',
 					scope: "delete:cars read:cars read:edits update:cars"
-				}).then(token => {
-					Axios.defaults.baseURL = PATH
-					Axios.defaults.headers.common = { 'Authorization': `Bearer ${token}` }
-					fetchSpots();
-					fetchCars();
-					fetchAvailableSpots();
-					fetchHistory();
-				}
-				)
+				})
+				Axios.defaults.baseURL = PATH
+				Axios.defaults.headers.common = { 'Authorization': `Bearer ${token}` }
+				fetchSpots();
+				fetchCars();
+				fetchAvailableSpots();
+				fetchHistory();
 			}
 		}
 
 		fn()
-	}, [isLoading, isAuthenticated, getAccessTokenWithPopup, loginWithRedirect]);
+	}, [isLoading, isAuthenticated]);
 
 	const fetchCars = () => {
 		Axios.get("cars").then((response) => {

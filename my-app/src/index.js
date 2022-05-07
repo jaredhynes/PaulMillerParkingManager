@@ -7,15 +7,17 @@ import 'mdbreact/dist/css/mdb.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Auth0Provider } from '@auth0/auth0-react';
-import { useNavigate } from 'react-router';
-import { BrowserRouter } from 'react-router-dom';
-
+import { BrowserRouter, useNavigate } from 'react-router-dom';
 
 const Auth0ProviderWithRedirectCallback = ({ children, ...props }) => {
-	const navigate = useNavigate();
+	const navigate = useNavigate()
 
 	const onRedirectCallback = (appState) => {
-		navigate((appState && appState.returnTo) || window.location.pathname);
+		// navigate(
+		// 	appState && appState.targetUrl
+		// 		? appState.targetUrl
+		// 		: window.location.pathname
+		// );
 	};
 
 	return (
@@ -33,6 +35,8 @@ ReactDOM.render(
 				clientId="RHaM86sHqrwsD6rk8wTpi1YsU2z9FyhQ"
 				redirectUri={window.location.origin}
 				audience="https://quickstarts/api"
+				useRefreshTokens
+				cacheLocation="localstorage"
 			>
 				<App />
 			</Auth0ProviderWithRedirectCallback>
