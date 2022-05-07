@@ -11,19 +11,19 @@ import { useNavigate } from 'react-router';
 import { BrowserRouter } from 'react-router-dom';
 
 
-const Auth0ProviderWithRedirectCallback = ({children,...props}) => {
+const Auth0ProviderWithRedirectCallback = ({ children, ...props }) => {
 	const navigate = useNavigate();
-  
+
 	const onRedirectCallback = (appState) => {
-	  navigate((appState && appState.returnTo) || window.location.pathname);
+		navigate((appState && appState.returnTo) || window.location.pathname);
 	};
-  
+
 	return (
-	  <Auth0Provider onRedirectCallback={onRedirectCallback} {...props}>
-		{children}
-	  </Auth0Provider>
+		<Auth0Provider onRedirectCallback={onRedirectCallback} {...props}>
+			{children}
+		</Auth0Provider>
 	);
-  };
+};
 
 ReactDOM.render(
 	<React.StrictMode>
@@ -33,7 +33,6 @@ ReactDOM.render(
 				clientId="RHaM86sHqrwsD6rk8wTpi1YsU2z9FyhQ"
 				redirectUri={window.location.origin}
 				audience="https://quickstarts/api"
-				useRefreshTokens={true}
 			>
 				<App />
 			</Auth0ProviderWithRedirectCallback>
