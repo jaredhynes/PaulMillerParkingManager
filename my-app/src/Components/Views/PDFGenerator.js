@@ -12,7 +12,6 @@ const styles = StyleSheet.create({
         height: '64.7%',
     },
     text: {
-        color: '#0081C6',
         size: '11em',
         textAlign: 'center',
     },

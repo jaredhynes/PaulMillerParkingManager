@@ -61,7 +61,7 @@ const App = () => {
 		}
 
 		fn()
-	}, [isLoading, isAuthenticated]);
+	}, [isLoading, isAuthenticated, authClient]);
 
 	const fetchCars = () => {
 		Axios.get("cars").then((response) => {

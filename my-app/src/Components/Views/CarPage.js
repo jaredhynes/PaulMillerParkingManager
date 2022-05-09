@@ -33,7 +33,9 @@ function CarPage(props) {
 		)
     }
 
-    const PDF = <PDFGenerator dataURL={generateQR()} car={car}/>
+    generateQR()
+
+    const PDF = <PDFGenerator dataURL={dataURL} car={car}/>
 
     return (
         <div>
