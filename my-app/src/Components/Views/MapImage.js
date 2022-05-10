@@ -29,6 +29,7 @@ const MapImage = (props) => {
                     <DirectionsCarIcon fontSize="small"/>
                 </IconButton>
             </Tooltip>
+            {car.spot_name}
             </ImageTooltipsTrigger>);
 
         return MyTrigger;
