@@ -28,15 +28,15 @@ const App = () => {
 
 	useEffect(() => {
 		const fn = async () => {
-			!authClient && setAuthClient(await createAuth0Client({
-				domain: "dev-w1z8wy-p.us.auth0.com",
-				client_id: "RHaM86sHqrwsD6rk8wTpi1YsU2z9FyhQ",
-				redirect_uri: PATH,
-				useRefreshTokens: true,
-				cacheLocation: 'localstorage',
-				audience: "https://quickstarts/api",
-				scope: "delete:cars read:cars read:edits update:cars"
-			}))
+			if (!authClient) {
+				setAuthClient(await createAuth0Client({
+					domain: "dev-w1z8wy-p.us.auth0.com",
+					client_id: "RHaM86sHqrwsD6rk8wTpi1YsU2z9FyhQ",
+					redirect_uri: window.location.origin,
+					useRefreshTokens: true,
+					cacheLocation: 'localstorage'
+				}))
+			}
 
 			if (isLoading) {
 				return
@@ -103,7 +103,7 @@ const App = () => {
 		fetchHistory();
 	}
 
-	let data = { Axios, update, carList, availableSpots, allSpots, edits, user, roles, PATH }
+	let data = { Axios, update, carList, availableSpots, allSpots, edits, user, roles, PATH };
 
 	return (
 		<div>

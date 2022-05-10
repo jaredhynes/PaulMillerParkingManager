@@ -14,7 +14,7 @@ const Navbar = (props) => {
 		<header>
 			<nav>
 				<div className="nav-wrapper">
-					<a href="/" className="brand-logo">Paul Miller INC.</a>
+					<Link to="/" className="brand-logo">Paul Miller INC.</Link>
 					{/* <a href="/" data-target="mobile-nav" className="sidenav-trigger">Mobile Menu</a> */}
 					<ul id="desktop-nav" className="right hide-on-med-and-down">
 						<div>
