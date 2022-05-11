@@ -12,8 +12,8 @@ import CarPage from './Components/Views/CarPage';
 import createAuth0Client from '@auth0/auth0-spa-js';
 import Swal from 'sweetalert2';
 
-const PATH = "https://gentle-thicket-28075.herokuapp.com/" // Use this for Heroku
-//const PATH = "http://localhost:8001/"  // Use this for local testing
+//const PATH = "https://gentle-thicket-28075.herokuapp.com/" // Use this for Heroku
+const PATH = "http://localhost:8001/"  // Use this for local testing
 
 
 
@@ -89,25 +89,25 @@ const App = () => {
 
 	const fetchCars = () => {
 		Axios.get("cars").then((response) => {
-			setCarList(response.data);
+			setCarList(response.data.rows);
 		})
 	}
 
 	const fetchAvailableSpots = () => {
 		Axios.get("availableSpots").then((response) => {
-			setAvailableSpots(response.data);
+			setAvailableSpots(response.data.rows);
 		})
 	}
 
 	const fetchSpots = () => {
 		Axios.get("getAllSpots").then((response) => {
-			setAllSpots(response.data);
+			setAllSpots(response.data.rows);
 		})
 	}
 
 	const fetchHistory = () => {
 		Axios.get("getHistory").then((response) => {
-			setEdits(response.data);
+			setEdits(response.data.rows);
 		})
 	}
 
