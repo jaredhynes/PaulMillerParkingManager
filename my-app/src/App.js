@@ -6,9 +6,8 @@ import ParkingMap from "./Components/Views/ParkingMap.js"
 import Account from "./Components/Views/Account.js"
 import Edits from "./Components/Views/Edits.js"
 import 'materialize-css/dist/css/materialize.min.css';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import Axios from 'axios'
-import { useAuth0 } from '@auth0/auth0-react';
 import CarPage from './Components/Views/CarPage';
 import createAuth0Client from '@auth0/auth0-spa-js';
 
@@ -22,46 +21,70 @@ const App = () => {
 	const [availableSpots, setAvailableSpots] = useState(null);
 	const [edits, setEdits] = useState(null);
 	const [allSpots, setAllSpots] = useState(null);
-	const [authClient, setAuthClient] = useState(null);
-	let { isLoading, user, isAuthenticated } = useAuth0();
+	const [auth0, setAuth0] = useState(null);
+	const [isAuthenticated, setIsAuthenticated] = useState(false);
+	const [user, setUser] = useState(null);
+	const [isLoading, setIsLoading] = useState(true);
+	const [token, setToken] = useState(null);
+	const navigate = useNavigate()
 
-
-	useEffect(() => {
-		const fn = async () => {
-			if (!authClient) {
-				setAuthClient(await createAuth0Client({
+	useEffect(() => {		
+		const initAuth0 = async () => {
+			const authClient = await createAuth0Client({
 					domain: "dev-w1z8wy-p.us.auth0.com",
 					client_id: "RHaM86sHqrwsD6rk8wTpi1YsU2z9FyhQ",
 					redirect_uri: window.location.origin,
 					useRefreshTokens: true,
-					cacheLocation: 'localstorage'
-				}))
+					cacheLocation: 'localstorage',
+					audience: "https://quickstarts/api",
+					scope: "delete:cars read:cars read:edits update:cars"
+				})
+			setAuth0(authClient);
+
+			if (window.location.search.includes("code=") &&
+				window.location.search.includes("state=")) {
+				const { appState } = await authClient.handleRedirectCallback();
+				onRedirectCallback(appState);
 			}
 
-			if (isLoading) {
-				return
-			}
+			const authStatus = await authClient.isAuthenticated();
+			setIsAuthenticated(authStatus)
 
-			if (!isAuthenticated && authClient) {
+			const authUser = await authClient.getUser();
+			setUser(authUser)
+			
+			setIsLoading(false)
+
+			if (!authStatus) {
 				await authClient.loginWithRedirect({ redirect_uri: window.location.origin, appState: { returnTo: window.location.pathname } });
 			}
-
-			if (isAuthenticated && authClient) {
-				const token = await authClient.getTokenSilently({
+			else{
+				const authToken = await authClient.getTokenSilently({
 					audience: 'https://quickstarts/api',
 					scope: "delete:cars read:cars read:edits update:cars"
 				})
+				setToken(authToken)
 				Axios.defaults.baseURL = PATH
-				Axios.defaults.headers.common = { 'Authorization': `Bearer ${token}` }
-				fetchSpots();
-				fetchCars();
-				fetchAvailableSpots();
-				fetchHistory();
+				Axios.defaults.headers.common = { 'Authorization': `Bearer ${authToken}` }
 			}
 		}
 
-		fn()
-	}, [isLoading, isAuthenticated, authClient]);
+		const onRedirectCallback = (appState) => {
+			navigate(
+				appState && appState.returnTo
+					? appState.returnTo
+					: window.location.pathname
+			);
+		}
+
+		initAuth0()
+		if (token){
+			fetchSpots();
+			fetchCars();
+			fetchAvailableSpots();
+			fetchHistory();			
+		}
+	}, [navigate, token]);
 
 	const fetchCars = () => {
 		Axios.get("cars").then((response) => {
@@ -103,7 +126,7 @@ const App = () => {
 		fetchHistory();
 	}
 
-	let data = { Axios, update, carList, availableSpots, allSpots, edits, user, roles, PATH };
+	let data = { Axios, update, carList, availableSpots, allSpots, edits, user, roles, PATH, auth0 };
 
 	return (
 		<div>

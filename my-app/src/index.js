@@ -30,16 +30,17 @@ const Auth0ProviderWithRedirectCallback = ({ children, ...props }) => {
 ReactDOM.render(
 	<React.StrictMode>
 		<BrowserRouter>
-			<Auth0ProviderWithRedirectCallback
+			<Auth0Provider
 				domain="dev-w1z8wy-p.us.auth0.com"
 				clientId="RHaM86sHqrwsD6rk8wTpi1YsU2z9FyhQ"
 				redirectUri={window.location.origin}
 				audience="https://quickstarts/api"
 				useRefreshTokens
-				cacheLocation="localstorage"
+				cacheLocation="localstorage"		
+				scope="delete:cars read:cars read:edits update:cars"
 			>
 				<App />
-			</Auth0ProviderWithRedirectCallback>
+			</Auth0Provider>
 		</BrowserRouter>
 	</React.StrictMode>,
 	document.getElementById('root')
