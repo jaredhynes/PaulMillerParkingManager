@@ -5,16 +5,12 @@ import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
 import IconButton from '@mui/material/IconButton';
 import Swal from 'sweetalert2'
 import Tooltip from '@mui/material/Tooltip';
-import SvgIcon from '@mui/material/SvgIcon';
-import{GiCityCar, GiConsoleController} from "react-icons/gi";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCarSide } from '@fortawesome/free-solid-svg-icons'
 import '../../Styles/mapimage.css'
 
 
 const MapImage = (props) => {
 
-    function logData(car){
+    function logData(car) {
         Swal.fire({
             title: `${car.vin}`,
             html: `<p>Make/Model: ${car.make_model}<p>
@@ -22,15 +18,15 @@ const MapImage = (props) => {
         })
     }
 
-    function IconMaker(car){
+    function IconMaker(car) {
         const MyTrigger = (<ImageTooltipsTrigger className="my-trigger">
             <Tooltip title={car.spot_name} placement="right">
                 <IconButton onClick={() => logData(car)}>
-                    <DirectionsCarIcon fontSize="small"/>
+                    <DirectionsCarIcon fontSize="small" />
                 </IconButton>
             </Tooltip>
             {car.spot_name}
-            </ImageTooltipsTrigger>);
+        </ImageTooltipsTrigger>);
 
         return MyTrigger;
     }
@@ -38,8 +34,8 @@ const MapImage = (props) => {
 
     return (
         <ImageTooltips src={map} width={900} height={900} className="my-image" triggerEvent="click">
-        {props.carList.map(car => <ImageTooltipsItem top={car.y_val} left={car.x_val} trigger={IconMaker(car)} className="my-item">
-        </ImageTooltipsItem>) } 
+            {props.carList.map(car => <ImageTooltipsItem top={car.y_val} left={car.x_val} trigger={IconMaker(car)} className="my-item">
+            </ImageTooltipsItem>)}
         </ImageTooltips>
     );
 }
