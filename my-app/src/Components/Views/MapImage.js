@@ -3,9 +3,9 @@ import "react-image-tooltips/dist/index.css";
 import map from "../../Images/prototype_map.png";
 //import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
 import IconButton from '@mui/material/IconButton';
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
 import Tooltip from '@mui/material/Tooltip';
-import '../../Styles/mapimage.css'
+import '../../Styles/mapimage.css';
 import { highlightCar } from "../../functions";
 
 import { MdDirectionsCar } from "react-icons/md";
@@ -17,7 +17,13 @@ const MapImage = (props) => {
         Swal.fire({
             title: `${car.vin}`,
             html: `<p>Make/Model: ${car.make_model}<p>
-                    <p>Location: ${car.spot_name}<p>`
+                    <p>Location: ${car.spot_name}<p>`,
+            showCloseButton: true,
+            confirmButtonText: "View Car Details"
+        }).then((result) => {
+            if(result.isConfirmed){
+                window.location = `/details/${car.vin}`
+            }
         })
     }
 
@@ -27,7 +33,7 @@ const MapImage = (props) => {
             const MyTrigger = (<ImageTooltipsTrigger className="my-trigger">
             <Tooltip title={car.spot_name} placement="right">
                 <IconButton onClick={() => logData(car)}>
-                <MdDirectionsCar className= "mapicon" color="red"/>
+                    <MdDirectionsCar className= "mapicon" color="red"/>
                 </IconButton>
             </Tooltip>
             {/* {car.spot_name} */}
@@ -39,7 +45,7 @@ const MapImage = (props) => {
             const MyTrigger = (<ImageTooltipsTrigger className="my-trigger">
             <Tooltip title={car.spot_name} placement="right">
                 <IconButton onClick={() => logData(car)}>
-                <MdDirectionsCar className= "mapicon"/>
+                    <MdDirectionsCar className= "mapicon"/>
                 </IconButton>
             </Tooltip>
             {/* {car.spot_name} */}

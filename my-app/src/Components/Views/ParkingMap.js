@@ -7,12 +7,6 @@ import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import MapImage from "./MapImage.js";
 
 
-
-// import { Responsive, WidthProvider } from "react-grid-layout";
-
-
-// const ResponsiveGridLayout = WidthProvider(Responsive);
-
 function ParkingMap(props) {
 	let data = props.data
 	let carList = data.carList
@@ -27,31 +21,6 @@ function ParkingMap(props) {
 		cars2d[xSpot][ySpot] = car
 	}
 
-	// function highlightCar(car) {
-	// 	if (car) {
-	// 		props.carList.map(car => (car.highlighted = false))
-	// 		car.highlighted = true
-	// 		props.update()
-	// 	}
-	// }
-
-	// function getLayoutsFromSomewhere() {
-	// 	<Container>
-	// 			{cars2d.map((row) => (
-	// 				<Row>
-	// 					{row.map((car) => (
-	// 						<Col onClick={() => highlightCar(car)}>
-	// 							<ShowOnHover car={car} />
-	// 						</Col>
-	// 					))}
-	// 				</Row>
-	// 			))}
-	// 		</Container>
-	// }
-
-	// class MyResponsiveGrid extends React.Component {
-	// 	render() {
-	// 		var layouts = getLayoutsFromSomewhere();
 			
 
 	return (
@@ -61,12 +30,9 @@ function ParkingMap(props) {
 				<MapImage carList={carList}/>
 				</TransformComponent>
 			</TransformWrapper>
-			{/* <MapImage/> */}
 		</div>
 		);
 
 	}
-// }
-// }
 
 export default ParkingMap;
