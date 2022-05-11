@@ -1,15 +1,9 @@
 import Swal from 'sweetalert2'
 
-
+// show on map car fuctions
 export let highlightCar = null;
-
-export function sethighlightCar(car){
-    highlightCar = car;
-}
-
-export function resethighlightCar(){
-    highlightCar = null;
-}
+export function sethighlightCar(car){ highlightCar = car; }
+export function resethighlightCar(){ highlightCar = null; }
 
 //Swal functions
 export function swalAddCar(data, vin = "", make_model = "", year = "", stockNum = "", spot_name = "") {

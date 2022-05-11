@@ -1,5 +1,16 @@
 
 
+.mapicon{
+    font-size: 31px;
+}
+
+@media only screen and (max-width: 600px) {
+    .mapicon {
+      font-size: 10px;
+    }
+  }
+
+
 .my-trigger{
     font-size: 1.5vw;
 }
