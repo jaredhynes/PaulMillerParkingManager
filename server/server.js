@@ -140,21 +140,22 @@ app.post(`/insertNewCar`, checkJwt, (req, res) => {
 
 app.post(`/insertEvent`, checkJwt, (req, res) => {
 	const carID = req.body.car_id;
-	const old_make_model = req.body.old_make_model;
-	const new_make_model = req.body.new_make_model;
-	const old_year = req.body.old_year;
-	const new_year = req.body.new_year;
-	const old_stock_num = req.body.old_stock_num;
-	const new_stock_num = req.body.new_stock_num;
-	const old_location = req.body.old_location;
-	const new_location = req.body.new_location;
+	const old_make_model = req.body.old_make_model ? req.body.old_make_model : null;
+	const new_make_model = req.body.new_make_model ? req.body.new_make_model : null;
+	const old_year = req.body.old_year ? req.body.old_year : null;
+	const new_year = req.body.new_year ? req.body.new_year : null;
+	const old_stock_num = req.body.old_stock_num ? req.body.old_stock_num : null;
+	const new_stock_num = req.body.new_stock_num ? req.body.new_stock_num : null;
+	const old_location = req.body.old_location ? req.body.old_location : null;
+	const new_location = req.body.new_location ? req.body.new_location : null;
 	const user_id = req.body.user_id;
 	const event_type = req.body.event_type;
 	const event_date = req.body.event_date;
-	const archived = req.body.archived;
+	const archived = req.body.archived ? req.body.archived : 0;
+	const archive_description = req.body.archive_description ? req.body.archive_description : "";
 
-	db.query(`INSERT INTO parking.history ("car_id", "user_id", "event_type", "event_date", "old_make_model", "new_make_model", "old_year", "new_year", "old_stock_num", "new_stock_num", "old_location", "new_location", "archived") 
-	VALUES ('${carID}','${user_id}','${event_type}','${event_date}','${old_make_model}','${new_make_model}','${old_year}','${new_year}','${old_stock_num}','${new_stock_num}','${old_location}','${new_location}','${archived}')`, (err, result) => {
+	db.query(`INSERT INTO parking.history ("car_id", "user_id", "event_type", "event_date", "old_make_model", "new_make_model", "old_year", "new_year", "old_stock_num", "new_stock_num", "old_location", "new_location", "archived", "archive_description") 
+	VALUES ('${carID}','${user_id}','${event_type}','${event_date}','${old_make_model}','${new_make_model}','${old_year}','${new_year}','${old_stock_num}','${new_stock_num}','${old_location}','${new_location}','${archived}', '${archive_description}')`, (err, result) => {
 		if (err) {
 			console.log(`In insertEvent: `, err);
 		}

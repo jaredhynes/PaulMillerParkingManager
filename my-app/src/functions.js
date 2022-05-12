@@ -132,13 +132,25 @@ export function swalEditCar(car, data) {
 
 export function swalArchiveCar(car, data) {
     Swal.fire({
-        title: 'Archived Car',
-        icon: 'success'
-        
-    })
-    car.archived = 1
-    archiveCar(car, data.Axios, data.update);
-    addEvent(car, car, "Archive Car", data.Axios, data.update, data.user)
+        title: 'Archiving Car',
+        html: `<input type="text" id="archiveDesc" class="swal2-input" placeholder="Description">`,
+        confirmButtonText: 'Archive Car',
+        showCancelButton: true, 
+        preConfirm: () => {
+            return { archiveDesc: Swal.getPopup().querySelector('#archiveDesc').value }
+        }     
+    }).then((result) => {
+        if (result.isConfirmed) {
+            Swal.fire({
+                title: 'Archived Car',
+                icon: 'success'
+            })
+            car.archiveDesc = result.value.archiveDesc
+            car.archived = 1
+            archiveCar(car, data.Axios, data.update);
+            addEvent(car, car, "Archive Car", data.Axios, data.update, data.user)
+        }
+    })   
 }
 
 export function swalUnArchiveCar(car, data) {
@@ -378,6 +390,7 @@ async function addEvent(oldCar, newCar, event_type, Axios, update, user) {
         old_location: oldCar.spot_name,
         new_location: newCar.spot_name,
         archived: newCar.archived,
+        archive_description: newCar.archiveDesc,
         user_id: user.email,
         event_type: event_type,
         event_date: (new Date()).toLocaleString("en-US", { timeZone: "America/New_York" }),
