@@ -7,13 +7,14 @@ import Swal from 'sweetalert2';
 import Tooltip from '@mui/material/Tooltip';
 import '../../Styles/mapimage.css';
 import { highlightCar } from "../../functions";
-
 import { MdDirectionsCar } from "react-icons/md";
+import { useNavigate } from "react-router";
 
 
 const MapImage = (props) => {
+    const navigate = useNavigate()
 
-    function logData(car) {
+    function showInfo(car) {
         Swal.fire({
             title: `${car.vin}`,
             html: `<p>Make/Model: ${car.make_model}<p>
@@ -22,40 +23,23 @@ const MapImage = (props) => {
             confirmButtonText: "View Car Details"
         }).then((result) => {
             if(result.isConfirmed){
-                window.location = `/details/${car.vin}`
+                navigate(`/details/${car.vin}`)
             }
         })
     }
 
     function IconMaker(car, highlightCar) {
-        
-        if (highlightCar === car.spot_name){
-            const MyTrigger = (<ImageTooltipsTrigger className="my-trigger">
+        const MyTrigger = (<ImageTooltipsTrigger className="my-trigger">
             <Tooltip title={car.spot_name} placement="right">
-                <IconButton onClick={() => logData(car)}>
-                    <MdDirectionsCar className= "mapicon" color="red"/>
+                <IconButton onClick={() => showInfo(car)}>
+                    {highlightCar === car.spot_name ?
+                    <MdDirectionsCar className= "mapicon" color="red"/> :                     
+                    <MdDirectionsCar className= "mapicon"/>}
                 </IconButton>
             </Tooltip>
-            {/* {car.spot_name} */}
         </ImageTooltipsTrigger>);
         return MyTrigger;
-        }
-        
-        else{
-            const MyTrigger = (<ImageTooltipsTrigger className="my-trigger">
-            <Tooltip title={car.spot_name} placement="right">
-                <IconButton onClick={() => logData(car)}>
-                    <MdDirectionsCar className= "mapicon"/>
-                </IconButton>
-            </Tooltip>
-            {/* {car.spot_name} */}
-        </ImageTooltipsTrigger>);
-
-        return MyTrigger;
-        }
-
     }
-
 
     return (
         <ImageTooltips src={map} width={900} height={900} className="my-image" triggerEvent="click">
