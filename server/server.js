@@ -34,7 +34,7 @@ db.connect();
 app.put(`/update`, checkJwt, (req, res) => {
 	const vin = req.body.vin;
 	const spot_id = req.body.spot_id;
-	db.query(`UPDATE parking.cars SET "spot_id" = '${spot_id}' where "vin" = '${vin}'`, 
+	db.query(`UPDATE parking.cars SET "spot_id" = ${spot_id} where "vin" = '${vin}'`, 
 		(err, result) => {
 			if (err) {
 				console.log(`In update: `, err);
@@ -107,7 +107,8 @@ app.delete(`/delete/:vin`, checkJwt, checkDeleteCars, (req, res) => {
 app.put(`/archive`, checkJwt, checkDeleteCars, (req, res) => {
 	const vin = req.body.vin;
 	const archived = req.body.archived
-	db.query(`UPDATE parking.cars SET "archived" = '${archived}' WHERE "vin" = '${vin}'`, 
+	const spot_id = req.body.spot_id;
+	db.query(`UPDATE parking.cars SET "archived" = ${archived}, "spot_id" = ${spot_id} WHERE "vin" = '${vin}'`, 
 	(err, result) => {
 		if (err) {
 			console.log(`In archive: `, err);
@@ -155,7 +156,7 @@ app.post(`/insertEvent`, checkJwt, (req, res) => {
 	const archive_description = req.body.archive_description ? req.body.archive_description : "";
 
 	db.query(`INSERT INTO parking.history ("car_id", "user_id", "event_type", "event_date", "old_make_model", "new_make_model", "old_year", "new_year", "old_stock_num", "new_stock_num", "old_location", "new_location", "archived", "archive_description") 
-	VALUES ('${carID}','${user_id}','${event_type}','${event_date}','${old_make_model}','${new_make_model}','${old_year}','${new_year}','${old_stock_num}','${new_stock_num}','${old_location}','${new_location}','${archived}', '${archive_description}')`, (err, result) => {
+	VALUES ('${carID}','${user_id}','${event_type}','${event_date}','${old_make_model}','${new_make_model}','${old_year}','${new_year}','${old_stock_num}','${new_stock_num}','${old_location}','${new_location}',${archived}, '${archive_description}')`, (err, result) => {
 		if (err) {
 			console.log(`In insertEvent: `, err);
 		}
