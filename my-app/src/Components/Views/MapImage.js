@@ -22,7 +22,7 @@ const MapImage = (props) => {
             showCloseButton: true,
             confirmButtonText: "View Car Details"
         }).then((result) => {
-            if(result.isConfirmed){
+            if (result.isConfirmed) {
                 navigate(`/details/${car.vin}`)
             }
         })
@@ -33,8 +33,8 @@ const MapImage = (props) => {
             <Tooltip title={car.spot_name} placement="right">
                 <IconButton onClick={() => showInfo(car)}>
                     {highlightCar === car.spot_name ?
-                    <MdDirectionsCar className= "mapicon" color="red"/> :                     
-                    <MdDirectionsCar className= "mapicon"/>}
+                        <MdDirectionsCar className="mapicon" color="red" /> :
+                        <MdDirectionsCar className="mapicon" />}
                 </IconButton>
             </Tooltip>
         </ImageTooltipsTrigger>);
