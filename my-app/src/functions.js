@@ -455,9 +455,8 @@ function get_check_digit(vin) {
 }
 
 function validate(vin) {
-    // if (vin.length !== 17) return false;
-    //     return get_check_digit(vin) === vin[8];
-    return /^[A-Z0-9]*$/.test(vin)
+    if (vin.length !== 17) return false;
+        return get_check_digit(vin) === vin[8];
 }
 
 export default swalAddCar;
