@@ -7,6 +7,10 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import '../../Styles/sweetalert.css'
 import { Button } from 'react-bootstrap';
 import { resethighlightCar } from '../../functions';
+import {FaMapMarkerAlt} from "react-icons/fa";
+import {FaHome} from "react-icons/fa";
+import {FaEdit} from "react-icons/fa";
+import {BsFillGearFill} from "react-icons/bs";
 
 
 const Navbar = (props) => {
@@ -22,16 +26,16 @@ const Navbar = (props) => {
 							<nav>
 								<ul>
 									<li>
-										<Link onClick={() => resethighlightCar()} to="/">Home ⌂</Link>
+										<Link onClick={() => resethighlightCar()} to="/">Home {<FaHome/>}</Link>
 									</li>
 									<li>
-										<Link onClick={() => resethighlightCar()} to="/map">Map 🖈</Link>
+										<Link onClick={() => resethighlightCar()} to="/map">Map {<FaMapMarkerAlt/>}</Link>
 									</li>
 									<li>
-										<Link onClick={() => resethighlightCar()} to="/history">Edit History</Link>
+										<Link onClick={() => resethighlightCar()} to="/history">Edit History {<FaEdit/>}</Link>
 									</li>
 									<li>
-										<Link onClick={() => resethighlightCar()} to="/account">Account Settings ⚙︎</Link>
+										<Link onClick={() => resethighlightCar()} to="/account">Account Settings {<BsFillGearFill/>}</Link>
 									</li>
 									<Button onClick={() => props.data.update()}>Update Data</Button>
 								</ul>

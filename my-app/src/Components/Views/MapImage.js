@@ -11,6 +11,7 @@ import { MdDirectionsCar } from "react-icons/md";
 import { useNavigate } from "react-router";
 
 
+
 const MapImage = (props) => {
     const navigate = useNavigate()
 
