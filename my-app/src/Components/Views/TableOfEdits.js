@@ -24,7 +24,7 @@ function TableOfEdits(props) {
 				break
 			case "Archive Car":
 			case "Undo Archive":
-				edit.description = edit.archived === 1 ? `Car was archived` : `Car was unarchived`;
+				edit.description = edit.archived === 1 ? `Car was archived <br> Description: ${edit.archive_description}` : `Car was returned to spot ${edit.new_location}`;
 				break
 			default:
 				edit.description = "";
@@ -70,7 +70,7 @@ function TableOfEdits(props) {
 	function showEditDetails(edit) {
 		Swal.fire({
 			title: 'Edit Details',
-			html: `<p> ${edit.event_type} <br> ${edit.description} </p>`,
+			html: `<p> <b>${edit.event_type}</b> <br> ${edit.description} </p>`,
 			showDenyButton: true,
 			confirmButtonText: 'Close',
 			denyButtonText: `Revert Edit`,

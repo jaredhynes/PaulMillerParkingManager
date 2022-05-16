@@ -1,5 +1,10 @@
 import Swal from 'sweetalert2'
 
+// show on map car fuctions
+export let highlightCar = null;
+export function sethighlightCar(car){ highlightCar = car; }
+export function resethighlightCar(){ highlightCar = null; }
+
 //Swal functions
 export function swalAddCar(data, vin = "", make_model = "", year = "", stockNum = "", spot_name = "") {
     Swal.fire({
@@ -127,24 +132,57 @@ export function swalEditCar(car, data) {
 
 export function swalArchiveCar(car, data) {
     Swal.fire({
-        title: 'Archived Car',
-        icon: 'success'
-        
-    })
-    car.archived = 1
-    archiveCar(car, data.Axios, data.update);
-    addEvent(car, car, "Archive Car", data.Axios, data.update, data.user)
+        title: 'Archiving Car',
+        html: `<input type="text" id="archiveDesc" class="swal2-input" placeholder="Description">`,
+        confirmButtonText: 'Archive Car',
+        showCancelButton: true, 
+        preConfirm: () => {
+            return { archiveDesc: Swal.getPopup().querySelector('#archiveDesc').value }
+        }     
+    }).then((result) => {
+        if (result.isConfirmed) {
+            Swal.fire({
+                title: 'Archived Car',
+                icon: 'success'
+            })
+            car.archiveDesc = result.value.archiveDesc
+            car.archived = 1
+            car.spot_name = "archived"
+            archiveCar(car, data.Axios, data.update, data.allSpots);
+            addEvent(car, car, "Archive Car", data.Axios, data.update, data.user)
+        }
+    })   
 }
 
 export function swalUnArchiveCar(car, data) {
     Swal.fire({
-        title: 'Archive Removed',
-        icon: 'success'
-        
-    })
-    car.archived = 0
-    archiveCar(car, data.Axios, data.update);
-    addEvent(car, car, "Undo Archive", data.Axios, data.update, data.user)
+        title: 'Undo Archive',
+        html: `<input type="text" id="spot_name" class="swal2-input" placeholder="Location">`,
+        confirmButtonText: 'Return Car',
+        showCancelButton: true, 
+        preConfirm: () => {
+            if (!Swal.getPopup().querySelector('#spot_name').value) {
+                Swal.showValidationMessage(`Please enter a location`)
+            }
+
+            if (!isSpotAvailable(Swal.getPopup().querySelector('#spot_name').value, data.availableSpots)) {
+                Swal.showValidationMessage(`${Swal.getPopup().querySelector('#spot_name').value} is not an available spot.`)
+            }
+
+            return { spot_name: Swal.getPopup().querySelector('#spot_name').value }
+        }     
+    }).then((result) => {
+        if (result.isConfirmed) {
+            Swal.fire({
+                title: 'Removed Archive',
+                icon: 'success'
+            })
+            car.archived = 0
+            car.spot_name = result.value.spot_name
+            archiveCar(car, data.Axios, data.update, data.allSpots);
+            addEvent(car, car, "Undo Archive", data.Axios, data.update, data.user)
+        }
+    })   
 }
 
 export function swalDeleteCar(car, data) {
@@ -301,15 +339,10 @@ export function swalRevertEdit(edit, data) {
                     }
                     break
                 case "Archive Car":
+                    swalUnArchiveCar({vin: edit.car_id}, data);
+                    break
                 case "Undo Archive":
-                    let a = edit.archived === 0 ? 1 : 0
-                    archiveCar({ vin: edit.car_id, archived: a }, data.Axios, data.update);
-                    addEvent({ vin: edit.car_id }, { vin: edit.car_id, archived: a }, "Undo Archive", data.Axios, data.update, data.user)
-                    Swal.fire(
-                        'Reverted!',
-                        'The archive has been successfully reverted.',
-                        'success'
-                    )
+                    swalArchiveCar({vin: edit.car_id}, data);
                     break
                 default:
                     break
@@ -373,6 +406,7 @@ async function addEvent(oldCar, newCar, event_type, Axios, update, user) {
         old_location: oldCar.spot_name,
         new_location: newCar.spot_name,
         archived: newCar.archived,
+        archive_description: newCar.archiveDesc,
         user_id: user.email,
         event_type: event_type,
         event_date: (new Date()).toLocaleString("en-US", { timeZone: "America/New_York" }),
@@ -381,10 +415,11 @@ async function addEvent(oldCar, newCar, event_type, Axios, update, user) {
     })
 }
 
-function archiveCar(car, Axios, update) {
+function archiveCar(car, Axios, update, allSpots) {
     Axios.put("archive", {
         vin: car.vin,
-        archived: car.archived
+        archived: car.archived,
+        spot_id: getSpotID(car.spot_name, allSpots)
     }).then(() => {
         update();
     })
@@ -420,9 +455,8 @@ function get_check_digit(vin) {
 }
 
 function validate(vin) {
-    // if (vin.length !== 17) return false;
-    //     return get_check_digit(vin) === vin[8];
-    return /^[A-Z0-9]*$/.test(vin)
+    if (vin.length !== 17) return false;
+        return get_check_digit(vin) === vin[8];
 }
 
 export default swalAddCar;

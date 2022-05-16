@@ -8,7 +8,7 @@ const Account = (props) => {
             <img src={data.user.picture} alt={data.user.name} />
             <h2>{data.user.name}</h2>
             <p>{data.user.email}</p>
-            <LogoutButton/>
+            <LogoutButton data={data} />
         </div>
     );
 };

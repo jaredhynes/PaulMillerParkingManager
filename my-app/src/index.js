@@ -6,40 +6,12 @@ import 'bootstrap-css-only/css/bootstrap.min.css';
 import 'mdbreact/dist/css/mdb.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { Auth0Provider } from '@auth0/auth0-react';
-import { BrowserRouter, useNavigate } from 'react-router-dom';
-
-const Auth0ProviderWithRedirectCallback = ({ children, ...props }) => {
-	const navigate = useNavigate()
-
-	const onRedirectCallback = (appState) => {
-		navigate(
-			appState && appState.returnTo
-				? appState.returnTo
-				: window.location.pathname
-		);
-	};
-
-	return (
-		<Auth0Provider onRedirectCallback={onRedirectCallback} {...props}>
-			{children}
-		</Auth0Provider>
-	);
-};
+import { BrowserRouter } from 'react-router-dom';
 
 ReactDOM.render(
 	<React.StrictMode>
 		<BrowserRouter>
-			<Auth0ProviderWithRedirectCallback
-				domain="dev-w1z8wy-p.us.auth0.com"
-				clientId="RHaM86sHqrwsD6rk8wTpi1YsU2z9FyhQ"
-				redirectUri={window.location.origin}
-				audience="https://quickstarts/api"
-				useRefreshTokens
-				cacheLocation="localstorage"
-			>
-				<App />
-			</Auth0ProviderWithRedirectCallback>
+			<App />
 		</BrowserRouter>
 	</React.StrictMode>,
 	document.getElementById('root')

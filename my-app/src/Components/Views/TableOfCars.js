@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { MDBDataTable } from 'mdbreact';
 import { Checkbox } from '@mui/material';
 import { swalArchiveCar, swalDeleteCar, swalEditCar, swalUnArchiveCar } from "../../functions.js"
+import { sethighlightCar } from '../../functions.js';
 
 function TableOfCars(props) {
 	let data = props.data
@@ -18,12 +19,11 @@ function TableOfCars(props) {
 
 	data.carList.map(car => (
 		car.bttn = <DropdownButton id="dropdown-basic-button" variant="dark" title="Options">
-			<Dropdown.Item onClick={() => swalEditCar(car, data)}>Change Location</Dropdown.Item>
-			{data.roles.includes("admin") && (car.archived ? <Dropdown.Item onClick={() => swalUnArchiveCar(car, data)}>Undo Archive</Dropdown.Item> :
-			<Dropdown.Item onClick={() => swalArchiveCar(car, data)}>Archive Car</Dropdown.Item>)}
+			{!car.archived && <Dropdown.Item onClick={() => swalEditCar(car, data)}>Change Location</Dropdown.Item>}
+			{!car.archived && <Dropdown.Item onClick={() => sethighlightCar(car.spot_name)} as={Link} to='/map'>Show on map</Dropdown.Item>}
+			{!car.archived && <Dropdown.Item as={Link} to={`/details/${car.vin}`}>View Details</Dropdown.Item>}
+			{car.archived ? <Dropdown.Item onClick={() => swalUnArchiveCar(car, data)}>Undo Archive</Dropdown.Item> : <Dropdown.Item onClick={() => swalArchiveCar(car, data)}>Archive Car</Dropdown.Item>}
 			{data.roles.includes("admin") && <Dropdown.Item onClick={() => swalDeleteCar(car, data)}>Delete Car</Dropdown.Item>}
-			<Dropdown.Item onClick={() => highlightCar(car)} as={Link} to='/map'>Show on map</Dropdown.Item>
-			<Dropdown.Item as={Link} to={`/details/${car.vin}`}>View Details</Dropdown.Item>
 		</DropdownButton>
 	))
 
@@ -59,12 +59,7 @@ function TableOfCars(props) {
 				width: 130,
 			}
 		],
-		rows: checked ? data.carList.filter(car => car.archived === 1) : data.carList.filter(car => car.archived === 0)
-	}
-
-	function highlightCar(car) {
-		data.carList.map(car => (car.highlighted = false))
-		car.highlighted = true
+		rows: checked ? data.carList.filter(car => car.archived) : data.carList.filter(car => !car.archived)
 	}
 
 	return (

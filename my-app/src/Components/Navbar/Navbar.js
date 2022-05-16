@@ -6,6 +6,11 @@ import DropdownButton from 'react-bootstrap/DropdownButton';
 import Dropdown from 'react-bootstrap/Dropdown';
 import '../../Styles/sweetalert.css'
 import { Button } from 'react-bootstrap';
+import { resethighlightCar } from '../../functions';
+import {FaMapMarkerAlt} from "react-icons/fa";
+import {FaHome} from "react-icons/fa";
+import {FaEdit} from "react-icons/fa";
+import {BsFillGearFill} from "react-icons/bs";
 
 
 const Navbar = (props) => {
@@ -14,23 +19,23 @@ const Navbar = (props) => {
 		<header>
 			<nav>
 				<div className="nav-wrapper">
-					<a href="/" className="brand-logo">Paul Miller INC.</a>
+					<Link to="/" className="brand-logo">Paul Miller INC.</Link>
 					{/* <a href="/" data-target="mobile-nav" className="sidenav-trigger">Mobile Menu</a> */}
 					<ul id="desktop-nav" className="right hide-on-med-and-down">
 						<div>
 							<nav>
 								<ul>
 									<li>
-										<Link to="/">Home ⌂</Link>
+										<Link onClick={() => resethighlightCar()} to="/">Home {<FaHome/>}</Link>
 									</li>
 									<li>
-										<Link to="/map">Map 🖈</Link>
+										<Link onClick={() => resethighlightCar()} to="/map">Map {<FaMapMarkerAlt/>}</Link>
 									</li>
 									<li>
-										<Link to="/history">Edit History</Link>
+										<Link onClick={() => resethighlightCar()} to="/history">Edit History {<FaEdit/>}</Link>
 									</li>
 									<li>
-										<Link to="/account">Account Settings ⚙︎</Link>
+										<Link onClick={() => resethighlightCar()} to="/account">Account Settings {<BsFillGearFill/>}</Link>
 									</li>
 									<Button onClick={() => props.data.update()}>Update Data</Button>
 								</ul>
