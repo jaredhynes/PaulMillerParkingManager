@@ -12,6 +12,7 @@ import { useNavigate } from "react-router";
 
 
 
+
 const MapImage = (props) => {
     const navigate = useNavigate()
 
@@ -34,8 +35,11 @@ const MapImage = (props) => {
             <Tooltip title={car.spot_name} placement="right">
                 <IconButton onClick={() => showInfo(car)}>
                     {highlightCar === car.spot_name ?
-                        <MdDirectionsCar className="mapicon" color="red" /> :
+                        <MdDirectionsCar className="mapicon" color="red"/>:
                         <MdDirectionsCar className="mapicon" />}
+                    {highlightCar === car.spot_name ?
+                        car.spot_name : null}
+    
                 </IconButton>
             </Tooltip>
         </ImageTooltipsTrigger>);
