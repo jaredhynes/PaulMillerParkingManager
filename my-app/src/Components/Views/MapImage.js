@@ -9,7 +9,7 @@ import '../../Styles/mapimage.css';
 import { highlightCar } from "../../functions";
 import { MdDirectionsCar } from "react-icons/md";
 import { useNavigate } from "react-router";
-
+import HLCarIcon from "./HLCarIcon";
 
 
 
@@ -30,16 +30,23 @@ const MapImage = (props) => {
         })
     }
 
+    function showCarIcon(car){
+        let ret = null
+        if( highlightCar === car.spot_name){
+            ret = <HLCarIcon spot_name={car.spot_name}/>
+        }
+        else{
+            ret = <MdDirectionsCar className="mapicon" />
+        }
+
+        return ret;
+    }
+
     function IconMaker(car, highlightCar) {
         const MyTrigger = (<ImageTooltipsTrigger className="my-trigger">
             <Tooltip title={car.spot_name} placement="right">
                 <IconButton onClick={() => showInfo(car)}>
-                    {highlightCar === car.spot_name ?
-                        <MdDirectionsCar className="mapicon" color="red"/>:
-                        <MdDirectionsCar className="mapicon" />}
-                    {highlightCar === car.spot_name ?
-                        car.spot_name : null}
-    
+                    {showCarIcon(car)}
                 </IconButton>
             </Tooltip>
         </ImageTooltipsTrigger>);

@@ -47,10 +47,10 @@ const Navbar = (props) => {
 			<div>
 			</div>
 			{<DropdownButton id="mobile-nav" title="Menu" menuVariant="dark">
-				<Dropdown.Item as={Link} to="/">Home</Dropdown.Item>
-				<Dropdown.Item as={Link} to="/map">Map</Dropdown.Item>
-				<Dropdown.Item as={Link} to="/history">Edit History</Dropdown.Item>
-				<Dropdown.Item as={Link} to="/account">Account Settings</Dropdown.Item>
+				<Dropdown.Item onClick={() => resethighlightCar()} as={Link} to="/">Home</Dropdown.Item>
+				<Dropdown.Item onClick={() => resethighlightCar()} as={Link} to="/map">Map</Dropdown.Item>
+				<Dropdown.Item onClick={() => resethighlightCar()} as={Link} to="/history">Edit History</Dropdown.Item>
+				<Dropdown.Item onClick={() => resethighlightCar()} as={Link} to="/account">Account Settings</Dropdown.Item>
 			</DropdownButton>}
 		</header>
 		</div>
