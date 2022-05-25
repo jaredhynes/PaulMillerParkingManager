@@ -64,12 +64,12 @@ app.put(`/updateInfo`, checkJwt, (req, res) => {
 	}
 });
 
-app.put(`/changeStatusColor`, checkJwt, (req, res) =>{
+app.put(`/changeStatus`, checkJwt, (req, res) =>{
 	const vin = req.body.vin;
-	const color_status = req.body.color_status;
-
-	db.query(`UPDATE parking.cars SET "color_status" = '${color_status}' where "vin" = '${vin}`)
+	const status = req.body.status;
+	db.query(`UPDATE parking.cars SET "status" = '${status}' where "vin" = '${vin}`)
 })
+
 
 app.put(`/updateDescription`, checkJwt, (req, res) => {
 	const vin = req.body.vin;
@@ -233,6 +233,18 @@ app.get(`/cars`, checkJwt, (req, res) => {
 	})
 })
 
+app.get(`/cars1`, checkJwt, (req, res) => {
+	db.query(`select c."vin", c."stockNum", c."make_model", c."year", c."description", c."archived", c."status", c."commNum", c."exteriorColor", c."interiorColor", c."msrp", c ps."spot_name", ps."spot_id", ps."x_val", ps."y_val" from parking.cars c, parking.parking_spots ps where c."spot_id" = ps."spot_id" order by "spot_name"`, 
+	(err, result) => {
+		if (err) {
+			console.log(`In cars: `, err);
+		}
+		else {
+			res.send(result);
+		}
+	})
+})
+
 app.get(`/getAllSpots`, checkJwt, (req, res) => {
 	db.query(`select ps."spot_id", ps."spot_name" from parking.parking_spots ps`, 
 	(err, result) => {
@@ -244,6 +256,8 @@ app.get(`/getAllSpots`, checkJwt, (req, res) => {
 		}
 	})
 })
+
+
 
 function validateVin(vin) {
     return validate(vin);
