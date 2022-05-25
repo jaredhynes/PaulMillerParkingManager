@@ -64,6 +64,13 @@ app.put(`/updateInfo`, checkJwt, (req, res) => {
 	}
 });
 
+app.put(`/changeStatusColor`, checkJwt, (req, res) =>{
+	const vin = req.body.vin;
+	const color_status = req.body.color_status;
+
+	db.query(`UPDATE parking.cars SET "color_status" = '${color_status}' where "vin" = '${vin}`)
+})
+
 app.put(`/updateDescription`, checkJwt, (req, res) => {
 	const vin = req.body.vin;
 	const des = req.body.description;
@@ -131,6 +138,30 @@ app.post(`/insertNewCar`, checkJwt, (req, res) => {
 		(err, result) => {
 			if (err) {
 				console.log(`In insertNewCar: `, err);
+			}
+			else {
+				res.send(result);
+			}
+		});
+	}
+})
+
+app.post(`/insertNewCar1`, checkJwt, (req, res) => {
+	const vin = req.body.vin;
+	const make_model = req.body.make_model;
+	const stockNum = req.body.stockNum;
+	const year = req.body.year;
+	const spot_id = req.body.spot_id;
+	const commNum = req.body.commNum;
+	const exteriorColor = req.body.exteriorColor;
+	const interiorColor = req.body.interiorColor;
+	const msrp = req.body.msrp;
+
+	if (validateVin(vin) && /^[A-Za-z0-9 ]*$/.test(make_model) && /^[0-9]*$/.test(year) && /^[A-Za-z0-9]*$/.test(stockNum)) {
+		db.query(`INSERT INTO parking.cars ("vin", "stockNum", "make_model", "year", "spot_id", "commNum", "exteriorColor", "interiorColor", "msrp") VALUES ('${vin}','${stockNum}','${make_model}','${year}','${spot_id}', '${commNum}', '${exteriorColor}', '${interiorColor}', '${msrp}')`,
+		(err, result) => {
+			if (err) {
+				console.log(`In insertNewCar1: `, err);
 			}
 			else {
 				res.send(result);

@@ -5,6 +5,7 @@ import Button from 'react-bootstrap/Button'
 import TableOfCars from './TableOfCars';
 import swalAddCar from '../../functions.js'
 
+
 function Home(props) {
 	let data = props.data
 

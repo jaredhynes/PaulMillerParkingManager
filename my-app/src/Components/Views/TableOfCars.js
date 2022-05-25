@@ -7,6 +7,8 @@ import { MDBDataTable } from 'mdbreact';
 import { Checkbox } from '@mui/material';
 import { swalArchiveCar, swalDeleteCar, swalEditCar, swalUnArchiveCar } from "../../functions.js"
 import { sethighlightCar } from '../../functions.js';
+import color_statusb from './color_statusb';
+
 
 function TableOfCars(props) {
 	let data = props.data
@@ -17,6 +19,7 @@ function TableOfCars(props) {
 		setChecked(!checked);
 	};
 
+
 	data.carList.map(car => (
 		car.bttn = <DropdownButton id="dropdown-basic-button" variant="dark" title="Options">
 			{!car.archived && <Dropdown.Item onClick={() => swalEditCar(car, data)}>Change Location</Dropdown.Item>}
@@ -24,11 +27,18 @@ function TableOfCars(props) {
 			{!car.archived && <Dropdown.Item as={Link} to={`/details/${car.vin}`}>View Details</Dropdown.Item>}
 			{car.archived ? <Dropdown.Item onClick={() => swalUnArchiveCar(car, data)}>Undo Archive</Dropdown.Item> : <Dropdown.Item onClick={() => swalArchiveCar(car, data)}>Archive Car</Dropdown.Item>}
 			{data.roles.includes("admin") && <Dropdown.Item onClick={() => swalDeleteCar(car, data)}>Delete Car</Dropdown.Item>}
-		</DropdownButton>
+		</DropdownButton>,
+		car.cb = <color_statusb/>
 	))
+
 
 	let datatable = {
 		columns: [
+			{
+				label:<b>Col_Stat</b>,
+				field: 'colorbttn',
+				width: 120,
+			},
 			{
 				label: <b>Action</b>,
 				field: 'bttn',

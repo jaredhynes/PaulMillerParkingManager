@@ -6,7 +6,7 @@ export function sethighlightCar(car){ highlightCar = car; }
 export function resethighlightCar(){ highlightCar = null; }
 
 //Swal functions
-export function swalAddCar(data, vin = "", make_model = "", year = "", stockNum = "", spot_name = "") {
+export function swalAddCar(data, vin = "", make_model = "", year = "", stockNum = "", spot_name = "", commNum = "", exteriorColor = "", interiorColor = "", msrp = "") {
     Swal.fire({
         title: 'Add Car',
         // want to have the information there in the edit, not just random values. using ${result.value.vin} does not work!
@@ -14,6 +14,10 @@ export function swalAddCar(data, vin = "", make_model = "", year = "", stockNum 
         <input type="text" id="make_model" class="swal2-input" placeholder="Make/Model" value=${make_model}>
         <input type="text" id="year" class="swal2-input" placeholder="Year" value=${year}>
         <input type="text" id="stockNum" class="swal2-input" placeholder="Stock Number" value=${stockNum}>
+        <input type="text" id="commNum" class="swal2-input" placeholder="comm#" value=${commNum}>
+        <input type="text" id="exteriorColor" class="swal2-input" placeholder="Exterior Color" value=${exteriorColor}>
+        <input type="text" id="interiorColor" class="swal2-input" placeholder="Interior Color" value=${interiorColor}>
+        <input type="text" id="msrp" class="swal2-input" placeholder="MSRP" value=${msrp}>
         <input type="text" id="spot_name" class="swal2-input" placeholder="Location" value=${spot_name}>`,
         confirmButtonText: 'Add Car',
         showCancelButton: true,
