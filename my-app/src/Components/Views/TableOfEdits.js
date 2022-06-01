@@ -17,7 +17,7 @@ function TableOfEdits(props) {
 				break
 			case "Edit Car":
 			case "Undo Edit":
-				edit.description = `Make/Model: ${edit.old_make_model} -> ${edit.new_make_model} <br> Year: ${edit.old_year} -> ${edit.new_year} <br> Stock Number: ${edit.old_stock_num} -> ${edit.new_stock_num}`;
+				edit.description = `Make/Model: ${edit.old_make_model} -> ${edit.new_make_model} <br> Year: ${edit.old_year} -> ${edit.new_year} <br> Stock Number: ${edit.old_stock_num} -> ${edit.new_stock_num} <br> Comm Number: ${edit.old_comm_num} -> ${edit.new_comm_num}  <br> Exterior Color: ${edit.old_ext_color} -> ${edit.new_ext_color}  <br> Interior Color: ${edit.old_int_color} -> ${edit.new_int_color}  <br> MSRP: ${edit.old_msrp} -> ${edit.new_msrp}`;
 				break
 			case "Add Car":
 				edit.description = `Make/Model: ${edit.new_make_model} <br> Year: ${edit.new_year} <br> Stock Number: ${edit.new_stock_num} <br> Location: ${edit.new_location}`;

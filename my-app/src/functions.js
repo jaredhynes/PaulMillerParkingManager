@@ -347,8 +347,8 @@ export function swalRevertEdit(edit, data) {
                     break
                 case "Edit Car":
                 case "Undo Edit":
-                    editCarInfo({ vin: edit.car_id, stockNum: edit.old_stock_num, make_model: edit.old_make_model, year: edit.old_year }, data.Axios, data.update);
-                    addEvent({ vin: edit.car_id, stockNum: edit.new_stock_num, make_model: edit.new_make_model, year: edit.new_year }, { vin: edit.car_id, stockNum: edit.old_stock_num, make_model: edit.old_make_model, year: edit.old_year }, "Undo Edit", data.Axios, data.update, data.user)
+                    editCarInfo({ vin: edit.car_id, stockNum: edit.old_stock_num, make_model: edit.old_make_model, year: edit.old_year, commNum: edit.old_comm_num, exteriorColor: edit.old_ext_color, interiorColor: edit.old_int_color, msrp: edit.old_msrp}, data.Axios, data.update);
+                    addEvent({ vin: edit.car_id, stockNum: edit.new_stock_num, make_model: edit.new_make_model, year: edit.new_year, commNum: edit.new_comm_num, exteriorColor: edit.new_ext_color, interiorColor: edit.new_int_color, msrp: edit.new_msrp }, { vin: edit.car_id, stockNum: edit.old_stock_num, make_model: edit.old_make_model, year: edit.old_year, commNum: edit.old_comm_num, exteriorColor: edit.old_ext_color, interiorColor: edit.old_int_color, msrp: edit.old_msrp }, "Undo Edit", data.Axios, data.update, data.user)
                     Swal.fire(
                         'Reverted!',
                         'The edit has been successfully reverted.',
@@ -449,6 +449,14 @@ async function addEvent(oldCar, newCar, event_type, Axios, update, user) {
         new_stock_num: newCar.stockNum,
         old_location: oldCar.spot_name,
         new_location: newCar.spot_name,
+        old_comm_num: oldCar.commNum,
+        new_comm_num: newCar.commNum,
+        old_ext_color: oldCar.exteriorColor,
+        new_ext_color: newCar.exteriorColor,
+        old_int_color: oldCar.interiorColor,
+        new_int_color: newCar.interiorColor,
+        old_msrp: oldCar.msrp,
+        new_msrp: newCar.msrp,
         archived: newCar.archived,
         archive_description: newCar.archiveDesc,
         user_id: user.email,
