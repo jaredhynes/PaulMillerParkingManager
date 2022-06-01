@@ -28,6 +28,10 @@ export function swalAddCar(data, vin = "", make_model = "", year = "", stockNum 
             year = Swal.getPopup().querySelector('#year').value
             stockNum = Swal.getPopup().querySelector('#stockNum').value
             spot_name = Swal.getPopup().querySelector('#spot_name').value.toLowerCase()
+            commNum = Swal.getPopup().querySelector('#commNum').value
+            exteriorColor = Swal.getPopup().querySelector('#exteriorColor').value
+            interiorColor = Swal.getPopup().querySelector('#interiorColor').value
+            msrp = Swal.getPopup().querySelector('#msrp').value
 
             if (!vin || !make_model || !stockNum || !spot_name || !year) {
                 Swal.showValidationMessage(`Please enter all information`)
@@ -57,7 +61,7 @@ export function swalAddCar(data, vin = "", make_model = "", year = "", stockNum 
                 Swal.showValidationMessage(`${spot_name} is not an available spot.`)
             }
 
-            return { vin: vin, make_model: make_model, year: year, stockNum: stockNum, spot_name: spot_name }
+            return { vin: vin, make_model: make_model, year: year, stockNum: stockNum, spot_name: spot_name, commNum: commNum, exteriorColor: exteriorColor, interiorColor: interiorColor, msrp: msrp }
         }
     }).then((result) => {
         if (result.isConfirmed) {
@@ -68,15 +72,20 @@ export function swalAddCar(data, vin = "", make_model = "", year = "", stockNum 
                 <p>Make/Model: ${result.value.make_model} </p>
                 <p>Make/Model: ${result.value.year} </p>
                 <p>Stock Number: ${result.value.stockNum} </p>
+                <p>Comm#: ${result.value.commNum} </p>
+                <p>Exterior Color: ${result.value.exteriorColor} </p>
+                <p>Interior Color: ${result.value.interiorColor} </p>
+                <p>MSRP: ${result.value.msrp} </p>
                 <p>Location: ${result.value.spot_name} </p>`,
+
                 showDenyButton: true,
                 confirmButtonText: "Yes",
                 denyButtonText: "No",
                 preConfirm: () => {
-                    return { vin: result.value.vin, make_model: result.value.make_model, year: result.value.year, stockNum: result.value.stockNum, spot_name: result.value.spot_name }
+                    return { vin: result.value.vin, make_model: result.value.make_model, year: result.value.year, stockNum: result.value.stockNum, spot_name: result.value.spot_name, commNum: result.value.commNum, exteriorColor: result.value.exteriorColor, interiorColor: result.value.interiorColor, msrp: result.value.msrp }
                 },
                 preDeny: () => {
-                    return { vin: result.value.vin, make_model: result.value.make_model, year: result.value.year, stockNum: result.value.stockNum, spot_name: result.value.spot_name }
+                    return { vin: result.value.vin, make_model: result.value.make_model, year: result.value.year, stockNum: result.value.stockNum, spot_name: result.value.spot_name, commNum: result.value.commNum, exteriorColor: result.value.exteriorColor, interiorColor: result.value.interiorColor, msrp: result.value.msrp }
                 }
             }).then((result) => {
                 if (result.isConfirmed) {
@@ -87,6 +96,10 @@ export function swalAddCar(data, vin = "", make_model = "", year = "", stockNum 
                         <p>Make/Model: ${result.value.make_model} </p>
                         <p>Make/Model: ${result.value.year} </p>
                         <p>Stock Number: ${result.value.stockNum} </p>
+                        <p>Comm#: ${result.value.commNum} </p>
+                        <p>Exterior Color: ${result.value.exteriorColor} </p>
+                        <p>Interior Color: ${result.value.interiorColor} </p>
+                        <p>MSRP: ${result.value.msrp} </p>
                         <p>Location: ${result.value.spot_name} </p>`,
                     })
                     addCar(result, data.Axios, data.update, data.allSpots);
@@ -219,7 +232,12 @@ export function swalEditCarInfo(car, data) {
         html: `<p> Vin Number: ${car.vin} </p>
         <input type="text" id="make_model" class="swal2-input" placeholder="${car.make_model}">
         <input type="text" id="year" class="swal2-input" placeholder="${car.year}">
-        <input type="text" id="stockNum" class="swal2-input" placeholder="${car.stockNum}">`,
+        <input type="text" id="stockNum" class="swal2-input" placeholder="${car.stockNum}">
+        <input type="text" id="commNum" class="swal2-input" placeholder="${car.commNum}">
+        <input type="text" id="exteriorColor" class="swal2-input" placeholder="${car.exteriorColor}">
+        <input type="text" id="interiorColor" class="swal2-input" placeholder="${car.interiorColor}">
+        <input type="text" id="msrp" class="swal2-input" placeholder="${car.msrp}">
+        `,
         confirmButtonText: 'Edit Car',
         showCancelButton: true,
         focusConfirm: false,
@@ -227,6 +245,10 @@ export function swalEditCarInfo(car, data) {
             const make_model = Swal.getPopup().querySelector('#make_model').value ? Swal.getPopup().querySelector('#make_model').value : car.make_model;
             const year = Swal.getPopup().querySelector('#year').value ? Swal.getPopup().querySelector('#year').value : car.year;
             const stockNum = Swal.getPopup().querySelector('#stockNum').value ? Swal.getPopup().querySelector('#stockNum').value : car.stockNum;
+            const commNum = Swal.getPopup().querySelector('#commNum').value ? Swal.getPopup().querySelector('#commNum').value : car.commNum;
+            const exteriorColor = Swal.getPopup().querySelector('#exteriorColor').value ? Swal.getPopup().querySelector('#exteriorColor').value : car.exteriorColor;
+            const interiorColor = Swal.getPopup().querySelector('#interiorColor').value ? Swal.getPopup().querySelector('#interiorColor').value : car.interiorColor;
+            const msrp = Swal.getPopup().querySelector('#msrp').value ? Swal.getPopup().querySelector('#msrp').value : car.msrp;
 
             if (!/^[A-Za-z0-9 ]*$/.test(make_model)) {
                 Swal.showValidationMessage(`${make_model} is not a valid make and model.`)
@@ -240,7 +262,7 @@ export function swalEditCarInfo(car, data) {
                 Swal.showValidationMessage(`${stockNum} is not a valid stock number.`)
             }
 
-            return { make_model: make_model, year: year, stockNum: stockNum }
+            return { make_model: make_model, year: year, stockNum: stockNum, commNum: commNum, exteriorColor: exteriorColor, interiorColor: interiorColor, msrp: msrp }
         }
     }).then((result) => {
         if (result.isConfirmed) {
@@ -250,15 +272,20 @@ export function swalEditCarInfo(car, data) {
                 html: `<p> Vin Number: ${car.vin} </p>
                 <p>Make/Model: ${result.value.make_model} </p>
                 <p>Make/Model: ${result.value.year} </p>
-                <p>Stock Number: ${result.value.stockNum} </p>`,
+                <p>Stock Number: ${result.value.stockNum} </p>
+                <p>Comm#: ${result.value.commNum} </p>
+                <p>Exterior Color: ${result.value.exteriorColor} </p>
+                <p>Interior Color: ${result.value.interiorColor} </p>
+                <p>MSRP: ${result.value.msrp} </p>
+                `,
                 showDenyButton: true,
                 confirmButtonText: "Yes",
                 denyButtonText: "No",
                 preConfirm: () => {
-                    return { vin: car.vin, make_model: result.value.make_model, year: result.value.year, stockNum: result.value.stockNum }
+                    return { vin: car.vin, make_model: result.value.make_model, year: result.value.year, stockNum: result.value.stockNum, commNum: result.value.commNum, exteriorColor: result.value.exteriorColor, interiorColor: result.value.interiorColor, msrp: result.value.msrp }
                 },
                 preDeny: () => {
-                    return { vin: car.vin, make_model: result.value.make_model, year: result.value.year, stockNum: result.value.stockNum }
+                    return { vin: car.vin, make_model: result.value.make_model, year: result.value.year, stockNum: result.value.stockNum, commNum: result.value.commNum, exteriorColor: result.value.exteriorColor, interiorColor: result.value.interiorColor, msrp: result.value.msrp }
                 }
             }).then((result) => {
                 if (result.isConfirmed) {
@@ -268,7 +295,12 @@ export function swalEditCarInfo(car, data) {
                         html: `<p> Vin Number: ${result.value.vin} </p>
                         <p>Make/Model: ${result.value.make_model} </p>
                         <p>Make/Model: ${result.value.year} </p>
-                        <p>Stock Number: ${result.value.stockNum} </p>`,
+                        <p>Stock Number: ${result.value.stockNum} </p>
+                        <p>Comm#: ${result.value.commNum} </p>
+                        <p>Exterior Color: ${result.value.exteriorColor} </p>
+                        <p>Interior Color: ${result.value.interiorColor} </p>
+                        <p>MSRP: ${result.value.msrp} </p>
+                        `,
                     })
                     editCarInfo(result.value, data.Axios, data.update);
                     addEvent(car, result.value, "Edit Car", data.Axios, data.update, data.user)
@@ -362,6 +394,10 @@ async function addCar(car, Axios, update, allSpots) {
         make_model: car.value.make_model,
         stockNum: car.value.stockNum,
         year: car.value.year,
+        commNum: car.value.commNum,
+	    exteriorColor: car.value.exteriorColor,
+	    interiorColor: car.value.interiorColor,
+	    msrp: car.value.msrp,
         spot_id: getSpotID(car.value.spot_name, allSpots),
     }).then(() => {
         update()
@@ -384,7 +420,11 @@ async function editCarInfo(newInfo, Axios, update) {
         vin: newInfo.vin,
         stockNum: newInfo.stockNum,
         makeModel: newInfo.make_model,
-        year: newInfo.year
+        year: newInfo.year,
+        commNum: newInfo.commNum,
+        exteriorColor: newInfo.exteriorColor,
+        interiorColor: newInfo.interiorColor,
+        msrp: newInfo.msrp
     }).then((response) => {
         update()
     });

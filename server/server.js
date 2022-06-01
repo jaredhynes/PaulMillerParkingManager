@@ -45,14 +45,19 @@ app.put(`/update`, checkJwt, (req, res) => {
 		});
 });
 
+
 app.put(`/updateInfo`, checkJwt, (req, res) => {
 	const vin = req.body.vin;
 	const stockNum = req.body.stockNum;
 	const makeModel = req.body.makeModel;
 	const year = req.body.year;
+	const commNum = req.body.commNum;
+	const exteriorColor = req.body.exteriorColor;
+	const interiorColor = req.body.interiorColor;
+	const msrp = req.body.msrp;
 
 	if (/^[A-Za-z0-9 ]*$/.test(makeModel) && /^[0-9]*$/.test(year) && /^[A-Za-z0-9]*$/.test(stockNum)) {
-		db.query(`UPDATE parking.cars SET "stockNum" = '${stockNum}', "make_model" = '${makeModel}', "year" = '${year}' where "vin" = '${vin}'`,
+		db.query(`UPDATE parking.cars SET "stockNum" = '${stockNum}', "make_model" = '${makeModel}', "year" = '${year}', "commNum" = '${commNum}', "exteriorColor" = '${exteriorColor}', "interiorColor" = '${interiorColor}', "msrp" = '${msrp}' where "vin" = '${vin}'`,
 			(err, result) => {
 				if (err) {
 					console.log(`In updateInfo: `, err);
@@ -140,26 +145,6 @@ app.post(`/insertNewCar`, checkJwt, (req, res) => {
 	const stockNum = req.body.stockNum;
 	const year = req.body.year;
 	const spot_id = req.body.spot_id;
-
-	if (validateVin(vin) && /^[A-Za-z0-9 ]*$/.test(make_model) && /^[0-9]*$/.test(year) && /^[A-Za-z0-9]*$/.test(stockNum)) {
-		db.query(`INSERT INTO parking.cars ("vin", "stockNum", "make_model", "year", "spot_id") VALUES ('${vin}','${stockNum}','${make_model}','${year}','${spot_id}')`,
-			(err, result) => {
-				if (err) {
-					console.log(`In insertNewCar: `, err);
-				}
-				else {
-					res.send(result);
-				}
-			});
-	}
-})
-
-app.post(`/insertNewCar1`, checkJwt, (req, res) => {
-	const vin = req.body.vin;
-	const make_model = req.body.make_model;
-	const stockNum = req.body.stockNum;
-	const year = req.body.year;
-	const spot_id = req.body.spot_id;
 	const commNum = req.body.commNum;
 	const exteriorColor = req.body.exteriorColor;
 	const interiorColor = req.body.interiorColor;
@@ -229,20 +214,9 @@ app.get(`/availableSpots`, checkJwt, (req, res) => {
 		})
 })
 
-app.get(`/cars`, checkJwt, (req, res) => {
-	db.query(`select c."vin", c."stockNum", c."make_model", c."year", c."description", c."archived", c."status", ps."spot_name", ps."spot_id", ps."x_val", ps."y_val" from parking.cars c, parking.parking_spots ps where c."spot_id" = ps."spot_id" order by "spot_name"`,
-		(err, result) => {
-			if (err) {
-				console.log(`In cars: `, err);
-			}
-			else {
-				res.send(result);
-			}
-		})
-})
 
-app.get(`/cars1`, checkJwt, (req, res) => {
-	db.query(`select c."vin", c."stockNum", c."make_model", c."year", c."description", c."archived", c."status", c."commNum", c."exteriorColor", c."interiorColor", c."msrp", c ps."spot_name", ps."spot_id", ps."x_val", ps."y_val" from parking.cars c, parking.parking_spots ps where c."spot_id" = ps."spot_id" order by "spot_name"`,
+app.get(`/cars`, checkJwt, (req, res) => {
+	db.query(`select c."vin", c."stockNum", c."make_model", c."year", c."description", c."archived", c."status", c."commNum", c."exteriorColor", c."interiorColor", c."msrp", ps."spot_name", ps."spot_id", ps."x_val", ps."y_val" from parking.cars c, parking.parking_spots ps where c."spot_id" = ps."spot_id" order by "spot_name"`,
 		(err, result) => {
 			if (err) {
 				console.log(`In cars: `, err);

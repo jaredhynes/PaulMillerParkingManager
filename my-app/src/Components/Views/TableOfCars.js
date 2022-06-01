@@ -89,6 +89,26 @@ function TableOfCars(props) {
 				width: 130,
 			},
 			{
+				label: <b>Comm #</b>,
+				field: 'commNum',
+				width: 130
+			},
+			{
+				label: <b>Ext Color</b>,
+				field: 'exteriorColor',
+				width: 150
+			},
+			{
+				label: <b>Int Color</b>,
+				field: 'interiorColor',
+				width: 150
+			},
+			{
+				label: <b>MSRP</b>,
+				field: 'msrp',
+				width: 120
+			},
+			{
 				label: <b>Location</b>,
 				field: 'spot_name',
 				width: 130,
@@ -104,7 +124,7 @@ function TableOfCars(props) {
 				<Checkbox checked={checked} onChange={handleChange} />
 				View Archived Cars
 			</label>
-			<MDBDataTable hover scrollX entriesOptions={[5, 20, 25]} entries={5} pagesAmount={4} data={datatable} order={['key']} />
+			<MDBDataTable hover scrollX entriesOptions={[10, 20, 25]} entries={10} pagesAmount={4} data={datatable} order={['key']} />
 		</div>
 	)
 }

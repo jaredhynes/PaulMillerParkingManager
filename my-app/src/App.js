@@ -85,6 +85,8 @@ const App = () => {
 			fetchAvailableSpots();
 			fetchHistory();
 		}
+
+		console.log(carList);
 	}, [navigate, token]);
 
 	const fetchCars = () => {
