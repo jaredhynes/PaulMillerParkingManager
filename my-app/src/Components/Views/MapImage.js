@@ -1,6 +1,6 @@
 import { ImageTooltips, ImageTooltipsItem, ImageTooltipsTrigger } from "react-image-tooltips";
 import "react-image-tooltips/dist/index.css";
-import map from "../../Images/prototype_map.png";
+import map from "../../Images/parkinglot.png";
 //import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
 import IconButton from '@mui/material/IconButton';
 import Swal from 'sweetalert2';
@@ -36,7 +36,7 @@ const MapImage = (props) => {
             ret = <HLCarIcon spot_name={car.spot_name}/>
         }
         else{
-            ret = <MdDirectionsCar className="mapicon" />
+            ret = <MdDirectionsCar className="mapicon" color="white" />
         }
 
         return ret;

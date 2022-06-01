@@ -1,12 +1,13 @@
 
 
 .mapicon{
-    font-size: 31px;
+    font-size: 18px;
+    transform: rotate(-90deg);
 }
 
 @media only screen and (max-width: 600px) {
     .mapicon {
-      font-size: 12px;
+      font-size: 10px;
     }
   }
 

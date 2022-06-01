@@ -6,7 +6,7 @@ const HLCarIcon = (props) => {
         <div>
         <MdDirectionsCar className="mapicon" color="red"/> 
 
-        <Label pointing='right'>{props.spot_name}</Label>
+        <Label pointing='up' color="white">{props.spot_name}</Label>
         </div>
      );
 }
