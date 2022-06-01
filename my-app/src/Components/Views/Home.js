@@ -10,7 +10,7 @@ function Home(props) {
 	let data = props.data
 
 	return (
-		<div className="App">
+		<div>
 			{data.carList && <TableOfCars data={data} />}
 			<Button variant="dark" onClick={() => swalAddCar(data)}>Add Car</Button>
 		</div>

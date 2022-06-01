@@ -44,7 +44,7 @@ const MapImage = (props) => {
 
     function IconMaker(car, highlightCar) {
         const MyTrigger = (<ImageTooltipsTrigger className="my-trigger">
-            <Tooltip title={car.spot_name} placement="right">
+            <Tooltip title={car.spot_name} placement="bottom">
                 <IconButton onClick={() => showInfo(car)}>
                     {showCarIcon(car)}
                 </IconButton>
