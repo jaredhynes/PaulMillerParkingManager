@@ -55,7 +55,7 @@ const MapImage = (props) => {
 
     return (
         <ImageTooltips src={map} width={900} height={900} className="my-image" triggerEvent="click">
-            {props.carList.map(car => <ImageTooltipsItem top={car.y_val} left={car.x_val} trigger={IconMaker(car, highlightCar)} className="my-item">
+            {props.carList.filter(car => car.x_val).map(car => <ImageTooltipsItem top={car.y_val} left={car.x_val} trigger={IconMaker(car, highlightCar)} className="my-item">
             </ImageTooltipsItem>)}
         </ImageTooltips>
     );

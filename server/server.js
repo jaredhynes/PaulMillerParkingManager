@@ -216,7 +216,7 @@ app.get(`/availableSpots`, checkJwt, (req, res) => {
 
 
 app.get(`/cars`, checkJwt, (req, res) => {
-	db.query(`select c."vin", c."stockNum", c."make_model", c."year", c."description", c."archived", c."status", c."commNum", c."exteriorColor", c."interiorColor", c."msrp", ps."spot_name", ps."spot_id", ps."x_val", ps."y_val" from parking.cars c, parking.parking_spots ps where c."spot_id" = ps."spot_id" order by "spot_name"`,
+	db.query(`select c."vin", c."stockNum", c."make_model", c."year", c."description", c."archived", COALESCE(c.status, 'blank') "status", c."commNum", c."exteriorColor", c."interiorColor", c."msrp", ps."spot_name", ps."spot_id", ps."x_val", ps."y_val" from parking.cars c, parking.parking_spots ps where c."spot_id" = ps."spot_id" order by "spot_name"`,
 		(err, result) => {
 			if (err) {
 				console.log(`In cars: `, err);

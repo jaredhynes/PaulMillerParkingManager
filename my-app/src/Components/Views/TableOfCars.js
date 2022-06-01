@@ -45,9 +45,10 @@ function TableOfCars(props) {
 				{data.isAdmin && <Dropdown.Item className='demo' onClick={() => changeColor(car, "green")}>Demo</Dropdown.Item>}
 				{data.isAdmin && <Dropdown.Item className='swap' onClick={() => changeColor(car, "red")}>Swap</Dropdown.Item>}
 				{data.isAdmin && <Dropdown.Item onClick={() => changeColor(car, "orange")}>Sold</Dropdown.Item>}
+				{data.isAdmin && <Dropdown.Item onClick={() => changeColor(car, "blank")}>Default</Dropdown.Item>}
 			</DropdownButton>}
 		</DropdownButton>
-		car.cb = car.status ? <button className={car.status} /> : <button className='blank' />
+		car.cb = <button className={car.status}/>
 		return car
 	})
 
