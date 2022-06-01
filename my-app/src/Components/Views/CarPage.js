@@ -59,7 +59,7 @@ function CarPage(props) {
                 </PDFDownloadLink>
             </Button>
             
-            {data.roles.includes("admin") &&
+            {data.isAdmin &&
                 <h4>Car History:</h4> &&
                 <TableOfEdits data={data} filter={vin} />}
         </div>

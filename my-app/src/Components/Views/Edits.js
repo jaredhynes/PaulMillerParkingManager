@@ -6,7 +6,7 @@ function Edits(props) {
 
 	return (
 		<div className="App">
-			{data.roles.includes("admin") ?
+			{data.isAdmin ?
 				<TableOfEdits data={data}  />:
 				<h1>You need admin access to view edits</h1>}
 		</div>

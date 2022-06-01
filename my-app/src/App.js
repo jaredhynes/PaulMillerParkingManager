@@ -12,8 +12,8 @@ import CarPage from './Components/Views/CarPage';
 import createAuth0Client from '@auth0/auth0-spa-js';
 import Swal from 'sweetalert2';
 
-//const PATH = "https://gentle-thicket-28075.herokuapp.com/" // Use this for Heroku
-const PATH = "http://localhost:8001/"  // Use this for local testing
+const PATH = "https://gentle-thicket-28075.herokuapp.com/" // Use this for Heroku
+//const PATH = "http://localhost:8001/"  // Use this for local testing
 
 
 
@@ -27,6 +27,7 @@ const App = () => {
 	const [user, setUser] = useState(null);
 	const [token, setToken] = useState(null);
 	const navigate = useNavigate()
+	const [isAdmin, setIsAdmin] = useState(false)
 
 	useEffect(() => {
 		const initAuth0 = async () => {
@@ -56,6 +57,7 @@ const App = () => {
 			if (authStatus) {
 				const authUser = await authClient.getUser();
 				setUser(authUser)
+				setIsAdmin(authUser['http://demozero.net/roles'].includes('admin'))
 
 				const authToken = await authClient.getTokenSilently({
 					audience: 'https://quickstarts/api',
@@ -83,9 +85,11 @@ const App = () => {
 			fetchSpots();
 			fetchCars();
 			fetchAvailableSpots();
-			fetchHistory();
+			if (isAdmin){
+				fetchHistory();
+			}
 		}
-	}, [navigate, token]);
+	}, [navigate, token, isAdmin]);
 
 	const fetchCars = () => {
 		Axios.get("cars").then((response) => {
@@ -112,22 +116,19 @@ const App = () => {
 	}
 
 	function checkLists() {
-		return carList && availableSpots && allSpots && (roles.includes("admin") ? edits : true);
-	}
-
-	let roles = []
-	if (user) {
-		roles = user['http://demozero.net/roles']
+		return carList && availableSpots && allSpots && (isAdmin ? edits : true);
 	}
 
 	function update() {
 		fetchSpots();
 		fetchCars();
 		fetchAvailableSpots();
-		fetchHistory();
+		if (isAdmin){
+			fetchHistory();
+		}
 	}
 
-	let data = { Axios, update, carList, availableSpots, allSpots, edits, user, roles, PATH, auth0 };
+	let data = { Axios, update, carList, availableSpots, allSpots, edits, user, isAdmin, PATH, auth0 };
 
 	return (
 		<div>

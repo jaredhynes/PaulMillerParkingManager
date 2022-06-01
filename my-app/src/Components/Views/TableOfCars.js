@@ -32,23 +32,24 @@ function TableOfCars(props) {
 			})
 		});
 	}
-	data.carList.map(car => (
+	data.carList.map(car => {
 		car.bttn = <DropdownButton id="dropdown-basic-button" variant="dark" title="Options">
 			{!car.archived && <Dropdown.Item onClick={() => swalEditCar(car, data)}>Change Location</Dropdown.Item>}
 			{!car.archived && <Dropdown.Item onClick={() => sethighlightCar(car.spot_name)} as={Link} to='/map'>Show on map</Dropdown.Item>}
 			{!car.archived && <Dropdown.Item as={Link} to={`/details/${car.vin}`}>View Details</Dropdown.Item>}
 			{car.archived ? <Dropdown.Item onClick={() => swalUnArchiveCar(car, data)}>Undo Archive</Dropdown.Item> : <Dropdown.Item onClick={() => swalArchiveCar(car, data)}>Archive Car</Dropdown.Item>}
 			<Dropdown.Divider />
-			{data.roles.includes("admin") && <Dropdown.Item onClick={() => swalDeleteCar(car, data)}>Delete Car</Dropdown.Item>}
+			{data.isAdmin && <Dropdown.Item onClick={() => swalDeleteCar(car, data)}>Delete Car</Dropdown.Item>}
 
-			{data.roles.includes("admin") && <DropdownButton id="dropdown-button-drop-end" key='end' drop='end' variant="dark" title="Status">
-				{data.roles.includes("admin") && <Dropdown.Item className='demo' onClick={() => changeColor(car, "green")}>Demo</Dropdown.Item>}
-				{data.roles.includes("admin") && <Dropdown.Item className='swap' onClick={() => changeColor(car, "red")}>Swap</Dropdown.Item>}
-				{data.roles.includes("admin") && <Dropdown.Item onClick={() => changeColor(car, "orange")}>Sold</Dropdown.Item>}
+			{data.isAdmin && <DropdownButton id="dropdown-button-drop-end" key='end' drop='end' variant="dark" title="Status">
+				{data.isAdmin && <Dropdown.Item className='demo' onClick={() => changeColor(car, "green")}>Demo</Dropdown.Item>}
+				{data.isAdmin && <Dropdown.Item className='swap' onClick={() => changeColor(car, "red")}>Swap</Dropdown.Item>}
+				{data.isAdmin && <Dropdown.Item onClick={() => changeColor(car, "orange")}>Sold</Dropdown.Item>}
 			</DropdownButton>}
-		</DropdownButton>,
+		</DropdownButton>
 		car.cb = car.status ? <button className={car.status} /> : <button className='blank' />
-	))
+		return car
+	})
 
 
 	let datatable = {
