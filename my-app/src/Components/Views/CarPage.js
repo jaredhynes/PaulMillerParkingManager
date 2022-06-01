@@ -42,13 +42,17 @@ function CarPage(props) {
             <h1>{car.make_model} {car.year}</h1>
             <h2>VIN: {car.vin}</h2>
             <h3>Stock Number: {car.stockNum}</h3>
+            <h3>Comm Number: {car.commNum}</h3>
+            <h4>Exterior Color: {car.exteriorColor}</h4>
+            <h4>Interior Color: {car.interiorColor}</h4>
+            <h4>MSRP: {car.msrp}</h4>
             <h4>Location: {car.spot_name}</h4>
+
             <EditTextarea
                 id="carDes"
                 value={carDescription}
                 onChange={setCarDescription}
                 onSave={changeDescription}
-                // Remember to check if this works once development server is working again
             />
             <Button onClick={() => swalEditCar(car, data)}>Move Car</Button>
             <Button onClick={() => swalEditCarInfo(car, data)}>Edit Information</Button>

@@ -5,7 +5,7 @@ function Edits(props) {
 	let data = props.data
 
 	return (
-		<div className="App">
+		<div>
 			{data.isAdmin ?
 				<TableOfEdits data={data}  />:
 				<h1>You need admin access to view edits</h1>}
