@@ -45,7 +45,6 @@ app.put(`/update`, checkJwt, (req, res) => {
 		});
 });
 
-
 app.put(`/updateInfo`, checkJwt, (req, res) => {
 	const vin = req.body.vin;
 	const stockNum = req.body.stockNum;
@@ -164,23 +163,31 @@ app.post(`/insertNewCar`, checkJwt, (req, res) => {
 })
 
 app.post(`/insertEvent`, checkJwt, (req, res) => {
-	const carID = req.body.car_id;
-	const old_make_model = req.body.old_make_model ? req.body.old_make_model : null;
-	const new_make_model = req.body.new_make_model ? req.body.new_make_model : null;
-	const old_year = req.body.old_year ? req.body.old_year : null;
-	const new_year = req.body.new_year ? req.body.new_year : null;
-	const old_stock_num = req.body.old_stock_num ? req.body.old_stock_num : null;
-	const new_stock_num = req.body.new_stock_num ? req.body.new_stock_num : null;
-	const old_location = req.body.old_location ? req.body.old_location : null;
-	const new_location = req.body.new_location ? req.body.new_location : null;
-	const user_id = req.body.user_id;
-	const event_type = req.body.event_type;
+	const carID = req.body.car_id || null;
+	const old_make_model = req.body.old_make_model || null;
+	const new_make_model = req.body.new_make_model || null;
+	const old_year = req.body.old_year || null;
+	const new_year = req.body.new_year || null; 
+	const old_stock_num = req.body.old_stock_num || null;
+	const new_stock_num = req.body.new_stock_num || null;
+	const old_location = req.body.old_location || null;
+	const new_location = req.body.new_location || null;
+	const old_comm_num = req.body.old_comm_num || null; 
+	const new_comm_num = req.body.new_comm_num || null;
+	const old_ext_color = req.body.old_ext_color || null;
+	const new_ext_color = req.body.new_ext_color || null;
+	const old_int_color = req.body.old_int_color || null;
+	const new_int_color = req.body.new_int_color || null;
+	const old_msrp = req.body.old_msrp || null;
+	const new_msrp = req.body.new_msrp || null;
+	const user_id = req.body.user_id || null;
+	const event_type = req.body.event_type; 
 	const event_date = req.body.event_date;
-	const archived = req.body.archived ? req.body.archived : 0;
-	const archive_description = req.body.archive_description ? req.body.archive_description : "";
+	const archived = req.body.archived || 0;
+	const archive_description = req.body.archive_description || "";
 
-	db.query(`INSERT INTO parking.history ("car_id", "user_id", "event_type", "event_date", "old_make_model", "new_make_model", "old_year", "new_year", "old_stock_num", "new_stock_num", "old_location", "new_location", "archived", "archive_description") 
-	VALUES ('${carID}','${user_id}','${event_type}','${event_date}','${old_make_model}','${new_make_model}','${old_year}','${new_year}','${old_stock_num}','${new_stock_num}','${old_location}','${new_location}',${archived}, '${archive_description}')`, (err, result) => {
+	db.query(`INSERT INTO parking.history ("car_id", "user_id", "event_type", "event_date", "old_make_model", "new_make_model", "old_year", "new_year", "old_stock_num", "new_stock_num", "old_location", "new_location", "old_comm_num", "new_comm_num", "old_ext_color", "new_ext_color", "old_int_color", "new_int_color", "old_msrp", "new_msrp", "archived", "archive_description") 
+	VALUES ('${carID}','${user_id}','${event_type}','${event_date}','${old_make_model}','${new_make_model}','${old_year}','${new_year}','${old_stock_num}','${new_stock_num}','${old_location}','${new_location}', '${old_comm_num}','${new_comm_num}','${old_ext_color}','${new_ext_color}','${old_int_color}','${new_int_color}','${old_msrp}','${new_msrp}', ${archived}, '${archive_description}')`, (err, result) => {
 		if (err) {
 			console.log(`In insertEvent: `, err);
 		}
@@ -213,7 +220,6 @@ app.get(`/availableSpots`, checkJwt, (req, res) => {
 			}
 		})
 })
-
 
 app.get(`/cars`, checkJwt, (req, res) => {
 	db.query(`select c."vin", c."stockNum", c."make_model", c."year", c."description", c."archived", COALESCE(c.status, 'blank') "status", c."commNum", c."exteriorColor", c."interiorColor", c."msrp", ps."spot_name", ps."spot_id", ps."x_val", ps."y_val" from parking.cars c, parking.parking_spots ps where c."spot_id" = ps."spot_id" order by "spot_name"`,

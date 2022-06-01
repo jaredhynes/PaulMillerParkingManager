@@ -89,8 +89,6 @@ const App = () => {
 				fetchHistory();
 			}
 		}
-		
-		console.log(carList);
 	}, [navigate, token, isAdmin]);
 
 	const fetchCars = () => {
