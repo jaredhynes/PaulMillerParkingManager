@@ -12,8 +12,8 @@ import CarPage from './Components/Views/CarPage';
 import createAuth0Client from '@auth0/auth0-spa-js';
 import Swal from 'sweetalert2';
 
-const PATH = "https://gentle-thicket-28075.herokuapp.com/" // Use this for Heroku
-//const PATH = "http://localhost:8001/"  // Use this for local testing
+//const PATH = "https://gentle-thicket-28075.herokuapp.com/" // Use this for Heroku
+const PATH = "http://localhost:8001/"  // Use this for local testing
 
 
 

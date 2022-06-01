@@ -9,9 +9,7 @@ import { swalArchiveCar, swalDeleteCar, swalEditCar, swalUnArchiveCar } from "..
 import { sethighlightCar } from '../../functions.js';
 import Swal from 'sweetalert2'
 import axios from 'axios';
-import { MdDisabledByDefault } from 'react-icons/md';
 import "../../Styles/tablestyles.css"
-import Button from 'react-bootstrap/Button'
 
 function TableOfCars(props) {
 	let data = props.data
@@ -22,17 +20,17 @@ function TableOfCars(props) {
 		setChecked(!checked);
 	};
 
-	function changeColor(car, status){
+	function changeColor(car, status) {
 		Swal.fire({
 			title: "Status Color was changed",
-		 }).then(() => {
-			 axios.put("/changeStatus", {
-				 vin: car.vin,
-				 status: status
-			 }).then(() => {
-				 data.update();
-			 })
-		 });
+		}).then(() => {
+			axios.put("/changeStatus", {
+				vin: car.vin,
+				status: status
+			}).then(() => {
+				data.update();
+			})
+		});
 	}
 	data.carList.map(car => (
 		car.bttn = <DropdownButton id="dropdown-basic-button" variant="dark" title="Options">
@@ -44,12 +42,12 @@ function TableOfCars(props) {
 			{data.roles.includes("admin") && <Dropdown.Item onClick={() => swalDeleteCar(car, data)}>Delete Car</Dropdown.Item>}
 
 			{data.roles.includes("admin") && <DropdownButton id="dropdown-button-drop-end" key='end' drop='end' variant="dark" title="Status">
-				{data.roles.includes("admin") && <Dropdown.Item className='demo' onClick={() => changeColor(car, "demo")}>Demo</Dropdown.Item>}
-				{data.roles.includes("admin") && <Dropdown.Item className='swap' onClick={() => changeColor(car, "swap")}>Swap</Dropdown.Item>}
-				{data.roles.includes("admin") && <Dropdown.Item onClick={() => changeColor(car, "sold")}>Sold</Dropdown.Item>}
+				{data.roles.includes("admin") && <Dropdown.Item className='demo' onClick={() => changeColor(car, "green")}>Demo</Dropdown.Item>}
+				{data.roles.includes("admin") && <Dropdown.Item className='swap' onClick={() => changeColor(car, "red")}>Swap</Dropdown.Item>}
+				{data.roles.includes("admin") && <Dropdown.Item onClick={() => changeColor(car, "orange")}>Sold</Dropdown.Item>}
 			</DropdownButton>}
 		</DropdownButton>,
-		car.cb = <color_statusb/>
+		car.cb = car.status ? <button className={car.status} /> : <button className='blank' />
 	))
 
 
@@ -58,11 +56,12 @@ function TableOfCars(props) {
 			{ "visible": false, "targets": 3 }
 		],
 		columns: [
-			// {
-			// 	label:<b>Col_Stat</b>,
-			// 	field: 'cb',
-			// 	width: 120,
-			// },
+			{
+				label: <b>Status</b>,
+				field: 'cb',
+				width: 80,
+
+			},
 			{
 				label: <b>Action</b>,
 				field: 'bttn',
@@ -93,13 +92,6 @@ function TableOfCars(props) {
 				label: <b>Location</b>,
 				field: 'spot_name',
 				width: 130,
-			},
-			{
-				label: <b>Status</b>,
-				field: 'status',
-				width: 120,
-				visible: false
-				
 			}
 
 		],
@@ -108,12 +100,11 @@ function TableOfCars(props) {
 
 	return (
 		<div>
-			<label> 
+			<label>
 				<Checkbox checked={checked} onChange={handleChange} />
 				View Archived Cars
 			</label>
 			<MDBDataTable hover scrollX entriesOptions={[5, 20, 25]} entries={5} pagesAmount={4} data={datatable} order={['key']} />
-			<color_statusb/>
 		</div>
 	)
 }
