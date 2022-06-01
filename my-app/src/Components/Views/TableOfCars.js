@@ -60,6 +60,7 @@ function TableOfCars(props) {
 			{
 				label: <b>Status</b>,
 				field: 'cb',
+				sort: 'disabled',
 				width: 80,
 
 			},
