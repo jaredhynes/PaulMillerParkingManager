@@ -8,12 +8,15 @@ import {swalEditCar, swalEditCarInfo, swalArchiveCar, swalUnArchiveCar} from '..
 import PDFGenerator from './PDFGenerator';
 import { PDFDownloadLink } from '@react-pdf/renderer';
 import {FaMapMarkerAlt} from "react-icons/fa";
+import IconButton from '@mui/material/IconButton';
 import '../../Styles/carpage.css';
-
+import { useNavigate } from "react-router";
+import { sethighlightCar } from '../../functions.js';
 
 const QRCode = require("qrcode") 
 
 function CarPage(props) {
+    const navigate = useNavigate()
     let data = props.data;
 
     const { vin } = useParams(window.location.search);
@@ -36,6 +39,7 @@ function CarPage(props) {
 		)
     }
 
+
     generateQR()
 
     const PDF = <PDFGenerator dataURL={dataURL} car={car}/>
@@ -49,7 +53,8 @@ function CarPage(props) {
             <p>Exterior Color: {car.exteriorColor}</p>
             <p>Interior Color: {car.interiorColor}</p>
             <p>MSRP: {car.msrp}</p>
-            <p>Location: {car.spot_name}{<FaMapMarkerAlt/>}</p>
+            <p>Location: {car.spot_name}{ <IconButton onClick={() => {sethighlightCar(car.spot_name) 
+                navigate(`/map`)}}><FaMapMarkerAlt/> </IconButton>} </p>
 
             <EditTextarea
                 id="carDes"
