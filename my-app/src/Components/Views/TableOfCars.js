@@ -17,7 +17,7 @@ function TableOfCars(props) {
 	const [checked, setChecked] = React.useState(false);
 
 	const handleChange = () => {
-		setChecked(!checked);
+		setChecked(!checked); 
 	};
 
 	function changeColor(car, status) {

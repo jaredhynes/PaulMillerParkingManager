@@ -51,12 +51,40 @@ const MapImage = (props) => {
             </Tooltip>
         </ImageTooltipsTrigger>);
         return MyTrigger;
+    } 
+
+    //Split digit of spot_name
+    function getXNum(car){        
+        let num = car.spot_name.substring(1)
+        if (car.spot_name[0] === 'e'){
+            return .0956*w + (7-parseInt(num))*0.0726*w
+        }
+        return 0.0719*w + (27-parseInt(num))*.0318*w;
+    }
+    let h = window.outerHeight
+    let w = window.outerWidth
+
+    function getYNum(car){
+        let l = car.spot_name[0]
+        if (l === 'e'){
+            return .13 * h;
+        }
+        else if (l === 'd'){
+            return .335 * h;
+        }
+        else if (l === 'c'){
+            return .455 * h;
+        }
+        else if (l === 'b'){
+            return .696 * h;
+        }
+        return .816 * h;
     }
 
     return (
-        <ImageTooltips src={map} width={900} height={900} className="my-image" triggerEvent="click">
-            {props.carList.filter(car => car.x_val).map(car => <ImageTooltipsItem top={car.y_val} left={car.x_val} trigger={IconMaker(car, highlightCar)} className="my-item">
-            </ImageTooltipsItem>)}
+        <ImageTooltips src={map} width={w} height={h} className="my-image" triggerEvent="click">
+            {props.carList.filter(car => car.x_val).map(car => (<ImageTooltipsItem top={getYNum(car)} left={getXNum(car)} trigger={IconMaker(car, highlightCar)} className="my-item">
+            </ImageTooltipsItem>))}
         </ImageTooltips>
     );
 }

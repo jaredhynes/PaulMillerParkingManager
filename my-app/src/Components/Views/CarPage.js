@@ -2,7 +2,7 @@ import { React, useState } from 'react';
 import { Button } from "react-bootstrap";
 import { useParams } from "react-router";
 import TableOfEdits from "./TableOfEdits";
-import { EditTextarea } from 'react-edit-text';
+import { EditTextarea } from 'react-edit-text'; 
 import 'react-edit-text/dist/index.css';
 import {swalEditCar, swalEditCarInfo, swalArchiveCar, swalUnArchiveCar} from '../../functions.js';
 import PDFGenerator from './PDFGenerator';
