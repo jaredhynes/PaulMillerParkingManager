@@ -47,7 +47,7 @@ app.put(`/update`, checkJwt, checkUpdateCars, (req, res) => {
 		});
 });
 
-app.put(`/updateInfo`, checkJwt, (req, res) => {
+app.put(`/updateInfo`, checkJwt, checkUpdateCars, (req, res) => {
 	const vin = req.body.vin;
 	const stockNum = req.body.stockNum;
 	const makeModel = req.body.makeModel;
