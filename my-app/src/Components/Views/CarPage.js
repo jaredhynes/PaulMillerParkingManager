@@ -7,6 +7,9 @@ import 'react-edit-text/dist/index.css';
 import {swalEditCar, swalEditCarInfo, swalArchiveCar, swalUnArchiveCar} from '../../functions.js';
 import PDFGenerator from './PDFGenerator';
 import { PDFDownloadLink } from '@react-pdf/renderer';
+import {FaMapMarkerAlt} from "react-icons/fa";
+import '../../Styles/carpage.css';
+
 
 const QRCode = require("qrcode") 
 
@@ -38,15 +41,15 @@ function CarPage(props) {
     const PDF = <PDFGenerator dataURL={dataURL} car={car}/>
 
     return (
-        <div>
-            <h1>{car.make_model} {car.year}</h1>
-            <h2>VIN: {car.vin}</h2>
-            <h3>Stock Number: {car.stockNum}</h3>
-            <h3>Comm Number: {car.commNum}</h3>
-            <h4>Exterior Color: {car.exteriorColor}</h4>
-            <h4>Interior Color: {car.interiorColor}</h4>
-            <h4>MSRP: {car.msrp}</h4>
-            <h4>Location: {car.spot_name}</h4>
+        <div className="identifying-info">
+            <h1><center>{car.make_model} {car.year}</center></h1>
+            <h4><center>VIN: {car.vin}</center></h4>
+            <p>Stock Number: {car.stockNum}</p>
+            <p>Comm Number: {car.commNum}</p>
+            <p>Exterior Color: {car.exteriorColor}</p>
+            <p>Interior Color: {car.interiorColor}</p>
+            <p>MSRP: {car.msrp}</p>
+            <p>Location: {car.spot_name}{<FaMapMarkerAlt/>}</p>
 
             <EditTextarea
                 id="carDes"
