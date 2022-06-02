@@ -106,7 +106,7 @@ export function swalAddCar(data, vin = "", make_model = "", year = "", stockNum 
                     addEvent({}, result.value, "Add Car", data.Axios, data.update, data.user);
                 }
                 else if (result.isDenied) {
-                    swalAddCar(data, result.value.vin, result.value.make_model, result.value.year, result.value.stockNum, result.value.location);
+                    swalAddCar(data, result.value.vin, result.value.make_model, result.value.year, result.value.stockNum, result.value.spot_name, result.value.commNum, result.value.exteriorColor, result.value.interiorColor, result.value.msrp );
                 }
             })
         }
