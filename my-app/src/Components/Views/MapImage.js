@@ -56,33 +56,31 @@ const MapImage = (props) => {
     //Split digit of spot_name
     function getXNum(car){        
         let num = car.spot_name.substring(1)
-        if (car.spot_name[0] === 'e'){
-            return .0956*w + (7-parseInt(num))*0.0726*w
+        if (getYNum(car) === 78){
+            return 109 + (7-parseInt(num))*82.75
         }
-        return 0.0719*w + (27-parseInt(num))*.0318*w;
+        return 82 + (27-parseInt(num))*36.25;
     }
-    let h = window.outerHeight
-    let w = window.outerWidth
 
     function getYNum(car){
         let l = car.spot_name[0]
         if (l === 'e'){
-            return .13 * h;
+            return 78
         }
         else if (l === 'd'){
-            return .335 * h;
+            return 201;
         }
         else if (l === 'c'){
-            return .455 * h;
+            return 273;
         }
         else if (l === 'b'){
-            return .696 * h;
+            return 418;
         }
-        return .816 * h;
+        return 490;
     }
 
     return (
-        <ImageTooltips src={map} width={w} height={h} className="my-image" triggerEvent="click">
+        <ImageTooltips src={map} width={1140} height={600} className="my-image" triggerEvent="click">
             {props.carList.filter(car => car.x_val).map(car => (<ImageTooltipsItem top={getYNum(car)} left={getXNum(car)} trigger={IconMaker(car, highlightCar)} className="my-item">
             </ImageTooltipsItem>))}
         </ImageTooltips>
