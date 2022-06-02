@@ -8,6 +8,8 @@ const checkJwt = auth({
 	audience: "https://quickstarts/api",
 	issuerBaseURL: `https://dev-w1z8wy-p.us.auth0.com/`,
 });
+
+const checkUpdateCars = requiredScopes(`update:cars`);
 const checkDeleteCars = requiredScopes(`delete:cars`);
 const checkReadEdits = requiredScopes(`read:edits`);
 
@@ -31,7 +33,7 @@ const db = new Client({
 
 db.connect();
 
-app.put(`/update`, checkJwt, (req, res) => {
+app.put(`/update`, checkJwt, checkUpdateCars, (req, res) => {
 	const vin = req.body.vin;
 	const spot_id = req.body.spot_id;
 	db.query(`UPDATE parking.cars SET "spot_id" = ${spot_id} where "vin" = '${vin}'`,
@@ -68,7 +70,7 @@ app.put(`/updateInfo`, checkJwt, (req, res) => {
 	}
 });
 
-app.put(`/changeStatus`, checkJwt, (req, res) => {
+app.put(`/changeStatus`, checkJwt, checkUpdateCars, (req, res) => {
 	const vin = req.body.vin;
 	const status = req.body.status;
 	db.query(`UPDATE parking.cars SET "status" = '${status}' where "vin" = '${vin}'`,
@@ -83,7 +85,7 @@ app.put(`/changeStatus`, checkJwt, (req, res) => {
 })
 
 
-app.put(`/updateDescription`, checkJwt, (req, res) => {
+app.put(`/updateDescription`, checkJwt, checkUpdateCars, (req, res) => {
 	const vin = req.body.vin;
 	const des = req.body.description;
 	db.query(`UPDATE parking.cars SET "description" = '${des}' where "vin" = '${vin}'`,
@@ -138,7 +140,7 @@ app.put(`/archive`, checkJwt, checkDeleteCars, (req, res) => {
 		})
 })
 
-app.post(`/insertNewCar`, checkJwt, (req, res) => {
+app.post(`/insertNewCar`, checkJwt, checkUpdateCars, (req, res) => {
 	const vin = req.body.vin;
 	const make_model = req.body.make_model;
 	const stockNum = req.body.stockNum;
@@ -162,7 +164,7 @@ app.post(`/insertNewCar`, checkJwt, (req, res) => {
 	}
 })
 
-app.post(`/insertEvent`, checkJwt, (req, res) => {
+app.post(`/insertEvent`, checkJwt, checkUpdateCars, (req, res) => {
 	const carID = req.body.car_id || null;
 	const old_make_model = req.body.old_make_model || null;
 	const new_make_model = req.body.new_make_model || null;
