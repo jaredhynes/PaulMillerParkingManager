@@ -10,6 +10,10 @@ In the project directory, you can run:
 
 Intalls all libraries and dependencies that are need to run the front end of the applications
 
+### `npm i --force`
+
+In case npm i fails due to problems with one of the libraries/dependencies this will force install the project with possible breaking changes.
+
 ### `npm run local`
 
 Runs the app in the development mode.\
