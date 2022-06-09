@@ -23,6 +23,10 @@ function TableOfCars(props) {
 	function changeColor(car, status) {
 		Swal.fire({
 			title: "Status Color was changed",
+			icon: 'success',
+			showConfirmButton: false,
+			timer: 2500,
+
 		}).then(() => {
 			axios.put("/changeStatus", {
 				vin: car.vin,
