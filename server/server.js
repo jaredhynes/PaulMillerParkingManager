@@ -13,6 +13,7 @@ const checkUpdateCars = requiredScopes(`update:cars`);
 const checkDeleteCars = requiredScopes(`delete:cars`);
 const checkReadEdits = requiredScopes(`read:edits`);
 
+
 const cors = require("cors")
 
 const { Client } = require("pg")
